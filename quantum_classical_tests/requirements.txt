@@ -1,0 +1,4 @@
+cirq-google>=0.13.1
+cirq-ionq>=0.13.1
+pydot==1.4.2
+tensorflow-quantum>=0.6.0

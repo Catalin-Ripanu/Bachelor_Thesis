@@ -1,7 +1,9 @@
 \documentclass[12pt,a4paper]{report}
 
-\usepackage{lmodern} % add the missing package for font shapes
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 
+\usepackage{lmodern} % add the missing package for font shapes
+\usepackage[]{qcircuit}
 
 \renewcommand\familydefault{\sfdefault} % sans serif
 
@@ -12,7 +14,7 @@
 \usepackage{textcase}
 \usepackage[titletoc, title]{appendix}
 \usepackage{titlesec}
-\titleformat{\chapter}{\large\bfseries\MakeUppercase}{\thechapter}{2ex}{}[\vspace*{-1.5cm}]
+\titleformat{\chapter}{\large\bfseries\MakeUppercase}{\thechapter}{3ex}{}[\vspace*{-1.5cm}]
 \titleformat*{\section}{\large\bfseries}
 \titleformat*{\subsection}{\large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
@@ -44,10 +46,10 @@
 
 
 \newcommand{\HeaderLineSpace}{-0.25cm}
-\newcommand{\UniTextEN}{UNIVERSITY POLITEHNICA OF BUCHAREST \\[\HeaderLineSpace]
+\newcommand{\UniTextEN}{POLYTECHNIC UNIVERSITY OF BUCHAREST \\[\HeaderLineSpace]
 FACULTY OF AUTOMATIC CONTROL AND COMPUTERS \\[\HeaderLineSpace]
 COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
-\newcommand{\DiplomaEN}{DIPLOMA PROJECT}
+\newcommand{\DiplomaEN}{BACHELOR THESIS}
 \newcommand{\AdvisorEN}{Thesis advisor:}
 \newcommand{\BucEN}{BUCHAREST}
 
@@ -56,19 +58,19 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 \begin{center}
 {\Large #1}  % header (university, faculty, department)
 \vspace{50pt}
-\begin{tabular}{p{4.5cm}p{6cm}p{3.5cm}}
+\begin{tabular}{p{4.15cm}p{6cm}p{4.15cm}}
 \vspace{-1pt}
 \includegraphics[scale=0.12]{pics/upb.png} &
-\vspace{-1pt}
-\includegraphics[scale=0.59]{pics/LogoIQC.png} &
+\vspace{-6.5pt}
+\includegraphics[scale=0.6]{pics/LogoIQC.png} &
 \vspace{-2pt}
 \includegraphics[scale=0.22]{pics/cs.png}
 \end{tabular}
 
-\vspace{105pt}
+\vspace{75pt}
 {\Huge #2}\\                           % diploma project text
 \vspace{40pt}
-{\Large #3}\\ \vspace{0pt}  % project title
+{\Large #3}\\ \vspace{25pt}  % project title
 {\Large #4}\\                          % project subtitle
 \vspace{40pt}
 {\LARGE \Name}\\                   % student name
@@ -89,15 +91,14 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 
 \newcommand{\frontPageEN}{\frontPage{\UniTextEN}{\DiplomaEN}{\ProjectTitleEN}{\ProjectSubtitleEN}{\AdvisorEN}{\BucEN}}
 
-\linespread{1.15}
+\linespread{1.1}
 \setlength\parindent{0pt}
-\setlength\parskip{.28cm}
+\setlength\parskip{.23cm}
 
 %% Abstract macro
 \newcommand{\AbstractPage}{
 \begin{titlepage}
-\textbf{\large SINOPSIS}\par
-\textbf{\large ABSTRACT}\par
+{\large \textbf{ABSTRACT}}\vspace{10pt}\\
 \AbstractEN \vfill
 \end{titlepage}
 }
@@ -105,8 +106,8 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 %% Thank you macro
 \newcommand{\ThanksPage}{
 \begin{titlepage}
-{\noindent \large\textbf{MULȚUMIRI}}\\
-\Thanks
+{\large \textbf{ACKNOWLEDGEMENTS}}\vspace{10pt}\\
+\Thanks \vfill
 \end{titlepage}
 }
 
@@ -130,8 +131,8 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 %%
 %%   Campurile de mai jos trebuie modificate de autor. Modificati doar continutul, nu si numele fiecarei definitii
 %%
-\newcommand{\ProjectTitleEN}{Diploma Project Title  (eg: Diploma project template)}
-\newcommand{\ProjectSubtitleEN}{Diploma Project Subtitle (eg: Template for diploma projects)}
+\newcommand{\ProjectTitleEN}{Investigations into Quantum Physics Integration in Deep Learning Models for Computer Vision and Natural Language Processing Fields}
+\newcommand{\ProjectSubtitleEN}{QRKT-GAN: Neural Ordinary Differential Equation Generative Adversarial Network Model with Runge-Kutta Methods for Quantum Visual Transformer-Based Generator and Discriminator}
 \newcommand{\Name}{Cătălin-Alexandru Rîpanu}
 \newcommand{\Advisor}{Șl. dr. ing. Dumitru-Clementin Cercel}
 \newcommand{\Year}{2024}
@@ -145,342 +146,110 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 %%   Campurile aferente rezumatului
 %%
 
-\newcommand{\AbstractEN}{The abstract has an introductory role and should engulf both a brief description of the issue at hand, as well as an overview of the obtained results and conclusions. The abstract should be formulated such that even somebody that is unfamiliar with the projects' domain can grasp the objectives of the thesis while, at the same time, retaining a specificity level offering a bird's eye view of the project.
-The projects' abstract will be elaborated in both Romanian and English. The recommended size for this section is limited to 200 words for each version. Together, both versions will fit in one page.}
+\newcommand{\AbstractEN}{Deep learning models, such as Generative Adversarial Networks (GANs)~\cite{goodfellow2014generative} and Visual Transformers (ViTs)~\cite{vaswani2017attention}, have demonstrated remarkable results across various domains in Machine Learning and Artificial Intelligence, including Object Classification, Image Segmentation, Sentiment Analysis, and Machine Translation. These models are pivotal in advancing systems that require high precision and a deep understanding of complex data across a variety of tasks in both Natural Language Processing (NLP) and Computer Vision (CV).
+
+However, the effectiveness of deep learning models comes with significant challenges: they require an extensive number of parameters to learn and extract meaningful features from real-world data. Additionally, these models need vast amounts of information to achieve desired performance levels. Obtaining such large sets can be difficult as real-world data is often not publicly available and can be challenging to collect and curate. This results in substantial computational resource requirements for both training and hyperparameter optimization, often achieved through exhaustive techniques such as grid search.
+
+To address these challenges, this thesis proposes a novel hybrid Generative Adversarial Network architecture that employs Quantum Visual Transformers (QViTs) as both the Generator and Discriminator. Visual Transformers are selected for their superior ability to manage intricate data representations. A key innovation in this architecture is the integration of Ordinary Differential Equation (ODE)~\cite{fan2024quantum} solvers as Encoders, enhancing the model's capability to capture temporal dynamics and complex data structures, and improving the residual connections within the transformer architecture to mitigate the vanishing gradients problem even more.
+
+Moreover, this architecture incorporates Variational Quantum Circuits~\cite{cerezo2021variational} within both the self-attention mechanisms and the Multi-Layer Perceptrons (MLPs)~\cite{popescu2009multilayer} of the Visual Transformers. By leveraging the principles of quantum mechanics, these quantum circuits can perform complex algebraic operations more efficiently than classical methods, offering a significant computational advantage.
+
+The performance of this hybrid model is benchmarked against SoTA purely classical baselines from the literature using datasets from both CV and NLP areas. Specifically, the model is tested on CIFAR-10~\cite{Krizhevsky09learningmultiple}, CIFAR-100~\cite{Krizhevsky09learningmultiple}, MNIST~\cite{lecun2010mnist}, IMDb Reviews~\cite{maas-EtAl:2011:ACL-HLT2011} and ImageNet(2012)~\cite{ILSVRC15}  datasets. The quantum model is successfully trained and tested through numerical simulations. The results indicate that this hybrid approach achieves comparable classification and generation performance to the classical baseline, while requiring fewer trainable parameters.
+
+Furthermore, the reduced parameter count in this hybrid model opens up the possibility of running it on real quantum hardware for both training and inference. This feasibility is a significant breakthrough, as it implies that quantum-enhanced models can be trained and deployed on actual quantum computers, which are currently limited in terms of the number of qubits and operational fidelity.
+
+This thesis demonstrates the potential of integrating quantum computing, especially quantum mechanics, with advanced deep learning architectures to create more efficient and powerful networks which can significantly reduce computational costs while maintaining high performance, paving the way for more scalable and effective AI applications.}
 
 %%
 %%   Campurile aferente paginii de multumiri
 %%
-\newcommand{\Thanks}{(opțional) Aici puteți introduce o secțiunea specială de mulțumiri / acknowledgments. }
+\newcommand{\Thanks}{
+First and foremost, I would like to express my deepest gratitude to my advisor, Prof. Dumitru-Clementin Cercel, for his unwavering support and insightful guidance throughout my research journey. His expertise and encouragement have been essential in exploring the intricate intersection of Artificial Intelligence and Quantum Mechanics, widely referred to in the literature as Quantum Artificial Intelligence. This interdisciplinary field, though initially daunting, is at the cutting edge of technological advancement and innovation in both areas.
+
+I am also profoundly thankful to Prof. Pantelimon-George Popescu for his advice, recommendations, and exceptional lectures on Quantum Computing. His mentorship has been instrumental in building a robust understanding of this groundbreaking paradigm, which promises new solutions to problems previously deemed insurmountable by classical methods.
+
+Furthermore, I wish to acknowledge the significant contributions of the academic teaching assistants and collaborators encountered during my bachelor's studies. Their guidance during challenging times has been crucial to my academic development. Last but not least, I am also grateful for the computational resources provided by the Computer Science and Engineering Department, which were essential for the design and implementation of this project.
+
+In addition, I extend my appreciation to my friends for their continuous support, ideas, and advice, especially during moments when inspiration was scarce. Lastly, my heartfelt thanks go to my parents for their enduring sacrifices and unwavering support throughout this journey into the unknown. Their belief in me has been a constant source of motivation.
+}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{-25\p@}%
+  {\parindent \z@ \raggedright \normalfont
+  \ifnum \c@secnumdepth >\m@ne
+  \Large\bfseries \thechapter\space% Adjust the size as needed
+  \fi
+  \interlinepenalty\@M
+  \Large \bfseries #1\par\nobreak
+  \vskip 11\p@
+  }}
+  
+\makeatother
 
 \begin{document}
 
+\setcounter{page}{1}
 \frontPageEN
 
-\begingroup
-\linespread{1}
+\setcounter{page}{2}
+\ThanksPage \pagestyle{fancy}
+
+\AbstractPage\pagestyle{fancy}
+
+\renewcommand{\contentsname}{\vspace{-2.35cm} CONTENTS}
 \tableofcontents
-\endgroup
-
-\AbstractPage
-
-% poate fi comentata sau stearsa
-\ThanksPage
-
-
 % Textul licentei incepe de aici 
 
+\chapter{Introduction}\pagestyle{fancy}
 
+\section{Context}\vspace{-15pt}
+Artificial Intelligence models, particularly deep learning ones, have made significant contributions to solving real-world tasks, greatly improving human lives in various fields, such as Medical Disease Recognition. Despite their impressive capabilities, deep learning models come with substantial drawbacks regarding computational resources and effort. Achieving high performance with these models necessitates learning millions to billions of parameters (also called weights or artificial neurons), which demands considerable resources and preparation time. This limitation also has negative environmental impacts due to high power consumption.
 
-\chapter{Introducere}\pagestyle{fancy}
-% * <marios.choudary@gmail.com> 2018-02-28T11:38:18.106Z:
-% 
-% > INTRODUCERE
-% Am scos de aici referintele la font pentru a nu mai fi dependenti de Calibri. Personal, nici nu sunt sigur ca ajuta prea mult aceasta recomandare si mi se pare bun font-ul default din Latex (Computer Modern). Daca sunteti de-acord, va rog sa stergeti liniile comentate de mai jos, precum si cele referitoare la fontul Calibri din restul documentului.
-% 
-% ^.
-Parametrii de formatare recomandați pentru lucrare:
-\begin{itemize}
-    \item Font recomandat: Calibri; Dimensiune font: 12; 
-    \item Spațiere între linii: 1,5; Spațiere după paragraf: 8pt;
-    \item Stil: Justified;
-    \item Dimensiune pagină: A4; Margini: 2,54cm/ 2,54cm/ 2,54cm/ 2,54cm;
-    \item Heading1: Calibri, 14, bold, all caps;
-    \item Heading2: Calibri, 14, bold;
-    \item Heading3: Calibri, 12. 
-    \item Font pentru formule: Cambria Math, 12.
-\end{itemize}
-În cadrul introducerii, este necesară abordarea următoarelor puncte care reprezintă de fapt familiarizarea cititorului (comisia, alți colegi sau experți în domeniu) cu tema proiectului, soluția propusa și cuprinsul/structura lucrării. Deși introducerea poate conține și unele elemente mai generale, se recomandă păstrarea unui limbaj tehnic, specific audienței care va citi lucrarea.
+Over the years, researchers have developed numerous solutions to mitigate the problem of minimizing the number of parameters using interesting classical algorithms and techniques. These include specialized activation functions for layers like Rectified Linear Unit~\cite{NIPS2017_a96b65a7}, Leaky ReLU~\cite{xu2020reluplex}, Gaussian Error Linear Unit~\cite{hendrycks2016gaussian}, Softmax~\cite{liu2016large}, Sigmoid~\cite{han1995influence} and Hyperbolic Tangent~\cite{zamanlooy2013efficient}. Additionally, effective optimizers such as Adam~\cite{zhang2018improved} and Stochastic Gradient Descent~\cite{bottou2010large} have been utilized, along with Learning Rate Schedulers~\cite{wen2021convolutional}, Weight Decay~\cite{loshchilov2017decoupled}, and Dropout~\cite{srivastava2014dropout} methods to combat overfitting too. Over the years, various architectural designs and network combinations have emerged to address these challenges. However, the tradeoff between high computational resource consumption and performance remains a difficult issue, especially when scaling up the dimensions of available noisy real-world datasets used for training. It is unlikely to be efficiently resolved in the near future using solely classical approaches.
 
-În cadrul capitolelor următoare, veți regăsi o serie notații de forma \dezvoltare, \cercetare. Acest tip de formatare este utilizat exclusiv în acest template pentru a marca sfaturi și cerințe specifice pentru lucrări de diploma cu specific diferit. În pregătirea documentului vostru, nu veți utiliza aceste marcaje.
-Elementele pe care trebuie să le abordați în introducere sunt descrise în cadrul subcapitolelor de mai jos.
-\section{Context}
-O scurtă introducere a proiectului, motivație, explicație de ce este relevant domeniul proiectului.
-\section{Problema}
-Care este problema pe care proiectul o va rezolva.
-\section{Obiective}
-Care sunt obiectivele proiectului/soluției/abordării/ideii; Ce creșteri sau evoluții determină rezolvarea proiectului.
-\section{Soluția propusă}
-Descrierea pe scurt a soluției implementate; ce abordare este propusă (nu detalierea utilitarelor și a tehnologiilor, ci abordarea și ideea propusă de către autor).
-\section{Rezultatele obținute}
-Descriere pe scurt a rezultatelor obținute, eventual de ce acestea sunt importante față de alte soluții sau studii.
-\section{Structura lucrării}
-Un paragraf în care fiecare dintre secțiunile următoare este prezentată în 1-2 fraze, punând accentul pe elementele cele mai semnificative din fiecare secțiune.
+A segment of Computer Science researchers, in collaboration with physicists, have taken a bold and innovative approach to these challenges by exploring solutions from a physical perspective, leading to the emergence of Quantum Computation and Quantum Information~\cite{nielsen2001quantum}. Leveraging the principles of quantum mechanics, AI research has begun to explore deep learning optimizations using quantum elements, such as Variational Quantum Circuits~\cite{cerezo2021variational}, to develop hybrid deep learning models. By combining classical and quantum methodologies, new experiments can be conducted to address performance and resource demands more efficiently, thus utilizing the unique capabilities of quantum hardware. This involves training these models on it, also known as Parameterized Quantum Circuits, where the parameters are referred to as qurons of the quantum model.
 
+Quantum computing leverages properties like superposition and entanglement, enabling the execution of complex algebraic operations that are infeasible for classical computers. Quantum algorithms, such as Grover's Algorithm~\cite{shi2017coherence}, Quantum Phase Estimation~\cite{o2019quantum}, Quantum Fourier Transform~\cite{weinstein2001implementation} and Deutsch-Jozsa Quantum Parallelism~\cite{gulde2003implementation} provide exponential speedups for certain tasks. Integrating these quantum principles with deep learning can significantly reduce the number of parameters and computational resources required while maintaining or even enhancing model performance. This interdisciplinary approach, also known as Quantum Artificial Intelligence, opens up exciting possibilities for the future of AI, promising advancements that could transform how complex problems are approached and solved in ways that classical computers, with their current architecture, could never achieve.
+\section{Problem}\vspace{-15pt}
+Over the years, numerous algorithms, techniques, network architectures, and methodologies have been proposed in the field of Deep Learning to tackle a wide array of tasks, such as Object Classification, Synthetic Data Generation and Detection, across various domains including Natural Language Processing, Computer Vision, Domain Adaptation, and Knowledge Distillation. These approaches have achieved high performance metrics like accuracy, Area Under the Curve (AUC), Receiver Operating Characteristic (ROC), and F1 scores. The advent of High Performance Computing (HPC) facilities, particularly classical parallelism, has enabled deep learning models to process billions of examples from noisy real-world datasets effectively, thus yielding impressive results.
 
+Despite these advancements, a significant drawback persists: the enormous number of neurons and the corresponding computational resources required by these models. Traditional solutions in classical Deep Learning, such as Cross Validation~\cite{berrar2019cross}, Hyperparameter Tuning techniques like Grid Search~\cite{liashchynskyi2019grid}, Random Search~\cite{liashchynskyi2019grid}, or Keras Tuner~\cite{pon2021hyperparameter}, and Layer Augmentation until model performance plateaus or overfits, are commonly employed. To mitigate overfitting, regularization techniques such as Ridge~\cite{ogutu2012genomic}, Lasso~\cite{ogutu2012genomic} or Elastic-Net~\cite{ogutu2012genomic} Regularizations, or Dropout~\cite{srivastava2014dropout} can be applied. However, these methods often involve exhaustive hyperparameter searches, which are extremely time-consuming, especially when dealing with validation sets comprising billions of data points for complex tasks. Additionally, one can apply group sparsity regularizers on network parameters, where each group acts on a single neuron, thus reducing the number of parameters by up to 80\%~\cite{alvarez2018learning} while retaining or even improving the network accuracy.
 
-\chapter{Analiza Cerințelor / Motivație}
-\dezvoltare Acest capitol va analiza cerințele produsului din prisma potențialilor clienți și a scenariilor de utilizare preconizate, urmând a fi generată o lista de funcționalități.
+Another method employed to address these challenges is Transfer Learning, which involves finding and loading a pretrained model as a starting point and then fine-tuning it on a specific dataset. This approach can help achieve good performance with less effort on architecture design and expedite the training process. However, the availability of suitable pretrained models is limited, and fine-tuning may yield only decent, if not disappointing, results, due to differences in the data distributions between the pretraining and fine-tuning datasets.
 
-\cercetare Acest capitol va introduce motivația realizării proiectului propus.
+The primary challenge lies in balancing time and power consumption on classical systems to make non-trivial, valid neural architectural choices. Reducing the number of neurons too drastically can lead to underfitting and degraded performance, making it difficult to solve complex and challenging tasks efficiently. The iterative process of tuning hyperparameters and optimizing model architectures is computationally intensive and often results in a significant trade-off between resource consumption and model performance.
 
-Dacă proiectul de licență face parte dintr-un proiect mai amplu (de exemplu un proiect complex, la care lucrează 2 studenți (ex: 1 student la front-end-ul aplicației, 1 student la back-end-ul aplicației), în acest capitol va fi explicat pe scurt ansamblul proiectului și ce parte din proiect este adresată de lucrarea propusă.
+Moreover, the reliance on vast amounts of training data for achieving desired performance further exacerbates these issues. Real-world data is often difficult to obtain and may not be publicly available, which complicates the development and fine-tuning of effective deep learning models. The extensive time and computational costs associated with hyperparameter optimization and model training present significant obstacles to advancing AI capabilities while maintaining efficiency and sustainability. This trade-off between computational resource consumption and performance remains a persistent and challenging problem in the field of deep learning, highlighting the need for innovative solutions that can overcome these limitations.
 
-Criterii pentru calificativul \textit{Ne\textit{Satisfăcător}}:
-\begin{itemize}
-    \item \dezvoltare Cerințele sunt imaginate de student pe baza unei analize a pieței;
-    \item \cercetare Nu se oferă o motivație valida.
-\end{itemize}
+\section{Objective}\vspace{-15pt}
+In the current landscape of deep learning research, there is an ongoing investigation into whether integrating models into a purely quantum environment can significantly reduce power consumption and the number of trainable parameters without sacrificing performance. This exploration leverages techniques such as Ansatz~\cite{hadfield2019quantum} and Variational Quantum Circuits~\cite{cerezo2021variational}. As classical supercomputers continue to increase in power to accommodate newer, more complex deep models, their power consumption scales almost exponentially. Conversely, while the computational power of quantum machines scales exponentially, their power consumption scales linearly. This presents a compelling argument for quantum computing: when quantum computers achieve fault-tolerance, operations on qubits could serve as artificial neurons in neural networks. Quantum-inspired techniques could enable networks with a vast number of neurons per layer to run with minimal energy cost, thus dramatically reducing overall energy consumption\footnote{\url{https://www.eetimes.eu/how-quantum-computing-can-help-make-ai-greener/}}.
 
-Criterii pentru calificativul \textit{Satisfăcător}:
-\begin{itemize}
-    \item \dezvoltare Există un interviu, un client, analiza cerințelor este elaborată pe baza interviului;
-    \item \cercetare Motivația este doar personala.
-\end{itemize}
+Building on the challenges outlined in the above section, the primary goal of this thesis is to explore deep learning models, both pure quantum and hybrid, that leverage neural architectures inspired by non-trivial Variational Quantum Circuits~\cite{cerezo2021variational} within the context of Visual Transformers~\cite{vaswani2017attention} and their Encoders~\cite{hinton2011transforming} and Decoders~\cite{breuckmann2018scalable}. The most important objective is to minimize the number of parameters used by deep network layers utilizing the idea of replacing classical linear projection layers in Multi-Head Attention subroutines and Multi-Layer Perceptrons~\cite{popescu2009multilayer} with Quantum Circuits. Additionally, Neural Ordinary Differential Equation~\cite{zhong2022neural}\cite{li2022ode} techniques, particularly using Runge-Kutta Methods~\cite{butcher1996history} of 1st, 2nd, 3rd, and 4th order, will be employed to further optimize Transformer Layers. An analysis of 4th order optimization in terms of learning efficiency will also be included.
 
+These configurations will be rigorously tested using the datasets mentioned in the Abstract and compared with their classical baseline counterparts. The model utilizing the Runge-Kutta 4th order method will be further optimized within the context of Vision Transformers (ViTs) and integrated into a Generative Adversarial Network (GAN) architecture. In this configuration, both the Generator and Discriminator will be Quantum Visual Transformers, incorporating the optimized Neural ODE to generate realistic and informative synthetic data without being limited to specific types of distributions. This will be achieved using techniques such as data augmentation and image recognition at scale in the context of ViTs.
 
-Criterii pentru calificativul \textit{Bine}:
-\begin{itemize}
-    \item	 \dezvoltare Proces iterativ pe baza unor interviuri cu mai mulți clienți, dezvoltare MVP, reevaluare cerințe;
-    \item	 \cercetare Motivația este legata de o necesitate științifica / tehnica explicită.
-\end{itemize}
+The final proposed architecture, named QRKT-GAN, will be tested on a voluminous dataset, namely ImageNet (2012), and compared using the same data with a renowned classical counterpart, TransGAN, which is a strong architecture built entirely free of convolutions (citation here). This comparative analysis will highlight the efficiency and performance gains of integrating quantum computing with advanced deep learning models.
+\section{Paper Structure}\vspace{-15pt}
+This is the structure of the paper
 
+\chapter{Related Work}\pagestyle{fancy}
 
-\chapter{Studiu de Piață / Metode Existente}
-\dezvoltare Ce soluții similare există pe piață? Care sunt limitările lor / pentru ce cazuri de utilizare sau pentru ce tip de clienți produsele existente pe piață nu răspund cerințelor? Care sunt indicatorii pe baza cărora sunt evaluate aceste produse, de către potențiali clienți, și unde sunt lipsurile/ care este oportunitatea generată de lipsurile acestea?
+\chapter{Background}\pagestyle{fancy}
 
-\cercetare Metode existente (sau ``State of the Art'') se referă, de regulă, la nivelul curent de dezvoltare: care este starea curentă a domeniului, unde ne găsim, care este contextul. Care sunt soluțiile actuale prezente în literatura de specialitate și care sunt limitările lor? Ce direcții de explorare sunt recomandate în literatura de specialitate? Literatura de specialitate se refera la articole științifice recente, publicate în reviste cu factor de impact mare, sau în volumele unor conferințe de top, sau în cărți.
+\chapter{Proposed Solution}\pagestyle{fancy}
 
-\ambele În încheierea acestui capitol se dorește descrierea tehnologiilor folosite în lucrare, cu alternative și cu argumente convingătoare calitative și cantitative.
+\chapter{Experiments}\pagestyle{fancy}
 
-Criterii pentru calificativul \textit{Ne\textit{Satisfăcător}}:
-\begin{itemize}
-    \item \dezvoltare Sunt analizate superficial câteva produse de pe piață;
-    \item \cercetare analiza literaturii limitata la grupuri de cercetare din România;
-    \item \ambele Sunt descrise tehnologiile folosite în lucrare.
-\end{itemize}
+\chapter{Conclusions and Future Work}\pagestyle{fancy}
 
-Criterii pentru calificativul \textit{Satisfăcător}:
-\begin{itemize}
-    \item \dezvoltare Există un interviu, un client, analiza cerințelor este elaborată pe baza interviului.
-    \item \cercetare analiza literaturii de specialitate din lume, fără poziționarea precisă a lucrării în peisajului domeniului studiat;
-    \item \ambele Sunt descrise câteva tehnologii alternative pentru fiecare din tehnologiile folosite în lucrare. Există o argumentare referitoare la alegere.
-\end{itemize}
+\chapter{Bibliography}\pagestyle{fancy}
 
-Criterii pentru calificativul \textit{Bine}:
-\begin{itemize}
-    \item \dezvoltare Proces iterativ pe baza unor interviuri cu mai mulți clienți, dezvoltare MVP, reevaluare cerințe;
-    \item \cercetare analiza literaturii de specialitate din lume, cu poziționarea precisă a lucrării în peisajul actual al domeniului studiat;
-    \item \ambele Sunt descrise tehnologii alternative. Sunt analizate cantitativ și calitativ, folosite benchmarkuri și teste efectuate de student. Analiza este rezumată prin tabele și grafice.
-\end{itemize}
+\bibliographystyle{unsrt}
 
-\section{Indicații formatare figuri}
-
-Figurile utilizate în document vor fi centrate și numerotate (de exemplu Figura~\ref{fig:pic1}).
-Orice figură ce nu este realizată de către autorul lucrării va fi în mod obligatoriu citată fie la final (de exemplu Figura ~\ref{fig:pic2} este preluată din documentul \cite{}), fie cel puțin într-o notă de subsol (a se vedea Figura~\ref{fig:pic2}). Orice figură ce depășește ca dimensiune 50\% dintr-o pagină, va fi mutată la anexe. Toate figurile din cadrul tezei vor fi referite în text. Exemplu: Figura~\ref{fig:pic1} prezintă o schemă de principiu pentru un amplificator inversor cu AO.
-
-\newpage
-
-\chapter{Soluția Propusă}
-Capitolul conține o privire de ansamblu a soluției ce rezolvă problema, prin prezentarea structurii / arhitecturii acesteia. În funcție de tipul lucrării acest capitol poate conține diagrame (clase, distribuție, workflow, entitate-relație), demonstrații de corectitudine pentru algoritmii propuși de autor, abordări teoretice (modelare matematică), structura hardware, arhitectura aplicației.
-
-
-Criterii pentru calificativul \textit{Ne\textit{Satisfăcător}}:
-\begin{itemize}
-    \item	Descriere în limbaj natural.
-\end{itemize}
-
-Criterii pentru calificativul \textit{Satisfăcător}:
-\begin{itemize}
-    \item	Descriere + diagrame de baze de date, workflow, clase, algoritmi.
-\end{itemize}
-
-Criterii pentru calificativul \textit{Bine}:
-\begin{itemize}
-    \item 	Descriere + diagrame de baze de date, workflow, clase, algoritmi + descrierea unui proces prin care s-a realizat arhitectura/structura soluției.
-\end{itemize}
-
-\section{Indicații formatare formule}
-Formulele matematice utilizate în document vor fi centrate în pagină și numerotate.
-
-\begin{equation}
-    (x+a)^n = \sum_{k=0}^{n}\left(\begin{array}{c}n\\k\\\end{array}\right)x^ka^{n-k}
-\end{equation}
-
-\begin{equation}
-    f(x) = a_0 + \sum_{n=1}^{\infty}\left(a_n \cos\frac{n\pi x}{L} + b_n\sin\frac{n\pi x}{L}\right)
-\end{equation}
-
-
-
-\chapter{Detalii de implementare}
-În plus fata de capitolul precedent acesta conține elemente specifice ale rezolvării problemei care au presupus dificultăți deosebite din punct de vedere tehnic. Pot fi incluse configurații, secvențe de cod, pseudo-cod, implementări ale unor algoritmi, analize ale unor date, scripturi de testare. De asemenea, poate fi detaliat modul în care au fost utilizate tehnologiile introduse in capitolul 3.
-
-
-Criterii pentru calificativul \textit{Ne\textit{Satisfăcător}}:
-\begin{itemize}
-    \item	Sunt prezentate pe scurt scheme și pseudo-cod.
-\end{itemize}
-Criterii pentru calificativul \textit{Satisfăcător}:
-\begin{itemize}
-    \item	Descriere sumara a implementării, prezentarea unor secvențe nerelevante de cod, scheme, etc.
-\end{itemize}
-Criterii pentru calificativul \textit{Bine}:
-\begin{itemize}
-    \item	Descrierea detaliată a algoritmilor/structurilor utilizați; Prezentarea etapizată a dezvoltării, inclusiv cu dificultăți de implementare întâmpinate, soluții descoperite; (dacă este cazul) demonstrarea corectitudinii algoritmilor utilizați.
-\end{itemize}
-
-\section{Indicații formatare tabele}
-Se recomandă utilizarea tabelelor de forma celui de mai jos.  Font size :  9.
-Orice tabel prezent în teză va fi referit în text; exemplu: a se vedea Tabel~\ref{tab:criterii}.
-
-\begin{table}[th]\small\linespread{1}
-    \caption{Sumarizare criterii}
-    \label{tab:criterii}
-    \begin{tabular}{l >{\raggedright\arraybackslash}p{8cm} >{\raggedright\arraybackslash}p{4cm}}
-        \textbf{Calificativ}    & \textbf{Criteriu}                                                                                                                                                                                                                                & \textbf{Observații}                                                                                                                     \\\hline
-        \textbf{Nesatisfacator} & Sunt prezentate pe scurt scheme și pseudo-cod                                                                                                                                                                                                    &                                                                                                                                         \\\hline
-        \textbf{Satisfacator}   & Descriere sumara a implementării, prezentarea unor secvențe nerelevante de cod, scheme, etc.                                                                                                                                                     &                                                                                                                                         \\
-        \hline
-        \textbf{\textit{Bine}}  & Descrierea detaliată a algoritmilor/structurilor utilizați; Prezentarea etapizată a dezvoltării, inclusiv cu dificultăți de implementare întâmpinate, soluții descoperite; (dacă este cazul) demonstrarea corectitudinii algoritmilor utilizați. & Pot fi incluse configurații, secvente de cod, pseudo-cod, implementări ale unor algoritmi, analize ale unor date, scripturi de testare. \\
-        \hline
-    \end{tabular}
-\end{table}
-
-
-\chapter{Evaluare}
-Acest capitol trebuie să răspundă, în principiu, la 2 întrebări și să se încheie cu o discuție a rezultatelor obținute. Cele doua întrebări la care trebuie sa se răspundă sunt:
-\begin{enumerate}
-    \item  \textbf{Merge corect?} (Conform specificațiilor extrase în capitolul 2);
-          Evaluarea dacă merge corect se face pe baza cerințelor identificate în capitolele anterioare.
-
-    \item Cât de \textit{Bine} merge / cum se compară cu soluțiile existente? (pe baza unor metrici clare).
-          Evaluarea cât de \textit{Bine} merge trebuie să fie bazată pe procente, timpi, cantitate, numere, \textbf{comparativ cu soluțiile prezentate în capitolul 3}. Poate fi vorba de performanță, overhead, resurse consumate, scalabilitate etc.
-\end{enumerate}
-
-În realizarea discuției, se vor utiliza tabele cu procente, rezultate numerice și grafice. În mod obișnuit, aici se fac comparații și teste comparative cu alte proiecte similare (dacă există) și se extrag puncte tari și puncte slabe. Se ține cont de avantajele menționate și se demonstrează viabilitatea abordării / aplicației, de dorit prin comparație cu alte abordări (dacă acest lucru este posibil). Cuvântul cheie la evaluare este ``metrică'': trebuie să aveți noțiuni măsurabile și cuantificabile. În cadrul procesului de evaluare, explicați datele, tabelele și graficele pe care le prezentați și insistați pe relevanța lor, în următorul stil: ``este de preferat ... deoarece …''; explicați cititorului nu doar datele ci și semnificația lor și cum sunt acestea interpretate. Din această interpretare trebuie să rezulte poziționarea proiectului vostru printre alternativele existente, precum și cum poate fi acesta îmbunătățit în continuare.
-
-Criterii pentru calificativul \textit{Ne\textit{Satisfăcător}}:
-\begin{itemize}
-    \item Aplicația este testată dar rulează pe calculatorul studentului, nu există posibilități de testare, nu a fost validată cu clienți / utilizatori;
-    \item Nu au fost realizate comparații cu alte sisteme similare.
-\end{itemize}
-
-Criterii pentru calificativul \textit{Satisfăcător}:
-\begin{itemize}
-    \item \dezvoltare  Există teste unitare și de integrare, există o strategie de punere în funcțiune (deployment), există validare minimală cu clienții / utilizatorii.
-    \item \cercetare Principalele componente și soluția în ansamblu au fost evaluate din punct de vedere al performanței, însă nu sunt folosite seturi de date standard, există unele erori de interpretare a datelor.
-    \item \ambele Discuție minimală asupra relevanței rezultatelor prezentate, comparație minimală cu alte sisteme similare.
-\end{itemize}
-
-Criterii pentru calificativul \textit{Bine}:
-\begin{itemize}
-    \item \dezvoltare Teste unitare și de integrare, instrumente de punere in funcțiune (deployment) utilizate și care arată lucru constant de-a lungul semestrului, lucrare validată cu clienții / utilizatorii, produs în producție.
-    \item \cercetare Componentele și soluția în ansamblu au fost evaluate din punct de vedere al performanței, folosind seturi de date standard și cu o interpretare corectă a rezultatelor.
-    \item \ambele Discuție cu prezentarea calitativă și cantitativă a rezultatelor, precum și a relevanței acestor rezultate printr-o comparație complexă cu alte sisteme similare.
-\end{itemize}
-
-\chapter{Concluzii}
-În acest capitol este sumarizat întreg proiectul, de la obiective, la implementare, si la relevanta rezultatelor obținute. În finalul capitolului poate exista o subsecțiune de ``Dezvoltări ulterioare''.
-
-Criterii pentru calificativul \textit{Ne\textit{Satisfăcător}}:
-\begin{itemize}
-    \item	Concluziile nu sunt corelate cu conținutul lucrării;
-\end{itemize}
-
-Criterii pentru calificativul \textit{Satisfăcător}:
-\begin{itemize}
-    \item	Concluziile sunt corelate cu conținutul lucrării, însă nu se oferă o imagine asupra calității și relevantei rezultatelor obținute;
-\end{itemize}
-
-Criterii pentru calificativul \textit{Bine}:
-\begin{itemize}
-    \item	Concluziile sunt corelate cu conținutul lucrării, și se oferă o imagine precisa asupra relevantei și calității rezultatelor obținute în cadrul proiectului.
-\end{itemize}
-
-\chapter*{Bibliografie}\addcontentsline{toc}{chapter}{Bibliografie}
-% * <marios.choudary@gmail.com> 2018-02-28T12:07:48.730Z:
-% 
-% > BIBLIOGRAFIE
-% Am adaugat un paragraf cu cateva detalii despre folosirea citarilor bibliografice in Latex, despre folosirea lui "\cite" si despre posibilitatea folosirii bibliografiei si direct in fisierul Latex.
-% 
-% ^.
-
-\begin{itemize}
-    \item 	NU utilizați referințe la Wikipedia sau alte surse fără autor asumat.
-    \item 	Pentru referințe la articole relevante accesibile în web (descrise prin URL) se va nota la bibliografie și data accesării.
-    \item 	Mai multe detalii despre citarea referințelor din internet se pot regăsi la:
-          \begin{itemize}
-              \item	\url{http://www.writinghelp-central.com/apa-citation-internet.html}
-              \item	\url{http://www.webliminal.com/search/search-web13.html}
-          \end{itemize}
-    \item 	Note de subsol se utilizează dacă referiți un link mai puțin semnificativ o singură dată; Dacă nota este citată de mai multe ori, atunci utilizați o referință bibliografică.
-    \item 	Dacă o imagine este introdusă în text și nu este realizată de către autorul lucrării, trebuie citată sursa ei (ca notă de subsol sau referință - este de preferat utilizarea unei note de subsol).
-    \item 	Referințele se pun direct legate de text (de exemplu ``KVM [1] uses'', ``as stated by Popescu and Ionescu [12]'', etc.). Nu este recomandat să folosiți formulări de tipul ``[1] uses'', ``as stated in [12]'', ``as described in [11]'' etc..
-    \item 	Afirmațiile de forma ``are numerous'', ``have grown exponentially'', ``are among the most used'', ``are an important topic'' trebuie să fie acoperite cu citări, date concrete si analize comparative.
-          \begin{itemize}
-              \item	Mai ales în capitolele de introducere, ``state of the art'', ``related work'' sau ``background'' trebuie să vă argumentați afirmațiile prin citări. Fiți autocritici și gândiți-vă dacă afirmațiile au nevoie de citări, chiar și cele pe care le considerați evidente.
-              \item	Cea mai mare parte dintre citări vor fi în capitolele de introducere ``state of the art'', ``related work'' sau ``background''.
-          \end{itemize}
-    \item 	Toate intrările bibliografice trebuie citate în text. Nu le adăugați pur și simplu la final.
-    \item 	Nu copiați sau traduceți niciodată din surse de informație de orice tip (online, offline, cărți, etc.). Dacă totuși doriți să oferiți, prin excepție, un citat celebru - de maxim 1 frază- utilizați ghilimele și evident menționați sursa. .
-    \item 	Dacă reformulați idei sau creați un paragraf rezumat al unor idei folosind cuvintele voastre, precizați cu citare (referință bibliografică) sau cu notă de subsol sursa sau sursele de unde ați preluat ideile.
-\end{itemize}
-
-Trebuie respectat un singur standard de trimiteri bibliografice (citare), dintre următoarele alternative:
-\begin{itemize}
-    \item APA (\url{http://pitt.libguides.com/c.php?g=12108\&p=64730})
-    \item IEEE (\url{https://ieee-dataport.org/sites/default/files/analysis/27/IEEE\%20Citation\%20Guidelines.pdf})
-    \item Harvard (\url{https://libweb.anglia.ac.uk/referencing/harvard.htm})
-    \item Cu numerotarea referințelor în ordine alfabetică sau în ordinea apariției în text (de exemplu, stilul cu numere folosit de unele publicații ACM - \url{https://www.acm.org/publications/authors/reference-formatting})
-\end{itemize}
-
-În Latex este foarte ușor să folosiți referințe într-un mod corect și unitar, fie prin adăugarea unei secțiuni
-\verb!\begin{thebibliography}!
-(vezi la sfârșitul acestei secțiuni), fie printr-un fișier separat de tip bib, folosind comanda
-\verb!\bibliography{}!,
-așa cum procedăm mai jos prin folosirea fișierului ``bibliography.bib''. În orice caz, în Latex va trebui să folosiți comanda
-\verb!\cite{}!
-pentru a adăuga referințe, iar această comandă trebuie folosită direct în text, acolo unde vreți sa apară citația, ca în exemplele următoare:
-\begin{itemize}
-    \item Articol jurnal: ~\cite{article};
-    \item Articol conferință:~\cite{proc};
-    \item Carte: ~\cite{book};
-    \item Weblink: ~\cite{silva};
-\end{itemize}
-
-\textbf{Important}: în această secțiune de obicei apar doar intrările bibliografice (adică doar listarea referințelor). Citarea lor prin comanda cite și explicații legate de ele trebuie facute în secțiunile anterioare. Citarea de mai sus a fost facută aici doar pentru exemplificare.
-
-% Asa se specifica folosirea unui fisier cu referinte bibliografice:
-\bibliographystyle{plain}
+\begingroup
+\def\chapter*#1{}
 \bibliography{bibliography}
+\endgroup
 
-%% O alta varianta ar fi fost includerea de articole direct in acest fisier
-%% in felul urmator:
-%% \begin{thebibliography}{ABC}
-%%
-%% \bibitem{article}
-%%  H. Baali, H. Djelouat, A. Amira and F. Bensaali,
-%%  ``Empowering Technology Enabled Care Using IoT and Smart Devices:
-%   A Review''. In: IEEE Sensors Journal, vol. 322 (10), pp. 891--921, 1905.
-%%
-%% (more \bibitem items here...)
-%%
-%% \end{thebibliography}
-
-%% Daca vreti ca o sectiune sa inceapa pe o pagina noua, puteti forta acest lucru cu comanda "\newpage", ca mai jos:
-
-%\newpage
-
-\chapter*{Anexe}\addcontentsline{toc}{chapter}{Anexe}
-
-Anexele sunt opționale.
-Ce poate intra în anexe:
-\begin{itemize}
-    \item	Exemplu de fișier de configurare sau compilare;
-    \item	Un tabel mai mare de o jumătate pagină;
-    \item	O figura mai mare mai mare de jumătate pagină;
-    \item	O secvență de cod sursa mai mare de jumătate pagină;
-    \item	Un set de capturi de ecran (``screenshot''-uri);
-    \item	Un exemplu de rulare a unor comenzi plus rezultatul (``output''-ul) acestora;
-    \item 	În anexe intră lucruri care ocupă mai mult de o pagină ce ar întrerupe firul natural de parcurgere al textului.
-\end{itemize}
-
-\begin{appendices}
-
-    \chapter{Extrase de cod} % Introduce o nouă anexă
-    \ldots
-
-
-\end{appendices}
 \end{document}

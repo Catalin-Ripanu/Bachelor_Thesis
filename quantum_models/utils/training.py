@@ -466,6 +466,24 @@ def train_and_evaluate(
     metrics["test_auc"] = test_auc
     metrics["test_fpr"] = test_fpr
     metrics["test_tpr"] = test_tpr
+    
+    print("\n" + 50 * "*" + "Training Loss" + 50 * "*" + "\n")
+    print(metrics["train_losses"])
+
+    print("\n" + 50 * "*" + "Validation Loss" + 50 * "*" + "\n")
+    print(metrics["val_losses"])
+
+    print("\n" + 50 * "*" + "Training AUCs" + 50 * "*" + "\n")
+    print(metrics["train_aucs"])
+
+    print("\n" + 50 * "*" + "Validation AUCs" + 50 * "*" + "\n")
+    print(metrics["test_auc"])
+
+    print("\n" + 50 * "*" + "Test TPR" + 50 * "*" + "\n")
+    print(metrics["test_tpr"])
+    
+    print("\n" + 50 * "*" + "Test FPR" + 50 * "*" + "\n")
+    print(metrics["test_fpr"])
 
     wish = yesno(input("Want to save the model? : "))
 

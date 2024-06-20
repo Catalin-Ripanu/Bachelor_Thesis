@@ -11,8 +11,6 @@ def angle_embedding(c: tc.Circuit, inputs):
     num_qubits = inputs.shape[-1]
     for j in range(num_qubits):
         c.rx(j, theta=inputs[j])
-        c.H(j)
-
 
 def basic_vqc(c: tc.Circuit, inputs, weights):
     num_qubits = inputs.shape[-1]
@@ -23,12 +21,11 @@ def basic_vqc(c: tc.Circuit, inputs, weights):
             c.rx(j, theta=weights[i, j])
             c.ry(j, theta=weights[i, j])
             c.rz(j, theta=weights[i, j])
-            c.H(j)
+        c.H(0)
         if num_qubits == 2:
             c.cnot(0, 1)
         elif num_qubits > 2:
             for j in range(num_qubits):
-                c.H(j)
                 c.cnot(j, (j + 1) % num_qubits)
 
 

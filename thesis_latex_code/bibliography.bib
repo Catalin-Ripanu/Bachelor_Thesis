@@ -22,6 +22,37 @@
   publisher = {Cambridge university press Cambridge}
 }
 
+@inproceedings{furer2008solving,
+  title        = {Solving NP-complete problems with quantum search},
+  author       = {F{\"u}rer, Martin},
+  booktitle    = {Latin American Symposium on Theoretical Informatics},
+  pages        = {784--792},
+  year         = {2008},
+  organization = {Springer}
+}
+
+@article{chatterjee2024solving,
+  title     = {Solving various NP-hard problems using exponentially fewer qubits on a quantum computer},
+  author    = {Chatterjee, Yagnik and Bourreau, Eric and Ran{\v{c}}i{\'c}, Marko J},
+  journal   = {Physical Review A},
+  volume    = {109},
+  number    = {5},
+  pages     = {052441},
+  year      = {2024},
+  publisher = {APS}
+}
+
+@article{dunjko2018machine,
+  title     = {Machine learning \& artificial intelligence in the quantum domain: a review of recent progress},
+  author    = {Dunjko, Vedran and Briegel, Hans J},
+  journal   = {Reports on Progress in Physics},
+  volume    = {81},
+  number    = {7},
+  pages     = {074001},
+  year      = {2018},
+  publisher = {IOP Publishing}
+}
+
 @article{cerezo2021variational,
   title     = {Variational quantum algorithms},
   author    = {Cerezo, Marco and Arrasmith, Andrew and Babbush, Ryan and Benjamin, Simon C and Endo, Suguru and Fujii, Keisuke and McClean, Jarrod R and Mitarai, Kosuke and Yuan, Xiao and Cincio, Lukasz and others},
@@ -48,6 +79,17 @@
   pages        = {1--6},
   year         = {2012},
   organization = {Springer}
+}
+
+@article{abbas2021power,
+  title={The power of quantum neural networks},
+  author={Abbas, Amira and Sutter, David and Zoufal, Christa and Lucchi, Aur{\'e}lien and Figalli, Alessio and Woerner, Stefan},
+  journal={Nature Computational Science},
+  volume={1},
+  number={6},
+  pages={403--409},
+  year={2021},
+  publisher={Nature Publishing Group US New York}
 }
 
 @article{pon2021hyperparameter,
@@ -154,12 +196,50 @@
   publisher = {JMLR. org}
 }
 
+@misc{cordonnier2020relationship,
+      title={On the Relationship between Self-Attention and Convolutional Layers}, 
+      author={Jean-Baptiste Cordonnier and Andreas Loukas and Martin Jaggi},
+      year={2020},
+      eprint={1911.03584},
+      archivePrefix={arXiv},
+      primaryClass={id='cs.LG' full_name='Machine Learning' is_active=True alt_name=None in_archive='cs' is_general=False description='Papers on all aspects of machine learning research (supervised, unsupervised, reinforcement learning, bandit problems, and so on) including also robustness, explanation, fairness, and methodology. cs.LG is also an appropriate primary category for applications of machine learning methods.'}
+}
+
 @article{loshchilov2017decoupled,
   title   = {Decoupled weight decay regularization},
   author  = {Loshchilov, Ilya and Hutter, Frank},
   journal = {arXiv preprint arXiv:1711.05101},
   year    = {2017}
 }
+
+@INPROCEEDINGS{7986470,
+  author={Qolomany, Basheer and Maabreh, Majdi and Al-Fuqaha, Ala and Gupta, Ajay and Benhaddou, Driss},
+  booktitle={2017 13th International Wireless Communications and Mobile Computing Conference (IWCMC)}, 
+  title={Parameters optimization of deep learning models using Particle swarm optimization}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={1285-1290},
+  keywords={Machine learning;Neurons;Computational modeling;Optimization;Biological neural networks;Sociology;Statistics;smart building services;deep machine learning;parameter optimization;particle swarm optimization},
+  doi={10.1109/IWCMC.2017.7986470}}
+
+
+@InProceedings{pmlr-v70-kim17b,
+  title = 	 {{S}plit{N}et: Learning to Semantically Split Deep Networks for Parameter Reduction and Model Parallelization},
+  author =       {Juyong Kim and Yookoon Park and Gunhee Kim and Sung Ju Hwang},
+  booktitle = 	 {Proceedings of the 34th International Conference on Machine Learning},
+  pages = 	 {1866--1874},
+  year = 	 {2017},
+  editor = 	 {Precup, Doina and Teh, Yee Whye},
+  volume = 	 {70},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {06--11 Aug},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v70/kim17b/kim17b.pdf},
+  url = 	 {https://proceedings.mlr.press/v70/kim17b.html},
+  abstract = 	 {We propose a novel deep neural network that is both lightweight and effectively structured for model parallelization. Our network, which we name as SplitNet, automatically learns to split the network weights into either a set or a hierarchy of multiple groups that use disjoint sets of features, by learning both the class-to-group and feature-to-group assignment matrices along with the network weights. This produces a tree-structured network that involves no connection between branched subtrees of semantically disparate class groups. SplitNet thus greatly reduces the number of parameters and requires significantly less computations, and is also embarrassingly model parallelizable at test time, since the network evaluation for each subnetwork is completely independent except for the shared lower layer weights that can be duplicated over multiple processors. We validate our method with two deep network models (ResNet and AlexNet) on two different datasets (CIFAR-100 and ILSVRC 2012) for image classification, on which our method obtains networks with significantly reduced number of parameters while achieving comparable or superior classification accuracies over original full deep networks, and accelerated test speed with multiple GPUs.}
+}
+
 
 @article{wen2021convolutional,
   title     = {Convolutional neural network with automatic learning rate scheduler for fault classification},
@@ -227,6 +307,14 @@
   primaryclass  = {id='cs.CV' full_name='Computer Vision and Pattern Recognition' is_active=True alt_name=None in_archive='cs' is_general=False description='Covers image processing, computer vision, pattern recognition, and scene understanding. Roughly includes material in ACM Subject Classes I.2.10, I.4, and I.5.'}
 }
 
+@InProceedings{Szegedy_2015_CVPR,
+author = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and Sermanet, Pierre and Reed, Scott and Anguelov, Dragomir and Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
+title = {Going Deeper With Convolutions},
+booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2015}
+}
+
 @article{jiang2021transgan,
   title   = {Transgan: Two pure transformers can make one strong gan, and that can scale up},
   author  = {Jiang, Yifan and Chang, Shiyu and Wang, Zhangyang},
@@ -262,6 +350,23 @@
   pages   = {211-252}
 }
 
+@article{weiss2016survey,
+  title     = {A survey of transfer learning},
+  author    = {Weiss, Karl and Khoshgoftaar, Taghi M and Wang, DingDing},
+  journal   = {Journal of Big data},
+  volume    = {3},
+  pages     = {1--40},
+  year      = {2016},
+  publisher = {Springer}
+}
+
+@article{voita2019analyzing,
+  title   = {Analyzing multi-head self-attention: Specialized heads do the heavy lifting, the rest can be pruned},
+  author  = {Voita, Elena and Talbot, David and Moiseev, Fedor and Sennrich, Rico and Titov, Ivan},
+  journal = {arXiv preprint arXiv:1905.09418},
+  year    = {2019}
+}
+
 @inproceedings{maas-EtAl:2011:ACL-HLT2011,
   author    = {Maas, Andrew L.  and  Daly, Raymond E.  and  Pham, Peter T.  and  Huang, Dan  and  Ng, Andrew Y.  and  Potts, Christopher},
   title     = {Learning Word Vectors for Sentiment Analysis},
@@ -274,6 +379,24 @@
   url       = {http://www.aclweb.org/anthology/P11-1015}
 }
 
+@article{benedetti2019parameterized,
+  title     = {Parameterized quantum circuits as machine learning models},
+  author    = {Benedetti, Marcello and Lloyd, Erika and Sack, Stefan and Fiorentini, Mattia},
+  journal   = {Quantum Science and Technology},
+  volume    = {4},
+  number    = {4},
+  pages     = {043001},
+  year      = {2019},
+  publisher = {IOP Publishing}
+}
+
+@article{he2020infusing,
+  title   = {Infusing disease knowledge into BERT for health question answering, medical inference and disease name recognition},
+  author  = {He, Yun and Zhu, Ziwei and Zhang, Yin and Chen, Qin and Caverlee, James},
+  journal = {arXiv preprint arXiv:2010.03746},
+  year    = {2020}
+}
+
 @article{lecun2010mnist,
   title   = {MNIST handwritten digit database},
   author  = {LeCun, Yann and Cortes, Corinna and Burges, CJ},
@@ -282,11 +405,73 @@
   year    = {2010}
 }
 
+@article{Reyes_2021,
+  title     = {Simulation of quantum many-body systems on Amazon cloud},
+  volume    = {261},
+  issn      = {0010-4655},
+  url       = {http://dx.doi.org/10.1016/j.cpc.2020.107750},
+  doi       = {10.1016/j.cpc.2020.107750},
+  journal   = {Computer Physics Communications},
+  publisher = {Elsevier BV},
+  author    = {Reyes, Justin A. and Marinescu, Dan C. and Mucciolo, Eduardo R.},
+  year      = {2021},
+  month     = apr,
+  pages     = {107750}
+}
+
+@inproceedings{Mykhailova_2023,
+  title     = {Teaching Quantum Computing Using Microsoft Quantum Development Kit and Azure Quantum},
+  url       = {http://dx.doi.org/10.1109/QCE57702.2023.20320},
+  doi       = {10.1109/qce57702.2023.20320},
+  booktitle = {2023 IEEE International Conference on Quantum Computing and Engineering (QCE)},
+  publisher = {IEEE},
+  author    = {Mykhailova, Mariia},
+  year      = {2023},
+  month     = sep
+}
+
+@misc{kalai2023googles,
+  title         = {Google's Quantum Supremacy Claim: Data, Documentation, and Discussion},
+  author        = {Gil Kalai and Yosef Rinott and Tomer Shoham},
+  year          = {2023},
+  eprint        = {2210.12753},
+  archiveprefix = {arXiv},
+  primaryclass  = {id='quant-ph' full_name='Quantum Physics' is_active=True alt_name=None in_archive='quant-ph' is_general=False description=None}
+}
+
+@article{Santos_2016,
+  title     = {O Computador Quântico da IBM e o IBM Quantum Experience},
+  volume    = {39},
+  issn      = {1806-1117},
+  url       = {http://dx.doi.org/10.1590/1806-9126-RBEF-2016-0155},
+  doi       = {10.1590/1806-9126-rbef-2016-0155},
+  number    = {1},
+  journal   = {Revista Brasileira de Ensino de Física},
+  publisher = {FapUNIFESP (SciELO)},
+  author    = {Santos, Alan C.},
+  year      = {2016},
+  month     = sep
+}
+
 @techreport{Krizhevsky09learningmultiple,
   author      = {Alex Krizhevsky},
   title       = {Learning multiple layers of features from tiny images},
   institution = {},
   year        = {2009}
+}
+
+@article{dosovitskiy2020,
+  title   = {An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale},
+  author  = {Dosovitskiy, Alexey and Beyer, Lucas and Kolesnikov, Alexander and Weissenborn, Dirk and Zhai, Xiaohua and Unterthiner, Thomas and  Dehghani, Mostafa and Minderer, Matthias and Heigold, Georg and Gelly, Sylvain and Uszkoreit, Jakob and Houlsby, Neil},
+  journal = {arXiv preprint arXiv:2010.11929},
+  year    = {2020}
+}
+
+@inproceedings{zhao2020diffaugment,
+  title     = {Differentiable Augmentation for Data-Efficient GAN Training},
+  author    = {Zhao, Shengyu and Liu, Zhijian and Lin, Ji and Zhu, Jun-Yan and Han, Song},
+  booktitle = {Conference on Neural Information Processing Systems (NeurIPS)},
+  year      = {2020}
 }
 
 @article{liu2016large,
@@ -301,6 +486,20 @@
   author  = {Hendrycks, Dan and Gimpel, Kevin},
   journal = {arXiv preprint arXiv:1606.08415},
   year    = {2016}
+}
+
+@article{wu2018prodsumnet,
+  title={ProdSumNet: reducing model parameters in deep neural networks via product-of-sums matrix decompositions},
+  author={Wu, Chai Wah},
+  journal={arXiv preprint arXiv:1809.02209},
+  year={2018}
+}
+
+@article{azadbakht2022drastically,
+  title={Drastically Reducing the Number of Trainable Parameters in Deep CNNs by Inter-layer Kernel-sharing},
+  author={Azadbakht, Alireza and Kheradpisheh, Saeed Reza and Khalfaoui-Hassani, Ismail and Masquelier, Timoth{\'e}e},
+  journal={arXiv preprint arXiv:2210.14151},
+  year={2022}
 }
 
 @inproceedings{xu2020reluplex,

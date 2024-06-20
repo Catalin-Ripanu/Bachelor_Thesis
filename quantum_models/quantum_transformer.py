@@ -609,14 +609,11 @@ class TransformerRK4Enhanced(nn.Module):
         )(x_norm + attn_output3 + y3, deterministic=deterministic)
         y4 = nn.Dropout(rate=self.dropout)(y4, deterministic=deterministic)
 
-        return (
-            x_norm
-            + attn_output1
+        return x_norm + (
+            attn_output1
             + y1
-            + attn_output2
-            + y2
-            + attn_output3
-            + y3
+            + 2 * (attn_output2 + y2)
+            + 2 * (attn_output3 + y3)
             + attn_output4
             + y4
         )

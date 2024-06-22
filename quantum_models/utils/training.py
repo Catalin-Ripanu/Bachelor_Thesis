@@ -477,7 +477,7 @@ def train_and_evaluate(
     print(metrics["train_aucs"])
 
     print("\n" + 50 * "*" + "Validation AUCs" + 50 * "*" + "\n")
-    print(metrics["test_auc"])
+    print(metrics["val_aucs"])
 
     print("\n" + 50 * "*" + "Test TPR" + 50 * "*" + "\n")
     print(metrics["test_tpr"])

@@ -612,8 +612,8 @@ class TransformerRK4Enhanced(nn.Module):
         return x_norm + (
             attn_output1
             + y1
-            + 2 * (attn_output2 + y2)
-            + 2 * (attn_output3 + y3)
+            + 1 / 3 * (attn_output2 + y2)
+            + 1 / 3 * (attn_output3 + y3)
             + attn_output4
             + y4
         )
@@ -749,7 +749,7 @@ class Transformer(nn.Module):
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
             )(x_src, deterministic=not train, mask=src_mask)
 
-        for _ in range(self.num_transformer_rk4_blocks):
+        for _ in range(self.num_transformer_rk3_blocks):
             x_src = TransformerRK3(
                 hidden_size=self.hidden_size,
                 num_heads=self.num_heads,
@@ -940,7 +940,7 @@ class VisionTransformer(nn.Module):
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
             )(x_src, deterministic=not train, mask=src_mask)
 
-        for _ in range(self.num_transformer_rk4_blocks):
+        for _ in range(self.num_transformer_rk3_blocks):
             x_src = TransformerRK3(
                 hidden_size=self.hidden_size,
                 num_heads=self.num_heads,

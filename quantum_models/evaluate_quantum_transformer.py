@@ -1,7 +1,7 @@
 from dataset_processing_dir.dataset import (
     get_mnist_dataloaders,
-    get_cifar10_dataloaders,
     get_cifar100_dataloaders,
+    get_cifar10_dataloaders,
     get_imdb_dataloaders,
     get_image_net_dataloaders,
 )
@@ -14,24 +14,24 @@ def make_loss_enh_plot(vec_rk4, vec_rk4_enh):
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(
         vec_rk4_enh[0],
-        label="Quantum RK4_ENH Training Loss",
+        label="Classical RK4_ENH Training Loss",
         color="blue",
         linestyle="--",
     )
     ax.plot(
         vec_rk4_enh[1],
-        label="Quantum RK4_ENH Testing Loss",
+        label="Classical RK4_ENH Testing Loss",
         color="blue",
     )
     ax.plot(
         vec_rk4[0],
-        label="Quantum RK4 Training Loss",
+        label="Classical RK4 Training Loss",
         color="red",
         linestyle="--",
     )
     ax.plot(
         vec_rk4[1],
-        label="Quantum RK4 Testing Loss",
+        label="Classical RK4 Testing Loss",
         color="red",
     )
     ax.set_xlabel("Epoch")
@@ -39,7 +39,7 @@ def make_loss_enh_plot(vec_rk4, vec_rk4_enh):
     ax.legend()
     ax.grid()
     plt.savefig(
-        "classical_transfomer_loss_mnis_rk4_rk4_enh.pdf",
+        "classical_transfomer_loss_mnist_rk4_rk4_enh.pdf",
         bbox_inches="tight",
         transparent=True,
     )
@@ -50,31 +50,31 @@ def make_roc_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4, vec_rk4_enh):
     ax.plot(
         vec_rk1[0],
         vec_rk1[1],
-        label="Quantum RK1 AUC = " + str(vec_rk1[2]),
+        label="Classical RK1 AUC = " + str(vec_rk1[2]),
         color="blue",
     )
     ax.plot(
         vec_rk2[0],
         vec_rk2[1],
-        label="Quantum RK2 AUC = " + str(vec_rk2[2]),
+        label="Classical RK2 AUC = " + str(vec_rk2[2]),
         color="green",
     )
     ax.plot(
         vec_rk3[0],
         vec_rk3[1],
-        label="Quantum RK3 AUC = " + str(vec_rk3[2]),
+        label="Classical RK3 AUC = " + str(vec_rk3[2]),
         color="orange",
     )
     ax.plot(
         vec_rk4[0],
         vec_rk4[1],
-        label="Quantum RK4 AUC = " + str(vec_rk4[2]),
+        label="Classical RK4 AUC = " + str(vec_rk4[2]),
         color="red",
     )
     ax.plot(
         vec_rk4_enh[0],
         vec_rk4_enh[1],
-        label="Quantum RK4_ENH AUC = " + str(vec_rk4_enh[2]),
+        label="Classical RK4_ENH AUC = " + str(vec_rk4_enh[2]),
         color="black",
     )
     ax.set_xlabel("False Positive Rate")
@@ -92,24 +92,24 @@ def make_auc_enh_plot(vec_rk4, vec_rk4_enh):
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(
         vec_rk4_enh[0],
-        label="Quantum RK4_ENH Training AUC",
+        label="Classical RK4_ENH Training AUC",
         color="blue",
         linestyle="--",
     )
     ax.plot(
         vec_rk4_enh[1],
-        label="Quantum RK4_ENH Testing AUC",
+        label="Classical RK4_ENH Testing AUC",
         color="blue",
     )
     ax.plot(
         vec_rk4[0],
-        label="Quantum RK4 Training AUC",
+        label="Classical RK4 Training AUC",
         color="red",
         linestyle="--",
     )
     ax.plot(
         vec_rk4[1],
-        label="Quantum RK4 Testing AUC",
+        label="Classical RK4 Testing AUC",
         color="red",
     )
     ax.set_xlabel("Epoch")
@@ -127,46 +127,46 @@ def make_auc_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4):
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(
         vec_rk1[0],
-        label="Quantum RK1 Training AUC",
+        label="Classical RK1 Training AUC",
         color="blue",
         linestyle="--",
     )
     ax.plot(
         vec_rk1[1],
-        label="Quantum RK1 Testing AUC",
+        label="Classical RK1 Testing AUC",
         color="blue",
     )
     ax.plot(
         vec_rk2[0],
-        label="Quantum RK2 Training AUC",
+        label="Classical RK2 Training AUC",
         color="green",
         linestyle="--",
     )
     ax.plot(
         vec_rk2[1],
-        label="Quantum RK2 Testing AUC",
+        label="Classical RK2 Testing AUC",
         color="green",
     )
     ax.plot(
         vec_rk3[0],
-        label="Quantum RK3 Training AUC",
+        label="Classical RK3 Training AUC",
         color="orange",
         linestyle="--",
     )
     ax.plot(
         vec_rk3[1],
-        label="Quantum RK3 Testing AUC",
+        label="Classical RK3 Testing AUC",
         color="orange",
     )
     ax.plot(
         vec_rk4[0],
-        label="Quantum RK4 Training AUC",
+        label="Classical RK4 Training AUC",
         color="red",
         linestyle="--",
     )
     ax.plot(
         vec_rk4[1],
-        label="Quantum RK4 Testing AUC",
+        label="Classical RK4 Testing AUC",
         color="red",
     )
     ax.set_xlabel("Epoch")
@@ -184,46 +184,46 @@ def make_loss_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4):
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(
         vec_rk1[0],
-        label="Quantum RK1 Training Loss",
+        label="Classical RK1 Training Loss",
         color="blue",
         linestyle="--",
     )
     ax.plot(
         vec_rk1[1],
-        label="Quantum RK1 Testing Loss",
+        label="Classical RK1 Testing Loss",
         color="blue",
     )
     ax.plot(
         vec_rk2[0],
-        label="Quantum RK2 Training Loss",
+        label="Classical RK2 Training Loss",
         color="green",
         linestyle="--",
     )
     ax.plot(
         vec_rk2[1],
-        label="Quantum RK2 Testing Loss",
+        label="Classical RK2 Testing Loss",
         color="green",
     )
     ax.plot(
         vec_rk3[0],
-        label="Quantum RK3 Training Loss",
+        label="Classical RK3 Training Loss",
         color="orange",
         linestyle="--",
     )
     ax.plot(
         vec_rk3[1],
-        label="Quantum RK3 Testing Loss",
+        label="Classical RK3 Testing Loss",
         color="orange",
     )
     ax.plot(
         vec_rk4[0],
-        label="Quantum RK4 Training Loss",
+        label="Classical RK4 Training Loss",
         color="red",
         linestyle="--",
     )
     ax.plot(
         vec_rk4[1],
-        label="Quantum RK4 Testing Loss",
+        label="Classical RK4 Testing Loss",
         color="red",
     )
     ax.set_xlabel("Epoch")
@@ -272,7 +272,7 @@ info1 = train_and_evaluate(
 
 model2 = VisionTransformer(
     num_classes=num_classes,
-    patch_size=14,
+    patch_size=16,
     hidden_size=hidden_size,
     num_heads=2,
     num_transformer_encoder_blocks=3,
@@ -281,7 +281,7 @@ model2 = VisionTransformer(
     num_transformer_rk3_blocks=0,
     num_transformer_rk4_blocks=0,
     num_transformer_rk4_enhanced_blocks=0,
-    num_transformer_decoder_blocks=1,
+    num_transformer_decoder_blocks=3,
     mlp_hidden_size=3,
 )
 
@@ -300,7 +300,7 @@ info2 = train_and_evaluate(
 
 model3 = VisionTransformer(
     num_classes=num_classes,
-    patch_size=14,
+    patch_size=16,
     hidden_size=hidden_size,
     num_heads=2,
     num_transformer_encoder_blocks=3,
@@ -309,7 +309,7 @@ model3 = VisionTransformer(
     num_transformer_rk3_blocks=1,
     num_transformer_rk4_blocks=0,
     num_transformer_rk4_enhanced_blocks=0,
-    num_transformer_decoder_blocks=1,
+    num_transformer_decoder_blocks=3,
     mlp_hidden_size=3,
 )
 
@@ -328,7 +328,7 @@ info3 = train_and_evaluate(
 
 model4 = VisionTransformer(
     num_classes=num_classes,
-    patch_size=14,
+    patch_size=16,
     hidden_size=hidden_size,
     num_heads=2,
     num_transformer_encoder_blocks=3,
@@ -337,7 +337,7 @@ model4 = VisionTransformer(
     num_transformer_rk3_blocks=0,
     num_transformer_rk4_blocks=1,
     num_transformer_rk4_enhanced_blocks=0,
-    num_transformer_decoder_blocks=1,
+    num_transformer_decoder_blocks=3,
     mlp_hidden_size=3,
 )
 
@@ -356,7 +356,7 @@ info4 = train_and_evaluate(
 
 model4_enh = VisionTransformer(
     num_classes=num_classes,
-    patch_size=14,
+    patch_size=16,
     hidden_size=hidden_size,
     num_heads=2,
     num_transformer_encoder_blocks=3,
@@ -365,7 +365,7 @@ model4_enh = VisionTransformer(
     num_transformer_rk3_blocks=0,
     num_transformer_rk4_blocks=0,
     num_transformer_rk4_enhanced_blocks=1,
-    num_transformer_decoder_blocks=1,
+    num_transformer_decoder_blocks=3,
     mlp_hidden_size=3,
 )
 
@@ -382,46 +382,9 @@ info4_enh = train_and_evaluate(
     num_epochs=65,
 )
 
-make_loss_plot(
-    [info1["train_losses"], info1["val_losses"]],
-    [info2["train_losses"], info2["val_losses"]],
-    [info3["train_losses"], info3["val_losses"]],
-    [info4["train_losses"], info4["val_losses"]]
-)
 
-make_loss_enh_plot(
-    [info4["train_losses"], info4["val_losses"]],
-    [info4_enh["train_losses"], info4_enh["val_losses"]],
-)
-
-make_auc_plot(
-    [info1["train_aucs"], info1["test_auc"]],
-    [info2["train_aucs"], info2["test_auc"]],
-    [info3["train_aucs"], info3["test_auc"]],
-    [info4["train_aucs"], info4["test_auc"]]
-)
-
-make_auc_enh_plot(
-    [info4["train_aucs"], info4["test_auc"]],
-    [info4_enh["train_aucs"], info4_enh["test_auc"]],
-)
 
 """
-make_loss_plot(
-    [info1["train_losses"], info1["val_losses"]],
-    [info2["train_losses"], info2["val_losses"]],
-    [info3["train_losses"], info3["val_losses"]],
-    [info4["train_losses"], info4["val_losses"]],
-    [info4_enh["train_losses"], info4_enh["val_losses"]],
-)
-
-make_auc_plot(
-    [info1["train_aucs"], info1["val_aucs"]],
-    [info2["train_aucs"], info2["val_aucs"]],
-    [info3["train_aucs"], info3["val_aucs"]],
-    [info4["train_aucs"], info4["val_aucs"]],
-    [info4_enh["train_aucs"], info4_enh["val_aucs"]],
-)
 
 if num_classes == 2:
     make_roc_plot(

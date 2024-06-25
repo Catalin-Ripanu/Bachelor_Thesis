@@ -6,7 +6,8 @@ from dataset_processing_dir.dataset import (
     get_image_net_dataloaders,
 )
 from utils.training import train_and_evaluate
-from quantum_transformer import VisionTransformer
+from quantum_transformer import Transformer
+from utils.quantum_layer import get_circuit
 import matplotlib.pyplot as plt
 
 
@@ -39,7 +40,7 @@ def make_loss_enh_plot(vec_rk4, vec_rk4_enh):
     ax.legend()
     ax.grid()
     plt.savefig(
-        "classical_transfomer_loss_mnist_rk4_rk4_enh.pdf",
+        "classical_transfomer_loss_cifar10_rk4_rk4_enh.pdf",
         bbox_inches="tight",
         transparent=True,
     )
@@ -82,7 +83,7 @@ def make_roc_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4, vec_rk4_enh):
     ax.legend()
     ax.grid()
     plt.savefig(
-        "classical_transfomer_roc_mnist_rk1_rk2_rk3_rk4.pdf",
+        "classical_transfomer_roc_cifar10_rk1_rk2_rk3_rk4.pdf",
         bbox_inches="tight",
         transparent=True,
     )
@@ -117,7 +118,7 @@ def make_auc_enh_plot(vec_rk4, vec_rk4_enh):
     ax.legend()
     ax.grid()
     plt.savefig(
-        "classical_transfomer_auc_mnist_rk4_rk4_enh.pdf",
+        "classical_transfomer_auc_cifar10_rk4_rk4_enh.pdf",
         bbox_inches="tight",
         transparent=True,
     )
@@ -174,7 +175,7 @@ def make_auc_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4):
     ax.legend()
     ax.grid()
     plt.savefig(
-        "classical_transfomer_auc_mnist_rk1_rk2_rk3_rk4.pdf",
+        "classical_transfomer_auc_cifar10_rk1_rk2_rk3_rk4.pdf",
         bbox_inches="tight",
         transparent=True,
     )
@@ -231,30 +232,32 @@ def make_loss_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4):
     ax.legend()
     ax.grid()
     plt.savefig(
-        "classical_transfomer_loss_mnist_rk1_rk2_rk3_rk4.pdf",
+        "classical_transfomer_loss_cifar10_rk1_rk2_rk3_rk4.pdf",
         bbox_inches="tight",
         transparent=True,
     )
 
 
-train_dataloader, val_dataloader, test_dataloader = get_mnist_dataloaders(batch_size=64)
+(train_dataloader, val_dataloader, test_dataloader), vocab, tokenizer = get_imdb_dataloaders(batch_size=64)
 
-hidden_size = 6
+hidden_size = 12
 num_classes = 10
 
-model1 = VisionTransformer(
+model1 = Transformer(
+    num_tokens=len(vocab),
+    max_seq_len=512,
     num_classes=num_classes,
-    patch_size=14,
+    patch_size=16,
     hidden_size=hidden_size,
-    num_heads=2,
-    num_transformer_encoder_blocks=3,
-    num_transformer_rk1_blocks=1,
-    num_transformer_rk2_blocks=0,
+    num_heads=6,
+    num_transformer_encoder_blocks=0,
+    num_transformer_rk1_blocks=0,
+    num_transformer_rk2_blocks=5,
     num_transformer_rk3_blocks=0,
     num_transformer_rk4_blocks=0,
     num_transformer_rk4_enhanced_blocks=0,
     num_transformer_decoder_blocks=1,
-    mlp_hidden_size=3,
+    mlp_hidden_size=6,
 )
 
 info1 = train_and_evaluate(
@@ -270,117 +273,6 @@ info1 = train_and_evaluate(
     num_epochs=65,
 )
 
-model2 = VisionTransformer(
-    num_classes=num_classes,
-    patch_size=16,
-    hidden_size=hidden_size,
-    num_heads=2,
-    num_transformer_encoder_blocks=3,
-    num_transformer_rk1_blocks=0,
-    num_transformer_rk2_blocks=1,
-    num_transformer_rk3_blocks=0,
-    num_transformer_rk4_blocks=0,
-    num_transformer_rk4_enhanced_blocks=0,
-    num_transformer_decoder_blocks=3,
-    mlp_hidden_size=3,
-)
-
-info2 = train_and_evaluate(
-    model2,
-    train_dataloader,
-    val_dataloader,
-    test_dataloader,
-    src_mask_flag=False,
-    trg_mask_flag=False,
-    src=hidden_size,
-    trg=hidden_size,
-    num_classes=num_classes,
-    num_epochs=65,
-)
-
-model3 = VisionTransformer(
-    num_classes=num_classes,
-    patch_size=16,
-    hidden_size=hidden_size,
-    num_heads=2,
-    num_transformer_encoder_blocks=3,
-    num_transformer_rk1_blocks=0,
-    num_transformer_rk2_blocks=0,
-    num_transformer_rk3_blocks=1,
-    num_transformer_rk4_blocks=0,
-    num_transformer_rk4_enhanced_blocks=0,
-    num_transformer_decoder_blocks=3,
-    mlp_hidden_size=3,
-)
-
-info3 = train_and_evaluate(
-    model3,
-    train_dataloader,
-    val_dataloader,
-    test_dataloader,
-    src_mask_flag=False,
-    trg_mask_flag=False,
-    src=hidden_size,
-    trg=hidden_size,
-    num_classes=num_classes,
-    num_epochs=65,
-)
-
-model4 = VisionTransformer(
-    num_classes=num_classes,
-    patch_size=16,
-    hidden_size=hidden_size,
-    num_heads=2,
-    num_transformer_encoder_blocks=3,
-    num_transformer_rk1_blocks=0,
-    num_transformer_rk2_blocks=0,
-    num_transformer_rk3_blocks=0,
-    num_transformer_rk4_blocks=1,
-    num_transformer_rk4_enhanced_blocks=0,
-    num_transformer_decoder_blocks=3,
-    mlp_hidden_size=3,
-)
-
-info4 = train_and_evaluate(
-    model4,
-    train_dataloader,
-    val_dataloader,
-    test_dataloader,
-    src_mask_flag=False,
-    trg_mask_flag=False,
-    src=hidden_size,
-    trg=hidden_size,
-    num_classes=num_classes,
-    num_epochs=65,
-)
-
-model4_enh = VisionTransformer(
-    num_classes=num_classes,
-    patch_size=16,
-    hidden_size=hidden_size,
-    num_heads=2,
-    num_transformer_encoder_blocks=3,
-    num_transformer_rk1_blocks=0,
-    num_transformer_rk2_blocks=0,
-    num_transformer_rk3_blocks=0,
-    num_transformer_rk4_blocks=0,
-    num_transformer_rk4_enhanced_blocks=1,
-    num_transformer_decoder_blocks=3,
-    mlp_hidden_size=3,
-)
-
-info4_enh = train_and_evaluate(
-    model4_enh,
-    train_dataloader,
-    val_dataloader,
-    test_dataloader,
-    src_mask_flag=False,
-    trg_mask_flag=False,
-    src=hidden_size,
-    trg=hidden_size,
-    num_classes=num_classes,
-    num_epochs=65,
-)
 
 
 

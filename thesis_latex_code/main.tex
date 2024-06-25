@@ -3,7 +3,7 @@
 \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 
 \usepackage{lmodern} % add the missing package for font shapes
-\usepackage[]{qcircuit}
+\usepackage{qcircuit}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -14,7 +14,8 @@
 
 \usepackage[margin=2.54cm]{geometry}	% dimensiuni pagină și margini
 \usepackage{graphicx} % support the \includegraphics command and options
-
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 % formatting sections and subsections
 \usepackage{textcase}
 \usepackage[titletoc, title]{appendix}
@@ -101,11 +102,19 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 \setlength\parskip{.23cm}
 
 %% Abstract macro
-\newcommand{\AbstractPage}{
+\newcommand{\AbstractPageEN}{
 \begin{titlepage}
 \vspace*{-70pt}
 {\large \textbf{ABSTRACT}}\vspace{10pt}\\
 \AbstractEN \vfill
+\end{titlepage}
+}
+
+\newcommand{\AbstractPageRO}{
+\begin{titlepage}
+\vspace*{-70pt}
+{\large \textbf{ABSTRACT}}\vspace{10pt}\\
+\AbstractRO \vfill
 \end{titlepage}
 }
 
@@ -153,17 +162,31 @@ COMPUTER SCIENCE AND ENGINEERING DEPARTMENT\\}
 %%   Campurile aferente rezumatului
 %%
 
+\newcommand{\AbstractRO}{Modelele de Învățare Profundă, cum ar fi Rețelele Adversariale Generative (GAN-uri)~\cite{goodfellow2014generative} și Transformers Vizuali (ViTs)~\cite{vaswani2017attention, dosovitskiy2020}, au demonstrat rezultate remarcabile în diverse domenii ale Învățării Automate și Inteligenței Artificiale, inclusiv Clasificarea Obiectelor, Segmentarea Imaginilor, Analiza Sentimentelor și Generarea de Date Sintetice. Aceste rețele neuronale sunt esențiale în avansarea sistemelor care necesită precizie înaltă și o înțelegere profundă a datelor complexe într-o varietate de sarcini, atât în Procesarea Limbajului Natural (NLP), cât și în Vederea Computațională (CV).
+
+Totuși, eficacitatea modelelor de Învățare Profundă vine cu provocări semnificative: acestea necesită un număr mare~\cite{chen2014big} de parametri pentru a învăța și a extrage caracteristici semnificative din datele reale. În plus, aceste rețele neuronale au nevoie de cantități vaste de informații pentru a atinge nivelurile de performanță dorite. Obținerea unor astfel de seturi mari de date poate fi dificilă, deoarece datele reale nu sunt adesea disponibile public și pot fi greu de colectat și filtrat. Acest lucru duce la cerințe semnificative de resurse computaționale atât pentru antrenare, cât și pentru optimizarea hiperparametrilor, adesea realizate prin tehnici exhaustive cum ar fi grid search~\cite{liashchynskyi2019grid}.
+
+Pentru a aborda aceste provocări și pentru a investiga mai departe această direcție, această teză propune o arhitectură hibridă nouă de Rețea Generativă Adversarială care utilizează Transformers Vizuali Cuantici (QViTs)~\cite{di2022dawn} atât ca Generatori, cât și ca Discriminatori. Visual Transfomers sunt selectate pentru abilitatea lor superioară de a gestiona reprezentările de date complexe. O inovație cheie în această arhitectură este integrarea metodelor numerice ce rezolvă Ecuații Diferențiale Ordinare (ODE)~\cite{fan2024Quantum} ca Encoders ~\cite{hinton2011transforming}, îmbunătățind capacitatea modelului de a captura dinamica temporală și structurile complexe, și îmbunătățind conexiunile reziduale din cadrul arhitecturii Transformer-ului pentru a atenua problema vanishing gradients~\cite{liu2020understanding}.
+
+Mai mult, această arhitectură încorporează Circuite Variaționale Cuantice~\cite{cerezo2021variational} atât în Mecanismele de Auto-Atenție~\cite{voita2019analyzing}, cât și în Perceptronii Multistrat (MLPs)~\cite{popescu2009multilayer} ai Visual Transformers. Prin valorificarea principiilor Fizicii Cuantice, în special Mecanica, aceste circuite cuantice~\cite{benedetti2019parameterized} pot efectua operații algebrice complexe mai eficient decât metodele clasice, oferind un avantaj computațional semnificativ.
+
+Performanța acestei abordări hibride este evaluată în raport cu o bază de date neurală pur clasică din literatură, folosind seturi de date din domeniile CV și NLP. Specific, configurațiile ODE cuantice sunt testate pe seturile de date CIFAR-10~\cite{Krizhevsky09learningmultiple}, MNIST~\cite{lecun2010mnist} și IMDb Reviews~\cite{maas-EtAl:2011:ACL-HLT2011}. Aceste arhitecturi de rețele neuronale sunt antrenate și testate eficient utilizând simulări numerice adaptate pentru Circuitele Variaționale Cuantice~\cite{Zhang_2023}. Rezultatele obținute indică faptul că aceste abordări hibride obțin performanțe comparabile de clasificare și generare cu baza clasică, în timp ce necesită mai puțini parametri antrenabili.
+
+În plus, numărul redus de parametri în aceste modele hibride deschide posibilitatea rulării acestora pe dispozitive cuantice NISQ pentru antrenare și inferență. Această fezabilitate este un progres semnificativ, deoarece implică faptul că modelele îmbunătățite cuantice pot fi antrenate și implementate pe calculatoare cuantice reale, care sunt în prezent limitate în termeni de număr de qubiți și fidelitate operațională~\cite{lau2022nisq}.
+
+Această teză demonstrează potențialul integrării Calculului Cuantic~\cite{nielsen2001quantum}, în special Mecanica Cuantică, cu arhitecturi avansate de Învățare Profundă pentru a crea rețele eficiente~\cite{huang2021power}.}
+
 \newcommand{\AbstractEN}{Deep Learning models, such as Generative Adversarial Networks (GANs)~\cite{goodfellow2014generative} and Visual Transformers (ViTs)~\cite{vaswani2017attention, dosovitskiy2020}, have demonstrated remarkable results across various domains in Machine Learning and Artificial Intelligence, including Object Classification, Image Segmentation, Sentiment Analysis, and Synthetic Data Generation. These neural networks are pivotal in advancing systems that require high precision and a deep understanding of complex data across a variety of tasks in both Natural Language Processing (NLP) and Computer Vision (CV).
 
-However, the effectiveness of Deep Learning models comes with significant challenges: they require an extensive~\cite{chen2014big} number of parameters to learn and extract meaningful features from real-world data. Additionally, these models need vast amounts of information to achieve desired performance levels. Obtaining such large sets can be difficult as real-world data is often not publicly available and can be challenging to collect and curate. This results in substantial computational resource requirements for both training and hyperparameter optimization, often achieved through exhaustive techniques such as grid search~\cite{liashchynskyi2019grid}.
+However, the effectiveness of Deep Learning models comes with significant challenges: they require an extensive~\cite{chen2014big} number of parameters to learn and extract meaningful features from real-world data. Additionally, these neural networks need vast amounts of information to achieve desired performance levels. Obtaining such large sets can be difficult as real-world data is often not publicly available and can be challenging to collect and curate. This results in substantial computational resource requirements for both training and hyperparameter optimization, often achieved through exhaustive techniques such as grid search~\cite{liashchynskyi2019grid}.
 
-To address these challenges, this thesis proposes a novel hybrid Generative Adversarial Network architecture that employs Quantum Visual Transformers (QViTs)~\cite{di2022dawn} as both the Generator and Discriminator. Visual Transformers~\cite{vaswani2017attention, dosovitskiy2020} are selected for their superior ability to manage intricate data representations. A key innovation in this architecture is the integration of Ordinary Differential Equation (ODE)~\cite{fan2024Quantum} solvers as Encoders~\cite{hinton2011transforming}, enhancing the model capability to capture temporal dynamics and complex data structures, and improving the residual connections within the transformer architecture to mitigate the vanishing gradients problem~\cite{liu2020understanding} even more.
+To address these challenges and to further investigate this direction, this thesis proposes a novel hybrid Generative Adversarial Network architecture that employs Quantum Visual Transformers (QViTs)~\cite{di2022dawn} as both the Generator and Discriminator. Visual Transformers are selected for their superior ability to manage intricate data representations. A key innovation in this architecture is the integration of Ordinary Differential Equation (ODE)~\cite{fan2024Quantum} solvers as Encoders~\cite{hinton2011transforming}, enhancing the model capability to capture temporal dynamics and complex data structures, and improving the residual connections within the transformer architecture to mitigate the vanishing gradients problem~\cite{liu2020understanding} even more.
 
-Moreover, this architecture incorporates Variational Quantum Circuits~\cite{cerezo2021variational} within both the Self-Attention Mechanisms~\cite{voita2019analyzing} and the Multi-Layer Perceptrons (MLPs)~\cite{popescu2009multilayer} of the Visual Transformers~\cite{vaswani2017attention, dosovitskiy2020}. By leveraging the principles of Quantum Mechanics, these Quantum circuits~\cite{benedetti2019parameterized} can perform complex algebraic operations more efficiently than classical methods, offering a significant computational advantage.
+Moreover, this architecture incorporates Variational Quantum Circuits~\cite{cerezo2021variational} within both the Self-Attention Mechanisms~\cite{voita2019analyzing} and the Multi-Layer Perceptrons (MLPs)~\cite{popescu2009multilayer} of the Visual Transformers. By leveraging the principles of Quantum Physics, especially Mechanics, these quantum circuits~\cite{benedetti2019parameterized} can perform complex algebraic operations more efficiently than classical methods, offering a significant computational advantage.
 
-The performance of this hybrid approach is benchmarked against a purely classical neural network baseline from the literature using datasets from both CV and NLP areas. Specifically, the Quantum ODE configurations are tested on CIFAR-10~\cite{Krizhevsky09learningmultiple}, CIFAR-100~\cite{Krizhevsky09learningmultiple}, MNIST~\cite{lecun2010mnist}, IMDb Reviews~\cite{maas-EtAl:2011:ACL-HLT2011} and ILSVRC 2012~\cite{ILSVRC15}  datasets. These neural network architectures are effectively trained and tested using numerical simulations tailored to Quantum circuits~\cite{Zhang_2023}. The obtained results indicate that these hybrid approaches achieves comparable classification and generation performance to the classical baseline, while requiring fewer trainable parameters.
+The performance of this hybrid approach is benchmarked against a purely classical neural network baseline from the literature using datasets from both CV and NLP areas. Specifically, the Quantum ODE configurations are tested on CIFAR-10~\cite{Krizhevsky09learningmultiple}, MNIST~\cite{lecun2010mnist} and IMDb Reviews~\cite{maas-EtAl:2011:ACL-HLT2011} datasets. These neural network architectures are effectively trained and tested using numerical simulations tailored to Variational Quantum Circuits~\cite{Zhang_2023}. The obtained results indicate that these hybrid approaches achieves comparable classification and generation performance to the classical baseline, while requiring fewer trainable parameters.
 
-Furthermore, the reduced parameter count in these hybrid models opens up the possibility of running it on Noisy Intermediate-Scale (NISQ)~\cite{lau2022nisq} quantum devices for both training and inference. This feasibility is a significant breakthrough, as it implies that quantum-enhanced models can be trained and deployed on actual quantum computers, which are currently limited in terms of the number of qubits and operational fidelity~\cite{lau2022nisq}.
+Furthermore, the reduced parameter count in these hybrid models opens up the possibility of running it on Noisy Intermediate-Scale (NISQ) quantum devices for both training and inference. This feasibility is a significant breakthrough, as it implies that quantum-enhanced models can be trained and deployed on actual quantum computers, which are currently limited in terms of the number of qubits and operational fidelity~\cite{lau2022nisq}.
 
 This thesis demonstrates the potential of integrating Quantum Computing~\cite{nielsen2001quantum}, especially Quantum Mechanics, with advanced Deep Learning architectures to create more efficient and powerful networks which can significantly reduce computational costs while maintaining high performance, paving the way for more scalable and effective AI applications~\cite{huang2021power}.}
 
@@ -203,7 +226,9 @@ In addition, I extend my appreciation to my friends for their continuous support
 \setcounter{page}{2}
 \ThanksPage \pagestyle{fancy}
 
-\AbstractPage\pagestyle{fancy}
+\AbstractPageEN\pagestyle{fancy}
+
+\AbstractPageRO\pagestyle{fancy}
 
 \renewcommand{\contentsname}{\vspace{-3.45cm} CONTENTS}
 \tableofcontents
@@ -211,10 +236,10 @@ In addition, I extend my appreciation to my friends for their continuous support
 
 \chapter{Introduction}\pagestyle{fancy}
 
-\section{Context}\vspace{-12pt}
+\section{Context}\vspace{-12pt}\label{context}
 Artificial Intelligence models, particularly Deep Learning ones, have made significant contributions to solving real-world tasks, greatly improving human lives in various fields, such as Medical Image Recognition~\cite{he2020infusing}. Despite their impressive capabilities, Deep Learning models come with substantial drawbacks regarding computational resources~\cite{chen2014big} and effort. Achieving high performance with these models necessitates learning millions to billions of parameters, also called weights or artificial neurons, which demands considerable resources and preparation time. This limitation also has negative environmental impacts due to high power consumption.
 
-Over the years, researchers have developed numerous solutions to mitigate the problem of minimizing the number of parameters using interesting classical algorithms and techniques. These include, for example, specialized activation functions for neural layers like Rectified Linear Unit~\cite{NIPS2017_a96b65a7}, Leaky ReLU~\cite{xu2020reluplex}, Gaussian Error Linear Unit~\cite{hendrycks2016gaussian}, Softmax~\cite{liu2016large}, Sigmoid~\cite{han1995influence} and Hyperbolic Tangent~\cite{zamanlooy2013efficient}. Additionally, effective optimizers such as Adam~\cite{zhang2018improved} and Stochastic Gradient Descent~\cite{bottou2010large} have been utilized to combat this limitation, along with methods like Learning Rate Schedulers~\cite{wen2021convolutional}, Weight Decay~\cite{loshchilov2017decoupled}, and Dropout~\cite{srivastava2014dropout} to reduce also the chances of model overfitting. Over the years, various architectural designs and network combinations have emerged to address these challenges. However, the tradeoff between high computational resource consumption and performance remains a difficult issue, especially when scaling up the dimensions of available noisy real-world datasets used for training. It is unlikely\footnote{\url{https://www.theverge.com/24066646/ai-electricity-energy-watts-generative-consumption}} to be efficiently resolved in the near future using solely classical approaches.
+Over the years, researchers have developed numerous solutions to mitigate the problem of minimizing the number of parameters using interesting classical algorithms and techniques. These include, for example, specialized activation functions for neural layers like Rectified Linear Unit~\cite{NIPS2017_a96b65a7}, Leaky ReLU~\cite{xu2020reluplex}, Gaussian Error Linear Unit~\cite{hendrycks2016gaussian}, Softmax~\cite{liu2016large}, Sigmoid~\cite{han1995influence} and Hyperbolic Tangent~\cite{zamanlooy2013efficient}. Additionally, effective optimizers such as AdamW~\cite{zhang2018improved} and Stochastic Gradient Descent~\cite{bottou2010large} have been utilized to combat this limitation, along with methods like Learning Rate Schedulers~\cite{wen2021convolutional}, Weight Decay~\cite{loshchilov2017decoupled}, and Dropout~\cite{srivastava2014dropout} to reduce also the chances of model overfitting. Over the years, various architectural designs and network combinations have emerged to address these challenges. However, the tradeoff between high computational resource consumption and performance remains a difficult issue, especially when scaling up the dimensions of available noisy real-world datasets used for training. It is unlikely\footnote{\url{https://www.theverge.com/24066646/ai-electricity-energy-watts-generative-consumption}} to be efficiently resolved in the near future using solely classical approaches.
 
 A segment of Computer Science researchers, in collaboration with physicists, have taken a bold and innovative approach to these challenges by exploring solutions from a physical perspective, leading to the emergence of Quantum Computation and Quantum Information~\cite{nielsen2001quantum}. Leveraging the principles of Quantum Mechanics, AI research has begun to explore Deep Learning optimizations using quantum facilities, such as Variational Quantum Circuits~\cite{benedetti2019parameterized} or Quantum Algorithms~\cite{cerezo2021variational}, to develop hybrid Deep Learning models. By combining classical and quantum methodologies, new experiments can be conducted to address performance and resource demands more efficiently, thus utilizing the unique capabilities of quantum hardware. This involves training these models on it, also known as Parameterized Quantum Circuits~\cite{benedetti2019parameterized}, where the parameters are referred to as the qurons of the quantum model.
 
@@ -222,11 +247,11 @@ Quantum Computing leverages properties like superposition~\cite{koprinkov2023qua
 \section{Problem}\vspace{-12pt}
 Over the years, numerous algorithms, techniques, network architectures, and methodologies have been proposed in the field of Deep Learning to tackle a wide array of tasks, such as Object Classification, Synthetic Data Generation and Detection, across various domains including Natural Language Processing, Computer Vision, Domain Adaptation~\cite{farahani2020brief}, and Knowledge Distillation~\cite{hinton2015distilling}. These approaches have achieved high performance metrics like Accuracy, Area Under the Curve (AUC), Receiver Operating Characteristic (ROC), and F1 scores. The advent of High Performance Computing (HPC) facilities, particularly classical parallelism, has enabled Deep Learning models to process billions of examples from noisy real-world datasets effectively, thus yielding impressive results.
 
-Despite these advancements, a significant drawback persists: the enormous number of neurons and the corresponding computational resources required by these models. Traditional solutions in classical Deep Learning, such as Cross Validation~\cite{berrar2019cross}, Hyperparameter Tuning techniques like Grid Search~\cite{liashchynskyi2019grid} or Random Search~\cite{liashchynskyi2019grid}, Keras Tuner~\cite{pon2021hyperparameter}, and Layer Augmentation until model performance plateaus or overfits, are commonly employed. To mitigate overfitting, regularization techniques such as Ridge~\cite{ogutu2012genomic}, Lasso~\cite{ogutu2012genomic}, Elastic-Net~\cite{ogutu2012genomic} or Dropout~\cite{srivastava2014dropout} can be applied. However, these methods often involve exhaustive hyperparameter searches, which are extremely time-consuming, especially when dealing with validation sets comprising billions of data points for complex tasks. Furthermore, group sparsity regularizers can be applied to network parameters, where each group acts on a single neuron, thus reducing the number of parameters by up to 80\% while maintaining or even enhancing the network accuracy score~\cite{alvarez2018learning}.
+Despite these advancements, a significant drawback persists: the enormous number of neurons and the corresponding computational resources required by these models. Traditional solutions in classical Deep Learning, such as Cross Validation~\cite{berrar2019cross}, Hyperparameter Tuning techniques like Grid Search~\cite{liashchynskyi2019grid}, Random Search~\cite{liashchynskyi2019grid} and Keras Tuner~\cite{pon2021hyperparameter} are commonly employed, together with Layer Augmentation until model performance plateaus or overfits. To also mitigate overfitting, regularization techniques such as Ridge, Lasso, Elastic-Net~\cite{ogutu2012genomic} or Dropout~\cite{srivastava2014dropout} can be applied. However, these methods often involve exhaustive hyperparameter searches, which are extremely time-consuming, especially when dealing with validation sets comprising billions of data points for complex tasks. Group sparsity regularizers can also be applied to network parameters, where each group acts on a single neuron, thus reducing the number of parameters by up to 80\% while maintaining or even enhancing the network accuracy score~\cite{alvarez2018learning}.
 
 Another method employed to address these challenges is Transfer Learning~\cite{weiss2016survey}, which involves finding and loading a pretrained model as a starting point and then fine-tuning it on a specific dataset. This approach can help achieve good performance with less effort on architecture design and expedite the training process. However, the availability of suitable pretrained models is limited, and fine-tuning may yield only decent, if not disappointing, results, due to differences in the data distributions between the pretraining and fine-tuning datasets.
 
-The primary challenge lies in balancing time, memory and power consumption on classical systems to make robust and valid neural architectural choices. Furthermore, reducing the number of neurons too drastically is not a solution as it can lead to underfitting and degraded performance, making it difficult to solve complex and challenging tasks efficiently. The iterative process of tuning hyperparameters and optimizing model architectures is computationally intensive and often results in a significant trade-off between resource consumption and model performance~\cite{liashchynskyi2019grid}.
+The primary challenge lies in balancing time, memory and power consumption on classical systems to make robust and valid neural architectural choices. Furthermore, reducing the number of neurons too drastically is not a solution as it can lead to underfitting and degraded performance, making it difficult to solve complex and challenging tasks with decent results. The iterative process of tuning hyperparameters and optimizing model architectures is computationally intensive and often results in a significant trade-off between resource consumption and model performance~\cite{liashchynskyi2019grid}.
 
 Moreover, the reliance on vast amounts of training data for achieving desired performance further exacerbates these issues. Real-world datasets are often difficult to obtain and may not be publicly available, which complicates the development and fine-tuning of effective Deep Learning models. The extensive time and computational costs associated with hyperparameter optimization and model training present significant obstacles to advancing AI capabilities while maintaining efficiency and sustainability. This trade-off between computational resource consumption and performance remains a persistent and challenging problem in the field of Deep Learning, highlighting the need for innovative solutions that can overcome these limitations.
 
@@ -235,15 +260,15 @@ In the current landscape of Deep Learning research, there is an ongoing investig
 
 Building on the challenges outlined in the above section, the primary goal of this thesis is to explore Deep Learning models, both pure Quantum and hybrid, that leverage neural ODE-based architectures~\cite{zhong2022neural} inspired by non-trivial Variational Quantum Circuits~\cite{cerezo2021variational} within the context of Visual Transformers~\cite{vaswani2017attention, dosovitskiy2020} and their complex Encoders~\cite{hinton2011transforming} and Decoders~\cite{breuckmann2018scalable}. The most important objective is to minimize the number of parameters used by deep network layers utilizing the idea~\cite{Comajoan_Cara_2024} of replacing classical linear projection layers in Multi-Head Attention~\cite{voita2019analyzing} subroutines and Multi-Layer Perceptrons~\cite{popescu2009multilayer} with Quantum Circuits~\cite{benedetti2019parameterized}. Additionally, low truncation error Neural Ordinary Differential Equation~\cite{zhong2022neural}\cite{li2022ode} techniques will be employed to further optimize Transformer Layers, namely Runge-Kutta Methods~\cite{butcher1996history} of 1st, 2nd, 3rd, and 4th order. An analysis of Runge-Kutta 4th order method optimization which is not theoretically grounded in standard RK methods, but in terms of training, will also be included~\cite{li2022ode}.
 
-To better understand the rationale and motivation behind the proposed Deep Learning model in this paper, it is necessary to compare these Quantum ODE-based Transformers configurations  with their classical counterparts using the datasets mentioned in Abstract. The network utilizing the optimized Runge-Kutta 4th order method will be leveraged within the context of Vision Transformers (ViTs)~\cite{vaswani2017attention, dosovitskiy2020} and integrated into a Generative Adversarial Network (GAN)~\cite{goodfellow2014generative} architecture. In this configuration, both the Generator and Discriminator will be Quantum Visual Transformers (QViTs)\footnote{\url{https://openreview.net/pdf?id=p7xPXoKB0H}}, incorporating the optimized Neural ODE solver to generate realistic and informative synthetic data without being limited to specific types of distributions. This will be achieved using techniques such as Data Augmentation~\cite{zhao2020diffaugment} and Image Recognition at Scale~\cite{dosovitskiy2020} in the context of ViTs~\cite{vaswani2017attention}.
+To better understand the rationale and motivation behind the proposed Deep Learning model in this paper, it is necessary to compare these Quantum ODE-based Transformers configurations  with their classical counterparts using the datasets mentioned in Abstract. The network utilizing the optimized Runge-Kutta 4th order method will be leveraged within the context of Vision Transformers (ViTs)~\cite{vaswani2017attention, dosovitskiy2020} and integrated into a Generative Adversarial Network (GAN)~\cite{goodfellow2014generative} architecture. In this configuration, both the Generator and Discriminator will be Quantum Visual Transformers (QViTs)\footnote{\url{https://openreview.net/pdf?id=p7xPXoKB0H}}, incorporating the optimized Neural ODE solver to generate realistic and informative synthetic data without being limited to specific types of distributions. This will be achieved using techniques such as Data Augmentation~\cite{zhao2020diffaugment} and Image Recognition at Scale~\cite{dosovitskiy2020} in the context of ViTs.
 
-The final proposed architecture in this thesis, named QRKT-GAN, will be tested on a real-world consistent dataset, namely CIFAR-10~\cite{Krizhevsky09learningmultiple}, and compared using the same data with a renowned classical counterpart, TransGAN~\cite{jiang2021transgan}, which is a strong architecture built entirely free of Convolutions~\cite{cordonnier2020relationship}. This comparative analysis will provide another argument for the possible advantages of integrating Quantum Computing~\cite{nielsen2001quantum} with advanced Deep Learning neural networks under the right context.
+The final proposed architecture in this thesis, named QRKT-GAN, will be tested on a real-world consistent dataset, namely CIFAR-10~\cite{Krizhevsky09learningmultiple}, and compared using the same data with a renowned classical counterpart, TransGAN~\cite{jiang2021transgan}, which is a strong architecture built entirely free of Convolutions~\cite{cordonnier2020relationship}. These comparative analysis and results will provide another argument for the possible advantages of integrating Quantum Computing~\cite{nielsen2001quantum} with advanced Deep Learning neural networks under the right context.
 \section{Paper Structure}\vspace{-12pt}
 The next chapter delves into the most relevant and important classical and Variational Quantum Algorithms~\cite{cerezo2021variational} and techniques developed over the years to leverage both Quantum and hybrid logic in Deep Learning for model optimization. This chapter will illustrate how these both hybrid and pure Quantum Neural Networks (QNNs)~\cite{breuckmann2018scalable} are designed to be compatible with Noisy Intermediate-Scale (NISQ)~\cite{lau2022nisq} devices provided by specialized vendors such as IBM~\cite{Santos_2016}, Google~\cite{kalai2023googles}, Microsoft~\cite{Mykhailova_2023}, and Amazon~\cite{Reyes_2021}. It will explore the advancements that make it possible to run complex Deep Learning models on quantum computers, highlighting the interplay between Quantum Computing~\cite{nielsen2001quantum} and Deep Learning for neural depth decreasing while not losing too much performance.
 
 Section three will discuss the foundational concepts of Machine Learning, Deep Learning and Ordinary Differential Equations. It will also provide a comprehensive overview of Quantum Computation and Quantum Information~\cite{nielsen2001quantum}, and will also introduce the emerging field of Quantum Machine Learning~\cite{dunjko2018machine}. This section aims to explain how quantum principles can enhance the capabilities of Deep Learning solutions in addressing high-demanding tasks, some of which are classified as NP-Hard~\cite{chatterjee2024solving} or NP-Complete~\cite{furer2008solving}. By understanding these fundamentals, the reader will gain insight into the potential synergies between Classical and Quantum Computing~\cite{nielsen2001quantum}, which together can form a duality in the world of Artificial Intelligence.
 
-Section four will present an in-depth analysis of the proposed Ordinary Differential Equation-based Quantum Neural Networks (QNNs)~\cite{abbas2021power, li2022ode} configurations. This includes their motivation, underlying concepts, mathematical and quantum frameworks, physical limitations, and future potential within their problem domain environment. The chapter will also discuss in-detail the new ODE-based GAN architecture in detail, QRKT-GAN, explaining how it incorporates the traversed knowledge to minimize the solution of the optimization problem outlined in Context section, while maintaining acceptable performance in Synthetic Image Generation.
+Section four will present an in-depth analysis of the proposed Ordinary Differential Equation-based Quantum Neural Networks (QNNs)~\cite{abbas2021power, li2022ode} configurations. This includes their motivation, underlying concepts, mathematical and quantum frameworks, but also their physical limitations, and future potential within their problem domain environment. The chapter will also discuss in-detail the new ODE-based GAN architecture in detail, QRKT-GAN, explaining how it incorporates the traversed knowledge to minimize the solution of the optimization problem outlined in \ref{context} section, while maintaining acceptable performance in Synthetic Image Generation.
 
 The fifth chapter will detail the methodologies adopted for conducting the experiments. This includes a comprehensive description of the datasets used, their internal characteristics, and the reasons for their selection. It will compare various Quantum ODE-based~\cite{fan2024Quantum} configurations with their classical ODE-based networks~\cite{zhong2022neural} counterparts to fully understand the benefits and limitations of quantum-enhanced models. Additionally, the chapter will provide a detailed comparison between the proposed QRKT-GAN model and its classical baseline, TransGAN~\cite{jiang2021transgan}, using the CIFAR-10~\cite{Krizhevsky09learningmultiple} dataset. This analysis will highlight the benefits and challenges of integrating Quantum Computing into Deep Learning, presenting it as a viable alternative solution for very specific optimization problems.
 
@@ -267,26 +292,26 @@ Furthermore, the chapter will provide an overview of the techniques used to iden
 
 A significant portion will be dedicated to Ordinary Differential Equations (ODEs) and their most popular numerical solvers, highlighting the foundational aspects of the Runge-Kutta methods~\cite{butcher1996history}. It will explain how to interpret Transformer layers from an ODE perspective~\cite{li2022ode}, providing a mathematical framework for understanding these non-trivial neural network structures.
 
-The chapter will also present a concise summary of Quantum Computing~\cite{nielsen2001quantum}, establishing the prerequisites for understanding Quantum Machine Learning~\cite{dunjko2018machine}. This section will articulate the motivation behind integrating Runge-Kutta ODE methods~\cite{butcher1996history, fan2024Quantum} into Quantum Computing~\cite{nielsen2001quantum}. By exploring Quantum Circuits~\cite{benedetti2019parameterized} and Quantum Gates~\cite{barenco1995elementary}, Variational Quantum Algorithms~\cite{cerezo2021variational}, and Variational Quantum Circuits~\cite{benedetti2019parameterized}, the chapter will illustrate their motivation and application in the context of Quantum Transformers~\cite{Comajoan_Cara_2024}.
+Furthermore, a concise summary of Quantum Computing~\cite{nielsen2001quantum} will also be presented, establishing the prerequisites for understanding Quantum Machine Learning~\cite{dunjko2018machine}. This section will articulate the motivation behind integrating Runge-Kutta ODE methods~\cite{butcher1996history, fan2024Quantum} into Quantum Computing~\cite{nielsen2001quantum}. By exploring carefully Quantum Gates and Circuits~\cite{barenco1995elementary, benedetti2019parameterized}, Variational Quantum Algorithms and Circuits~\cite{cerezo2021variational, benedetti2019parameterized}, their motivation and application in the context of Quantum Transformers~\cite{Comajoan_Cara_2024} will be illustrated.
 
 By comprehensively covering these topics, the chapter aims to equip readers with a deep understanding of the theoretical and practical foundations necessary for advancing in the field of Quantum Machine Learning~\cite{dunjko2018machine}, particularly through the integration of ODE methods~\cite{zhong2022neural} in quantum frameworks~\cite{Zhang_2023}.
 
 \section{Machine Learning}\vspace{-12pt}
-Machine Learning is the process of enabling computers to learn from data and make decisions without being explicitly programmed to do so. The essential aspect of Machine Learning is training models on data before they can autonomously make decisions. Thus, data is fundamental to Machine Learning algorithms. Without data, Machine Learning cannot function, as models rely entirely on the information provided to make future predictions. The data used must accurately reflect real-world scenarios because Machine Learning models depend on this data to learn and generate accurate predictions for new, unseen data~\cite{machinelearning}.
+Machine Learning is the process of enabling computers to learn from data and make decisions without being explicitly programmed to do so. A crucial aspect of Machine Learning is training models on data before they can autonomously make decisions. Thus, data is fundamental to Machine Learning algorithms. Without data, Machine Learning cannot function, as models rely entirely on the information provided to make future predictions. The data used must accurately reflect real-world scenarios because Machine Learning models depend on this data to learn and generate accurate predictions for new, unseen data~\cite{machinelearning}.
 
 In practice, Machine Learning involves extensive mathematical operations such as matrix multiplication, feature scaling, and normalization. Consequently, the data fed into Machine Learning algorithms must be represented as numerical vectors or numbers, as opposed to text or other non-numerical forms that machines cannot directly interpret.
 
-For instance, textual data and alphabets are not directly understandable by machines; hence, they must be converted into numerical form before being processed by Machine Learning models. Techniques such as one-hot encoding, word embeddings, or other numerical transformation methods are used to convert text into a machine-readable format, enabling models to learn from and predict based on the data provided~\cite{machinelearning}.
+For instance, textual data and alphabets are not directly understandable by machines; hence, they must be converted into numerical form before being processed by Machine Learning models. Techniques such as one-hot encoding, word embeddings, or other numerical transformation methods are used to convert text into a machine-readable format, enabling models to learn from and predict based on the data provided.
 
 Machine Learning algorithms, along with neural networks, have been proposed for many decades. However, during the early days, the lack of sufficient data and limited computational power hindered their practical application. Today, the scenario has drastically changed. Companies generate vast amounts of data, and computational resources have become extraordinarily powerful and accessible. Services like Google Cloud and Amazon Web Services (AWS) provide scalable computational power, allowing users to run complex Machine Learning algorithms without the need for setting up their own hardware infrastructure. This has led to an exponential growth in the demand for Machine Learning and Deep Learning applications~\cite{machinelearning}.
 
 Understanding Machine Learning and Deep Learning is crucial in this data-rich environment. The ability to harness data through these technologies enables companies to make informed predictions, optimize processes, and drive innovation. The more effectively Machine Learning models are trained and utilized, the greater the value they can bring to an organization, ultimately contributing to increased profitability and competitive advantage.
 
-Types of Machine Learning~\cite{machinelearning}:
+Types of Machine Learning:
 \begin{itemize}
-  \item \textbf{Supervised learning} involves training a Machine Learning model on a labeled dataset, where the output labels are known. The model learns to map inputs to outputs based on this labeled data. During training, the model predictions are compared with the actual labels to evaluate its performance and adjust its parameters accordingly. This iterative process continues until the model achieves satisfactory accuracy. An example of supervised learning is predicting house prices. Given a dataset with features like square footage, number of bedrooms, and location, along with corresponding house prices, the model learns to predict the price of a house based on these features. By comparing its predictions with the actual prices, the model improves over time.
-  \item \textbf{In unsupervised learning}, the model is trained on data without labeled outputs. The goal is for the model to identify patterns, structures, or relationships within the data. One common application of unsupervised learning is customer segmentation, where customers are grouped based on their behavior, such as purchase history or browsing patterns, without pre-defined labels. This helps businesses tailor marketing strategies to different customer segments.
-  \item \textbf{Semi-supervised learning} combines elements of both supervised and unsupervised learning. It uses a small amount of labeled data along with a larger amount of unlabeled data. The model is initially trained on the labeled data, and then it generalizes its learning to the unlabeled data. This approach is useful when obtaining labeled data is expensive or time-consuming. An example of semi-supervised learning is text document classification. A model is first trained on a subset of documents with known categories. Then, it is used to classify the remaining documents, which do not have predefined labels, based on the patterns it has learned.
+  \item \textbf{Supervised Learning}: This approach involves training a Machine Learning model on a labeled dataset, where the output labels are known. The model learns to map inputs to outputs based on this labeled data. During training, the model predictions are compared with the actual labels to evaluate its performance and adjust its parameters accordingly. This iterative process continues until the model achieves satisfactory accuracy. An example of supervised learning is predicting house prices. Given a dataset with features like square footage, number of bedrooms, and location, along with corresponding house prices, the model learns to predict the price of a house based on these features. By comparing its predictions with the actual prices, the model improves over time.
+  \item \textbf{Unsupervised Learning}: In this approach, the model is trained on data without labeled outputs. The goal is for the model to identify patterns, structures, or relationships within the data. One common application of unsupervised learning is customer segmentation, where customers are grouped based on their behavior, such as purchase history or browsing patterns, without predefined labels. This helps businesses tailor marketing strategies to different customer segments.
+  \item \textbf{Semi-Supervised Learning}: This technique combines elements of both supervised and unsupervised learning. It uses a small amount of labeled data along with a larger amount of unlabeled data. The model is initially trained on the labeled data, and then it generalizes its learning to the unlabeled data. This approach is useful when obtaining labeled data is expensive or time-consuming. An example of semi-supervised learning is text document classification. A model is first trained on a subset of documents with known categories. Then, it is used to classify the remaining documents, which do not have predefined labels, based on the patterns it has learned.
 \end{itemize}
 
 \section{Gradient Descent}\vspace{-12pt}
@@ -335,7 +360,7 @@ where:
   \item $\nabla f(\mathbf{a}_{n-1})$ is the gradient of the function at the current position.
 \end{itemize}
 
-By repeatedly applying this update rule, Gradient Descent converges to the minimum of the function. If the goal were to maximize the function, the algorithm would instead add the scaled gradient~\cite{gradientdescent}.
+By repeatedly applying this update rule, Gradient Descent converges to the minimum of the function. Furthermore, for maximizing the given function, the algorithm would instead add the scaled gradient~\cite{gradientdescent}.
 
 The learning rate, denoted as \(\eta\), is a crucial hyperparameter in gradient descent algorithms that determines the step size at each iteration while moving toward a minimum of the loss function. The choice of learning rate significantly affects the performance of the algorithm:
 
@@ -348,7 +373,7 @@ Thus, selecting an appropriate learning rate is essential for the efficient and 
 
 \subsection{AdamW Optimizer}
 
-Adam combines the strengths of both Stochastic Gradient Descent (SGD)~\cite{bottou2012stochastic} with Momentum and Root Mean Square Propagation (RMSProp). It calculates the exponential moving averages of the gradient first and second moments. Like SGD with Momentum, it helps smooth out the updates to accelerate convergence. Similar to RMSProp, Adam uses adaptive learning rates for each parameter, allowing smaller steps for steep gradients and larger steps for flatter areas. Additionally, Adam adjusts these learning rates by considering both the mean of the first moment (the gradient) and the mean of the second moment (the squared gradient). The parameter update rule in Adam is given by~\footnote{\url{https://www.linkedin.com/pulse/understanding-adam-adamw-dsaisolutions-ileof/}}:
+Adam combines the strengths of both Stochastic Gradient Descent (SGD)~\cite{bottou2012stochastic} with Momentum and Root Mean Square Propagation (RMSProp). It calculates the exponential moving averages of the gradient first and second moments. Like SGD with Momentum, it fully helps smooth out the updates to accelerate convergence. Similar to RMSProp, Adam uses adaptive learning rates for each parameter, allowing smaller steps for steep gradients and larger steps for flatter areas. Additionally, Adam adjusts these learning rates by considering both the mean of the first moment (the gradient) and the mean of the second moment (the squared gradient). The parameter update rule in Adam is given by~\footnote{\url{https://www.linkedin.com/pulse/understanding-adam-adamw-dsaisolutions-ileof/}}:
 \begin{equation}
   \theta_{t+1} = \theta_t - \eta \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}
 \end{equation}
@@ -369,9 +394,9 @@ where:
   \item \(\nabla_\theta f(\theta)\) is the gradient of the loss function \(f(\theta)\)
 \end{itemize}
 
-The exponential moving average of the squared gradients \( v_t \) in the last equation is sometimes referred to as the "second moment" or "uncentered variance" (uncentered because the mean of the gradients is not subtracted). Additionally, \( m_t \) is often called the "first moment" or "mean," representing the exponential moving average of the gradients, which captures the cumulative history of gradients. In Adam, the direction of the update is determined by normalizing the first moment with respect to the second moment~\cite{adamoptimizerw}.
+The exponential moving average of the squared gradients \( v_t \) in the last equation is sometimes referred to as the second moment or uncentered variance, due to the fact that the mean of the gradients is not subtracted. Additionally, \( m_t \) is often called the first moment or mean, representing the exponential moving average of the gradients, which captures the cumulative history of gradients. What is more, in Adam optimizer, the direction of the update is determined by normalizing the first moment with respect to the second moment~\cite{adamoptimizerw}.
 
-Initially, the moving averages \( m_0 \) and \( v_0 \) are set to zero vectors. This initialization causes the moment estimates to be biased towards zero, particularly during the initial timesteps, especially when the decay rates \( \beta_1 \) and \( \beta_2 \) are close to 1. To address this issue, "bias-corrected" estimates \( \hat{m}_t \) and \( \hat{v}_t \) are calculated. This correction helps control the weights while approaching the global minimum, preventing high oscillations. The formulas for the bias corrections are as follows~\cite{adamoptimizerw}:
+Initially, the moving averages \( m_0 \) and \( v_0 \) are set to zero vectors. This initialization causes the moment estimates to be biased towards zero, particularly during the initial timesteps, especially when the decay rates \( \beta_1 \) and \( \beta_2 \) are close to 1. To address this issue, bias-corrected estimates \( \hat{m}_t \) and \( \hat{v}_t \) are calculated. This correction helps control the weights while approaching the global minimum, preventing high oscillations. The formulas for the bias corrections are as follows~\cite{adamoptimizerw}:
 
 \begin{equation}
   \hat{m}_t = \frac{m_t}{1 - \beta_1^t}
@@ -381,7 +406,7 @@ Initially, the moving averages \( m_0 \) and \( v_0 \) are set to zero vectors. 
   \hat{v}_t = \frac{v_t}{1 - \beta_2^t}
 \end{equation}
 
-If no correction is applied, with \(\beta_1 = 0.9\) and \(\beta_2 = 0.999\), for the initial step, we have \(m_1 = 0.1 g_t\) and \(v_1 = 0.001 g_t^2\), causing the denominator in the update rule to become large. However, with bias-corrected estimates, the denominator becomes less sensitive to \(\beta_1\) and \(\beta_2\). The default values of \(\beta_1\) and \(\beta_2\) are set to 0.9 and 0.999, respectively, to retain as much historical gradient information as possible~\cite{adamoptimizerw}.
+If no correction is applied, with \(\beta_1 = 0.9\) and \(\beta_2 = 0.999\), for the initial step, there are \(m_1 = 0.1 g_t\) and \(v_1 = 0.001 g_t^2\), causing the denominator in the update rule to become large. However, with bias-corrected estimates, the denominator becomes less sensitive to \(\beta_1\) and \(\beta_2\). The default values of \(\beta_1\) and \(\beta_2\) are set to 0.9 and 0.999, respectively, to retain as much historical gradient information as possible.
 
 In practice, \(\beta_2\) is usually set much closer to 1 than \(\beta_1\), following the recommendation of the authors (\(\beta_2 = 0.999\), \(\beta_1 = 0.9\)). Consequently, the update coefficient \(1 - \beta_2 = 0.001\) is significantly smaller than \(1 - \beta_1 = 0.1\). By accounting for both the first and second moments when updating parameters, Adam improves optimization efficiency, especially in complex models with numerous parameters.
 
@@ -422,7 +447,7 @@ Training the neural network involves adjusting the weights of the connections to
 \subsection{Multi-Layer Perceptron (MLP)}
 Multilayer Perceptrons (MLPs) were initially inspired by the Perceptron, a supervised Machine Learning algorithm designed for binary classification. The original Perceptron was only capable of handling linearly separable data. To overcome this limitation, the Multilayer Perceptron was introduced, enabling the handling of both linearly and non-linearly separable data~\cite{mlp}.
 
-An MLP is a type of neural network that belongs to the class of feed-forward neural networks. In these networks, the neurons in one layer are connected to the neurons in the subsequent layer in a forward manner, without any loops.
+A Multilayer Perceptron is a type of neural network that belongs to the class of feed-forward neural networks. In these networks, the neurons in one layer are connected to the neurons in the subsequent layer in a forward manner, without any loops.
 
 \begin{figure}[th]
   \centering
@@ -431,7 +456,7 @@ An MLP is a type of neural network that belongs to the class of feed-forward neu
   \label{fig:pi5}
 \end{figure}
 
-A Multilayer Perceptron (MLP) is a type of Artificial Neural Network (ANN) characterized by a layered architecture of interconnected neurons designed to process data through multiple stages. The fundamental structure of an MLP comprises an input layer, one or more hidden layers, an output layer, activation functions, and a set of weights and biases:
+Furthermore, MLP is also a type of Artificial Neural Network (ANN) characterized by a layered architecture of interconnected neurons designed to process data through multiple stages. The fundamental structure of an MLP comprises an input layer, one or more hidden layers, an output layer, activation functions, and a set of weights and biases:
 
 \begin{itemize}
   \item \textbf{Input Layer}: This is the initial layer that receives input data, which can be numerical values, images, or other types of structured data.
@@ -446,20 +471,20 @@ Due to their straightforward design, MLPs typically require shorter training tim
 MLPs have proven to be versatile and efficient tools in various applications, from image recognition and natural language processing to financial forecasting and beyond. Their ability to learn from data and improve over time underscores their importance in the realm of Machine Learning and Artificial Intelligence.
 
 \subsection{Generative Adversarial Network (GAN)}
-Generative Adversarial Networks (GANs)~\cite{goodfellow2014generative} have revolutionized the field of Artificial Intelligence, capturing widespread attention for their ability to generate and enhance data in innovative ways. They are pivotal in applications such as creating photorealistic images, transforming styles in artwork, and generating lifelike human faces. Introduced by Ian Goodfellow and his team in a groundbreaking 2014 NeurIPS paper, GANs~\cite{goodfellow2014generative} are specialized Machine Learning systems designed to mimic specific data distributions~\cite{gan}.
+Generative Adversarial Networks (GANs)~\cite{goodfellow2014generative} have revolutionized the field of Artificial Intelligence, capturing widespread attention for their ability to generate and enhance data in innovative ways. They are pivotal in applications such as creating photorealistic images, transforming styles in artwork, and generating lifelike human faces. Introduced in a groundbreaking 2014 NeurIPS paper\cite{goodfellow2014generative}, GANs are specialized Machine Learning systems designed to mimic specific data distributions~\cite{gan}.
 
-At the heart of a GAN~\cite{goodfellow2014generative} are two dynamically interacting neural networks: the Generator, which creates data, and the Discriminator, which evaluates the authenticity of the generated data. This dynamic interaction forms an "adversarial" training process, conceptualized as a competitive game. Here, the Generator strives to produce data so realistic that the Discriminator cannot reliably tell it apart from genuine data, achieving a 50\% deception rate.
+At the heart of a GAN are two dynamically interacting neural networks: the Generator, which creates data, and the Discriminator, which evaluates the authenticity of the generated data. This dynamic interaction forms an adversarial training process, conceptualized as a competitive game. Here, the Generator strives to produce data so realistic that the Discriminator cannot reliably tell it apart from genuine data, achieving a 50\% deception rate.
 
-A Generative Adversarial Network (GAN)~\cite{goodfellow2014generative} comprises two neural networks that engage in simultaneous adversarial training:
+A Generative Adversarial Network comprises two neural networks that engage in simultaneous adversarial training:
 
 \begin{itemize}
   \item \textbf{Generator}: This network transforms random noise into coherent data outputs, such as images. Its objective is to generate data that closely resembles real-world data.
   \item \textbf{Discriminator}: This network evaluates both real data and data generated by the Generator, attempting to distinguish between the two. It outputs the likelihood that the provided data is real.
 \end{itemize}
 
-Throughout training, the Generator continuously improves its ability to create data that the Discriminator cannot distinguish from real data. Concurrently, the Discriminator enhances its skill in differentiating authentic data from the generated data. This adversarial "game" leads to the Generator producing progressively more realistic data over time.
+Throughout training, the Generator continuously improves its ability to create data that the Discriminator cannot distinguish from real data. Concurrently, the Discriminator enhances its skill in differentiating authentic data from the generated data. This adversarial game leads to the Generator producing progressively more realistic data over time.
 
-Generative Adversarial Networks (GANs) employ loss functions to train both the generator and the discriminator, ensuring they both improve over time. The loss function helps adjust the weights of these models during training to enhance their performance. Both the generator and the discriminator utilize the binary cross-entropy loss, which can be expressed as~\cite{gan}:
+Generative Adversarial Networks (GANs) employ loss functions to train both the generator and the discriminator, ensuring they both improve over time. The loss function helps with adjusting the weights of these models during training to enhance their performance. Both the generator and the discriminator utilize the binary cross-entropy loss, which can be expressed as:
 
 \begin{equation}
   L(y, p) = - (y \log(p) + (1 - y) \log(1 - p))
@@ -472,7 +497,7 @@ where:
   \item \( p \) is the predicted probability of the sample belonging to class 1.
 \end{itemize}
 
-The discriminator objective is to correctly classify real samples as real and fake samples (generated by the generator) as fake. The loss for the discriminator is typically represented as~\cite{gan}:
+The discriminator objective is to correctly classify real samples as real and fake samples, generated by the generator, as fake. The loss function for the discriminator is typically represented as:
 
 \begin{equation}
   L_D = - \frac{1}{2} \mathbb{E}_{x \sim p_{data}(x)} [\log(D(x))] - \frac{1}{2} \mathbb{E}_{z \sim p_z(z)} [\log(1 - D(G(z)))]
@@ -498,7 +523,7 @@ In these equations:
 
 The first term on the right-hand side penalizes the discriminator for misclassifying real data, while the second term penalizes the discriminator for misclassifying the fake data produced by the generator.
 
-The goal of the generator in a Generative Adversarial Network (GAN)~\cite{goodfellow2014generative} is to produce samples that the discriminator cannot distinguish from real data. The generator loss function is designed to penalize the generator when the discriminator correctly identifies its outputs as fake. Mathematically, the generator's loss can be expressed as~\cite{gan}:
+The goal of the generator in a Generative Adversarial Network (GAN) is to produce samples that the discriminator cannot distinguish from real data. The generator loss function is designed to penalize the generator when the discriminator correctly identifies its outputs as fake. Mathematically, the generator loss can be expressed as~\cite{gan}:
 
 \begin{equation}
   L_G = -\frac{1}{2} \mathbb{E}_{z \sim p_z(z)} \left[ \log(D(G(z))) \right]
@@ -506,7 +531,7 @@ The goal of the generator in a Generative Adversarial Network (GAN)~\cite{goodfe
 
 Here, \( z \) represents the noise input to the generator drawn from a prior distribution \( p_z(z) \), \( G(z) \) is the generated sample, and \( D(G(z)) \) is the discriminator probability that \( G(z) \) is a real sample.
 
-The combined GAN~\cite{goodfellow2014generative} loss, also known as the minimax loss, encapsulates the adversarial nature of GAN~\cite{goodfellow2014generative} training. In this setup, the generator and discriminator engage in a two-player minimax game where the discriminator aims to maximize its ability to classify real and fake data correctly, while the generator strives to minimize the discriminator ability by generating realistic data. The combined loss is given by~\cite{gan}:
+The combined GAN loss, also known as the minimax loss, encapsulates the adversarial nature of GAN~\cite training. In this setup, the generator and discriminator engage in a two-player minimax game where the discriminator aims to maximize its ability to classify real and fake data correctly, while the generator strives to minimize the discriminator ability by generating realistic data. The combined loss is given by:
 
 \begin{equation}
   L_{GAN} = \min_G \max_D (L_D + L_G)
@@ -514,7 +539,7 @@ The combined GAN~\cite{goodfellow2014generative} loss, also known as the minimax
 
 Here, \( L_D \) is the loss for the discriminator, and \( L_G \) is the loss for the generator.
 
-Gradient penalty is a technique used to stabilize the training by penalizing the gradients if they become too steep. This can help in stabilizing the training and avoiding issues like mode collapse. The gradient penalty term is defined as~\cite{gan}:
+Gradient penalty is a technique used to stabilize the training by penalizing the gradients if they become too steep. This can help in stabilizing the training and avoiding issues like mode collapse. The gradient penalty term is defined as:
 
 \begin{equation}
   GP = \lambda \mathbb{E}_{\hat{x} \sim P_{\hat{x}}} \left[ \left( \| \nabla_{\hat{x}} D(\hat{x}) \|_2 - k \right)^2 \right]
@@ -544,7 +569,7 @@ The discriminator loss with gradient penalty can be incorporated as follows:
 This loss function consists of the usual GAN discriminator loss components for real and generated data, plus the gradient penalty term to regularize the discriminator behavior.
 
 
-The discriminator loss with gradient penalty in GANs~\cite{goodfellow2014generative} integrates standard loss components for real and generated data, augmented by a gradient penalty term to regulate the discriminator behavior. By penalizing large gradients, this method promotes smoother behavior in the discriminator, contributing to a more stable training process for both the generator and the discriminator. The gradient penalty helps prevent sharp changes in the discriminator output, which can otherwise lead to instability and issues like mode collapse, where the generator produces limited and repetitive outputs.
+The discriminator loss with gradient penalty in GANs integrates standard loss components for real and generated data, augmented by a gradient penalty term to regulate the discriminator behavior. By penalizing large gradients, this method promotes smoother behavior in the discriminator, contributing to a more stable training process for both the generator and the discriminator. The gradient penalty helps prevent sharp changes in the discriminator output, which can otherwise lead to instability and issues like mode collapse, where the generator produces limited and repetitive outputs.
 
 \begin{figure}[th]
   \centering
@@ -553,11 +578,11 @@ The discriminator loss with gradient penalty in GANs~\cite{goodfellow2014generat
   \label{fig:pi6}
 \end{figure}
 
-GAN~\cite{goodfellow2014generative} are not only remarkable for their ability to create high-quality data, but also for their versatility across a range of complex tasks. Their unique adversarial training mechanism ensures that the generated data is continually refined, pushing the boundaries of what is possible in Machine Learning and Artificial Intelligence.
+GAN are not only remarkable for their ability to create high-quality data, but also for their versatility across a range of complex tasks. Their unique adversarial training mechanism ensures that the generated data is continually refined, pushing the boundaries of what is possible in Machine Learning and Artificial Intelligence.
 
 \subsection{Visual Transformer (ViTs)}
 
-Originally designed for Natural Language Processing, the Transformer~\cite{vaswani2017attention} architecture has been successfully adapted to other domains~\cite{vit}.
+Originally designed for Natural Language Processing, the Transformer~\cite{vaswani2017attention} architecture has been successfully adapted to other domains.
 
 \begin{figure}[th]
   \centering
@@ -566,15 +591,15 @@ Originally designed for Natural Language Processing, the Transformer~\cite{vaswa
   \label{fig:pi7}
 \end{figure}
 
-A notable example is the Vision Transformer (ViT)~\cite{dosovitskiy2020}, which adapts the Transformer~\cite{vaswani2017attention} for Computer Vision tasks. In ViTs~\cite{dosovitskiy2020}, an image is divided into a sequence of patches, each linearly embedded and treated as input tokens for a stack of Transformer layers, collectively referred to as the Transformer Encoder.
+A notable example is the Vision Transformer (ViT)~\cite{dosovitskiy2020}, which adapts the Transformer for Computer Vision tasks. In ViTs, an image is divided into a sequence of patches, each linearly embedded and treated as input tokens for a stack of Transformer layers, collectively referred to as the Transformer Encoder.
 
-The ViT has achieved state-of-the-art performance on various image classification benchmarks, showcasing the Transformer~\cite{vaswani2017attention} architecture's versatility and effectiveness across different domains.
+The ViT has achieved state-of-the-art performance on various image classification benchmarks, showcasing the Transformer architecture versatility and effectiveness across different domains.
 
-Visual Transformer (ViT)~\cite{dosovitskiy2020} is a Deep Learning architecture that leverages the self-attention mechanism of Transformers~\cite{vaswani2017attention} to process and understand visual data such as images~\cite{vit}.
+Visual Transformer (ViT) is a Deep Learning architecture that leverages the self-attention mechanism of Transformers to process and understand visual data such as images.
 
-By dividing an input image into smaller patches, ViT~\cite{dosovitskiy2020} allows each patch to attend to others, leading to state-of-the-art performance in various computer vision tasks
+By dividing an input image into smaller patches, ViT allows each patch to attend to others, leading to state-of-the-art performance in various computer vision tasks
 
-The usual workflow of Visual Transformers~\cite{dosovitskiy2020} in Image Classification task include~\cite{vit}:
+The usual workflow of Visual Transformers in Image Classification task include~\cite{vit}:
 
 \begin{enumerate}
   \item Decomposing the Image into Patches
@@ -591,15 +616,15 @@ The usual workflow of Visual Transformers~\cite{dosovitskiy2020} in Image Classi
 
   \item Visual Transformer Encoder
         \begin{itemize}
-          \item \textbf{Self-Attention Mechanism}: At the heart of the transformer model lies the self-attention mechanism, which efficiently evaluates the relevance of different patches in relation to each other for a specific task. This mechanism determines the amount of focus each part of the image should receive when encoding a particular patch, enhancing the model's ability to understand complex relationships within the image.
+          \item \textbf{Self-Attention Mechanism}: At the heart of the transformer model lies the self-attention mechanism, which efficiently evaluates the relevance of different patches in relation to each other for a specific task. This mechanism determines the amount of focus each part of the image should receive when encoding a particular patch, enhancing the model ability to understand complex relationships within the image.
           \item \textbf{Multi-head Attention}: The encoder employs multi-head attention, running several self-attention mechanisms in parallel. This approach allows the model to simultaneously capture diverse aspects and patterns in the image, enriching the representation of each patch with a variety of contextual information.
-          \item \textbf{Feed-forward Network}: Following the attention computation, each patch's representation is processed through a feed-forward neural network (FFNN). This network is applied identically and independently to each position, further refining the encoded information and enabling the model to learn intricate features.
+          \item \textbf{Feed-forward Network}: Following the attention computation, each patch representation is processed through a feed-forward neural network (FFNN). This network is applied identically and independently to each position, further refining the encoded information and enabling the model to learn intricate features.
           \item \textbf{Residual Connections and Normalization}: To ensure a stable training process and facilitate the accumulation of knowledge from each layer, the transformer encoder incorporates residual connections around each sub-layer. These are followed by layer normalization, which helps maintain consistent gradients and improves the overall training dynamics, ensuring that each layer effectively builds upon the previous ones.
         \end{itemize}
 
   \item Creating the Output
         \begin{itemize}
-          \item \textbf{CLS Token}: To adapt transformer architecture for image classification, a dedicated classification token (CLS) is prefixed to the sequence of embedded patches. This token encapsulates comprehensive information aggregated from the entire image after undergoing transformation through the encoder. Utilized by a classifier, typically a straightforward linear layer, it facilitates accurate prediction of the image's class by leveraging enriched contextual understanding encoded within the transformer model.
+          \item \textbf{CLS Token}: To adapt transformer architecture for image classification, a dedicated classification token (CLS) is prefixed to the sequence of embedded patches. This token encapsulates comprehensive information aggregated from the entire image after undergoing transformation through the encoder. Utilized by a classifier, typically a straightforward linear layer, it facilitates accurate prediction of the image class by leveraging enriched contextual understanding encoded within the transformer model.
         \end{itemize}
 
   \item Training
@@ -651,19 +676,19 @@ Here, \( W_i^Q \in \mathbb{R}^{D_x \times D_k} \), \( W_i^K \in \mathbb{R}^{D_x 
 
 
 \subsection{Learning Rate Schedulers}
-When training deep networks, it's beneficial to gradually reduce the learning rate as the training progresses. This concept stems from the idea that a high learning rate imparts high kinetic energy to the model, causing its parameter vector to oscillate chaotically. Consequently, the model struggles to stabilize within the deeper and narrower valleys of the loss function, which represent local minima. Conversely, if the learning rate is too low, the system exhibits low kinetic energy, leading it to settle into the shallower and narrower valleys of the loss function, often getting stuck in suboptimal minima.
+When training deep networks, it is beneficial to gradually reduce the learning rate as the training progresses. This concept stems from the idea that a high learning rate imparts high kinetic energy to the model, causing its parameter vector to oscillate chaotically. Consequently, the model struggles to stabilize within the deeper and narrower valleys of the loss function, which represent local minima. Conversely, if the learning rate is too low, the system exhibits low kinetic energy, leading it to settle into the shallower and narrower valleys of the loss function, often getting stuck in suboptimal minima.
 
 In essence, starting with a higher learning rate helps the model explore the loss landscape broadly, avoiding premature convergence. As training advances, lowering the learning rate allows the model to fine-tune its parameters and settle into more optimal solutions, thus achieving better performance. This dynamic adjustment helps in navigating the complex loss surfaces typical in deep learning, striking a balance between exploration and exploitation~\cite{learningrate}.
 
 Examples of Learning Rate Scheduling~\cite{learningrate2}:
 
 \begin{itemize}
-  \item ExponentialLR: Adjusts the learning rate by dividing it by a factor each epoch or evaluation period.
-  \item CyclicLR: Oscillates the learning rate cyclically between specified minimum and maximum values.
-  \item StepLR: Decreases the learning rate by multiplying it with a decay factor every fixed number of epochs or evaluation periods.
-  \item MultiStepLR: Reduces the learning rate by a factor when the training reaches predefined milestones.
-  \item ReduceLROnPlateau: Dynamically reduces the learning rate if a monitored metric fails to improve for a certain number of evaluations.
-  \item CosineAnnealingLR: Starts with a high learning rate and smoothly decreases it following a cosine curve, periodically restarting the cycle.
+  \item \textbf{ExponentialLR}: Adjusts the learning rate by dividing it by a factor each epoch or evaluation period.
+  \item \textbf{CyclicLR}: Oscillates the learning rate cyclically between specified minimum and maximum values.
+  \item \textbf{StepLR}: Decreases the learning rate by multiplying it with a decay factor every fixed number of epochs or evaluation periods.
+  \item \textbf{MultiStepLR}: Reduces the learning rate by a factor when the training reaches predefined milestones.
+  \item \textbf{ReduceLROnPlateau}: Dynamically reduces the learning rate if a monitored metric fails to improve for a certain number of evaluations.
+  \item \textbf{CosineAnnealingLR}: Starts with a high learning rate and smoothly decreases it following a cosine curve, periodically restarting the cycle.
 \end{itemize}
 
 \subsection{Weight Decay}
@@ -672,7 +697,7 @@ Weight decay, also known as L2 regularization, is an essential technique in deep
 \begin{itemize}
   \item \textbf{Mitigates Overfitting:} Large weights often cause a model to memorize training data, hindering its ability to generalize to new examples. Weight decay discourages large weights, promoting the learning of smaller, more generalizable weights that capture the fundamental patterns in the data.
 
-  \item \textbf{Enhances Model Stability:} Large weights can destabilize training and increase sensitivity to data noise. Weight decay stabilizes the training process by keeping weights manageable, thus enhancing the model's robustness and reducing overfitting.
+  \item \textbf{Enhances Model Stability:} Large weights can destabilize training and increase sensitivity to data noise. Weight decay stabilizes the training process by keeping weights manageable, thus enhancing the model robustness and reducing overfitting.
 
   \item \textbf{Encourages Feature Sharing:} By promoting similar weights across different neurons, weight decay fosters feature sharing. This leads to a more efficient network where multiple neurons can utilize the same features, often resulting in fewer required parameters.
 
@@ -683,7 +708,7 @@ Weight decay adds a penalty to the loss function, proportional to the sum of the
 
 \begin{itemize}
   \item \textbf{L2 Regularization:} Adds a term to the loss function proportional to the sum of the squared weights.
-  \item \textbf{Optimizer-based Weight Decay:} Alters the optimizer's update rule to include a decay factor that incrementally reduces the weights.
+  \item \textbf{Optimizer-based Weight Decay:} Alters the optimizer update rule to include a decay factor that incrementally reduces the weights.
 \end{itemize}
 
 Choosing the right weight decay parameter involves balancing overfitting prevention with performance optimization. The optimal value varies based on model size, complexity, training data, and learning rate. Techniques such as grid search, hyperparameter optimization, and cross-validation are useful for identifying the best weight decay value.
@@ -695,7 +720,7 @@ Validating a learning model before deploying it in production involves ensuring 
 
 A common approach is the 80-20 rule, where 80\% of the data is used for training and 20\% for testing. Despite its popularity, this method is prone to creating a seemingly perfect split that might artificially inflate model accuracy, while failing to replicate the same performance in real-world scenarios. The accuracy achieved in such cases can often be attributed to mere chance. It is worth noting that the 80-20 split is not a hard and fast rule; other ratios like 70-30 or 75-25 are frequently used as well.
 
-Tuning model hyperparameters is another crucial step in optimizing an algorithm to uncover the hidden patterns within a dataset. However, performing this tuning on a simple training-testing split is generally discouraged. Model performance is highly sensitive to hyperparameters, and adjusting them based on a fixed data split can lead to overfitting, reducing the model generalizability~\cite{crossvalidation}.
+Tuning model hyperparameters is another crucial step in optimizing an algorithm to uncover the hidden patterns within a dataset. However, performing this tuning on a simple training-testing split is generally discouraged. Model performance is highly sensitive to hyperparameters, and adjusting them based on a fixed data split can lead to overfitting, reducing the model generalizability.
 
 To avoid overfitting during hyperparameter tuning, some suggest dividing the dataset into three parts: training, validation, and testing, for example, using 70\% for training, 20\% for validation, and 10\% for testing. Yet, with small datasets, maximizing the data for training is often necessary. Moreover, such splits can introduce bias if important examples are disproportionately allocated to the training or validation sets. Cross-validation (CV) is a valuable technique to mitigate these issues by ensuring a more balanced evaluation.
 
@@ -709,43 +734,1234 @@ This method efficiently navigates a subset of the hyperparameter space, making i
 
 Although Random Search may not guarantee the discovery of the absolute optimal hyperparameters, it is highly effective at identifying good configurations, particularly in scenarios involving large or complex parameter spaces.
 
-\section{Ordinary Differential Equations (ODE)}
-TODO
+The Random Search process begins by initializing random hyperparameter values from the defined search space, denoted as point \(x\). The value of the cost function is then evaluated at \(x\). Subsequently, another set of random hyperparameter values, labeled \(y\), is generated, and the cost function is computed at this new point \(y\).
 
-\subsection{Runge-Kutta Methods}
-TODO
+If the cost function value at \(y\) is lower than that at \(x\), the algorithm updates the starting point to \(y\) by setting \(x = y\). This iterative process continues: generating new random points, comparing cost function values, and updating the starting point if a better set of hyperparameters is found. The procedure repeats until a stopping criterion specified by the user is met~\cite{randomsearch2}.
+
+Some advantages of random search in Machine Learning over grid search are:
+
+\begin{itemize}
+  \item Random search tends to yield better results than grid search, especially when the dimensionality and the number of hyperparameters are high.
+  \item Random search allows for limiting the number of hyperparameter combinations, whereas grid search exhaustively evaluates all possible combinations.
+  \item Typically, random search achieves superior results compared to grid search in fewer iterations.
+\end{itemize}
+
+\section{Ordinary Differential Equations (ODE)}
+Differential equations are pivotal in capturing and describing the dynamics of various physical, biological, and engineering systems. Among these, Ordinary Differential Equations (ODEs) hold a special place. ODEs are equations involving functions of a single independent variable and their derivatives. They are termed ordinary to distinguish them from partial differential equations, which involve multiple independent variables.
+
+An ODE is formulated as an equation involving an unknown function \( f(x) \), its derivatives, and the independent variable \( x \). It is being assumed that \( f(x) \) is differentiable up to order \( k \). The general form of an ODE of order \( k \) is expressed as~\cite{odes}:
+
+\begin{equation}
+  G\left(x, f(x), \frac{df}{dx}, \ldots, \frac{d^k f}{dx^k}\right) = 0,
+\end{equation}
+
+where the function \( G \) includes the highest derivative \( \frac{d^k f}{dx^k} \). The order of the ODE is determined by the highest derivative present. The degree of the ODE is the power of the highest derivative after clearing any fractional powers.
+
+An ODE is called linear if \( G \) is a linear function of \( f(x) \) and its derivatives:
+
+\begin{equation}
+  a_k(x) \frac{d^k f}{dx^k} + a_{k-1}(x) \frac{d^{k-1} f}{dx^{k-1}} + \cdots + a_1(x) \frac{df}{dx} + a_0(x) f = h(x).
+\end{equation}
+
+Otherwise, it is nonlinear.
+
+The general form provided is often referred to as the implicit form. In an explicit form, the highest-order derivative is expressed as a function of lower-order derivatives:
+
+\begin{equation}
+  \frac{d^k f}{dx^k} = F\left(x, f(x), \frac{df}{dx}, \ldots, \frac{d^{k-1} f}{dx^{k-1}}\right).
+\end{equation}
+
+To uniquely determine a solution to an ODE, initial conditions are necessary. These conditions specify the value of the function and its derivatives at a particular point. For a first-order ODE, an initial condition might look like:
+
+\begin{equation}
+  f(x_0) = f_0,
+\end{equation}
+
+where \( x_0 \) is the initial point, and \( f_0 \) is the value of the function at \( x_0 \).
+
+For a second-order ODE, two initial conditions are typically required:
+
+\begin{equation}
+  f(x_0) = f_0 \quad \text{and} \quad \frac{df}{dx}\Big|_{x=x_0} = f_1.
+\end{equation}
+
+Let us consider a specific example of an ODE for the function \( f(x) \):
+
+\begin{equation}
+  \frac{d^2 f}{dx^2} = 5 \left[1 + \left(\frac{df}{dx}\right)^{\frac{2}{3}}\right]^{\frac{1}{3}}.
+\end{equation}
+
+This equation is a nonlinear explicit ODE of degree 3 and order 2. The nonlinearity arises from the fractional power of the first derivative term.
+
+Solving an ODE involves finding the function \( f(x) \) that satisfies the equation over the domain of \( x \) (e.g., \( \mathbb{R} \)). Various methods can be employed depending on the nature of the ODE, including analytical techniques, such as separation of variables, integrating factors, and numerical approaches, such as Euler's method, Runge-Kutta methods.
+
+ODEs are essential tools in modeling and understanding the behavior of dynamic systems. Their solutions provide insight into how systems evolve over time under various conditions.
+
+\section{Runge-Kutta Methods}
+Runge-Kutta methods are a family of iterative methods used to solve initial value problems for ordinary differential equations (ODEs). These methods vary in their order of accuracy, with higher-order methods providing more accurate solutions. Here,the formulations for the 1st, 2nd, 3rd, and 4th order Runge-Kutta methods are being presented~\cite{odes}.
+
+The simplest Runge-Kutta method is the 1st order method, also known as Euler's Method. It is given by:
+
+\begin{equation}
+  y_{i+1} = y_i + h f(y_i, x_i).
+\end{equation}
+
+This method has a local truncation error of \( O(h^2) \) and a global truncation error of \( O(h) \).
+
+The 2nd order Runge-Kutta method improves upon Euler's method by incorporating an additional intermediate step. One common form is the Heun's method, given by:
+
+\begin{equation}
+  k_{1i} = f(y_i, x_i),
+\end{equation}
+
+\begin{equation}
+  k_{2i} = f(y_i + h k_{1i}, x_i + h),
+\end{equation}
+
+\begin{equation}
+  y_{i+1} = y_i + \frac{h}{2} (k_{1i} + k_{2i}).
+\end{equation}
+
+Another popular 2nd order method is the midpoint method:
+
+\begin{equation}
+  k_{1i} = f(y_i, x_i),
+\end{equation}
+
+\begin{equation}
+  k_{2i} = f(y_i + \frac{h}{2} k_{1i}, x_i + \frac{h}{2}),
+\end{equation}
+
+\begin{equation}
+  y_{i+1} = y_i + h k_{2i}.
+\end{equation}
+
+Both methods have a local truncation error of \( O(h^3) \) and a global truncation error of \( O(h^2) \).
+
+The 3rd order Runge-Kutta method provides even greater accuracy. It is formulated as follows:
+
+\begin{equation}
+  k_{1i} = f(y_i, x_i),
+\end{equation}
+
+\begin{equation}
+  k_{2i} = f\left(y_i + \frac{h}{2} k_{1i}, x_i + \frac{h}{2}\right),
+\end{equation}
+
+\begin{equation}
+  k_{3i} = f\left(y_i - h k_{1i} + 2h k_{2i}, x_i + h\right),
+\end{equation}
+
+\begin{equation}
+  y_{i+1} = y_i + \frac{h}{6} (k_{1i} + 4k_{2i} + k_{3i}).
+\end{equation}
+
+This method has a local truncation error of \( O(h^4) \) and a global truncation error of \( O(h^3) \).
+
+The 4th order Runge-Kutta method is the most widely used due to its high accuracy and relatively simple implementation. It is given by:
+
+\begin{equation}
+  k_{1i} = f(y_i, x_i),
+\end{equation}
+
+\begin{equation}
+  k_{2i} = f\left(y_i + \frac{h}{2} k_{1i}, x_i + \frac{h}{2}\right),
+\end{equation}
+
+\begin{equation}
+  k_{3i} = f\left(y_i + \frac{h}{2} k_{2i}, x_i + \frac{h}{2}\right),
+\end{equation}
+
+\begin{equation}
+  k_{4i} = f(y_i + h k_{3i}, x_i + h),
+\end{equation}
+
+\begin{equation}
+  y_{i+1} = y_i + \frac{h}{6} (k_{1i} + 2k_{2i} + 2k_{3i} + k_{4i}).
+\end{equation}
+
+This method has a local truncation error of \( O(h^5) \) and a global truncation error of \( O(h^4) \).
+
+The Runge-Kutta methods of various orders offer a range of options for solving initial value problems in ODEs, with higher-order methods providing greater accuracy. The choice of method depends on the desired balance between computational complexity and accuracy.
 
 \subsection{ODE Interpretation of Transformer Layers}
-TODO
+Residual networks can be viewed as an Euler discretization of the solutions to Ordinary Differential Equations (ODEs). Building on this concept, delving deeper into the relationship between Transformers and numerical ODE methods it can be demonstrated that a residual block of layers within a Transformer can be interpreted as a higher-order solution to an ODE~\cite{li2022ode}.
+
+Let \( Y^m := [y_1^m, y_2^m, \ldots, y_L^m] \) represent the input to the \( m \)-th transformer layer, where \( L \) denotes the sequence length. The multi-head attention sublayer can be mathematically expressed as~\cite{zhong2022neural}:
+
+\begin{equation}\label{eq:1}
+  \hat{y}_i^m = y_i^m + G(y_i^m, Y^m), \quad 1 \leq i \leq L,
+\end{equation}
+
+where \( G \) represents the multi-head dot-product attention function.
+
+The output from this sublayer, denoted by \( \hat{Y}^m := [\hat{y}_1^m, \hat{y}_2^m, \ldots, \hat{y}_L^m] \), is then fed into the feedforward network sublayer. The transformation in this sublayer is given by:
+
+\begin{equation}\label{eq:2}
+  y_i^{m+1} = \hat{y}_i^m + H(\hat{y}_i^m), \quad 1 \leq i \leq L,
+\end{equation}
+
+where \( H \) represents the sequence of linear mappings and activation functions.
+
+The operations in equations \ref{eq:1} and \ref{eq:2} can be viewed as a numerical integration scheme over the time interval \([m, m+1]\) of the following ODE, using the Lie-Trotter splitting method.~\cite{lu2019understanding, dutta2021redesigning}:
+\begin{equation}
+  \frac{dy_i}{dt} = H(y_i) + G(y_i, Y).
+\end{equation}
+
+This interpretation provides a deeper understanding of the Transformer internal mechanisms by linking them to the well-established principles of numerical integration.
+
+Writing $H(y_i)$ and $G(y_i, Y)$ in terms of a new function, namely $F(y_i, Y) = H(y_i) + G(y_i, Y)$, and keeping in mind that the function $F(y_i, Y)$ is re-used in a block and the input $Y$ is shared within the block, Runge-Kutta blocks can be computed as follows:
+
+\begin{equation}
+  y_i(t + 1) = y_i(t) + \sum_{j=1}^{n}\gamma_{j}F_{ij}
+\end{equation}
+\begin{equation}
+  F(y_i, Y) = F_i
+\end{equation}
+\begin{equation}
+  F_{ij} = F_i(y_i + \sum_{p=1}^{j-1}\beta_{jp}F_{ip}, Y)
+\end{equation}
+
+Where $\beta$ is a coefficient which can be determined by the Taylor series of $y_i(t+1)$ This makes the neural network more parameter-efficient~\cite{li2022ode}.
+
+Thus, the definiton of Euler's method is (RK1):
+
+\begin{equation}
+  y_i(t + 1) = y_i(t) + F_{i1}
+\end{equation}
+\begin{equation}
+  F_{i1} = F_i(y_i(t), Y)
+\end{equation}
+
+One can define a second order Runge-Kutta block as (RK2):
+
+\begin{equation}
+  y_i(t + 1) = y_i(t) + \frac{1}{2}(F_{i1} + F_{i2})
+\end{equation}
+\begin{equation}
+  F_{i1} = F_i(y_i(t), Y)
+\end{equation}
+\begin{equation}
+  F_{i2} = F_i(y_i(t) + F_{i1}, Y) = F_i(y_i(t) + F_i(y_i(t), Y), Y)
+\end{equation}
+
+And a third order Runge-Kutta block as (RK3):
+
+\begin{equation}
+  y_i(t + 1) = y_i(t) + \frac{1}{9}(2F_{i1} + 3F_{i2} + 4F_{i3})
+\end{equation}
+\begin{equation}
+  F_{i1} = F_i(y_i(t), Y)
+\end{equation}
+\begin{equation}
+  F_{i2} = F_i(y_i(t) + \frac{1}{2}F_{i1}, Y) = F_i(y_i(t) + \frac{1}{2}F_i(y_i(t), Y), Y)
+\end{equation}
+\begin{equation}
+  F_{i3} = F_i(y_i(t) + \frac{3}{4}F_{i2}, Y) = F_i(y_i(t) + \frac{3}{4}F_i(y_i(t) + \frac{1}{2}F_i(y_i(t), Y), Y), Y)
+\end{equation}
+
+Likewise, a fourth order Runge-Kutta block can be written as (RK4):
+
+\begin{equation}
+  y_i(t + 1) = y_i(t) + \frac{1}{6}(F_{i1} + 2F_{i2} + 2F_{i3} + F_{i4})
+\end{equation}
+\begin{equation}
+  F_{i1} = F_i(y_i(t), Y)
+\end{equation}
+\begin{equation}
+  F_{i2} = F_i(y_i(t) + \frac{1}{2}F_{i1}, Y) = F_i(y_i(t) + \frac{1}{2}F_i(y_i(t), Y), Y)
+\end{equation}
+\begin{equation}
+  F_{i3} = F_i(y_i(t) + \frac{1}{2}F_{i2}, Y) = F_i(y_i(t) + \frac{1}{2}F_i(y_i(t) + \frac{1}{2}F_i(y_i(t), Y), Y), Y)
+\end{equation}
+\begin{equation}
+  F_{i4} = F_i(y_i(t) + F_{i3}, Y) = F_i(y_i(t) + F_i(y_i(t) + \frac{1}{2}F_i(y_i(t) + \frac{1}{2}F_i(y_i(t), Y), Y), Y), Y)
+\end{equation}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.64]{./pics/odes.png}
+  \caption[Different Runge-Kutta ODEs Blocks]{Different Runge-Kutta ODEs Blocks~\cite{li2022ode}.}
+  \label{fig:p9}
+\end{figure}
+
+However, further optimizations can still be made for deeper models in terms of minimizing the vanishing gradient effects. Considering RK4:
+\begin{equation}
+  y_i(t + 1) = y_i(t) + \frac{1}{6}(F_{i1} + 2F_{i2} + 2F_{i3} + F_{i4})\label{eq:3}
+\end{equation}
+
+Let $\mathcal{E}$ be the loss of training, $L$ be the number blocks of the model, and $y_{iL}$ be the model output. The gradient of $\mathcal{E}$ at $y_{it}$, using the Chain Rule, is:
+
+\begin{equation}
+  \frac{\partial \mathcal{E}}{\partial y_{it}} = \frac{\partial \mathcal{E}}{\partial y_{iL}} \cdot \frac{\partial y_{iL}}{\partial y_{iL-1}} \cdot \frac{\partial y_{iL-1}}{\partial y_{iL-2}} \dots \frac{\partial y_{it+1}}{\partial y_{it}}
+\end{equation}
+\begin{equation}\label{eq:4}
+  \frac{\partial \mathcal{E}}{\partial y_{it}} = \frac{\partial \mathcal{E}}{\partial y_{iL}} \cdot \prod_{k=t}^{L-1} \frac{\partial y_{ik+1}}{\partial y_{ik}}
+\end{equation}
+
+where
+\begin{align}\label{eq:5}
+  \frac{\partial y_{ik+1}}{\partial y_{ik}} = & \ 1 + \frac{1}{6}\frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} \notag  +                                                                                                                                                                         \\
+                                              & \frac{1}{3}\frac{\partial F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y)}{\partial y_{ik} + \frac{1}{2}F_i(y_{ik}, Y)} \cdot \left( 1 + \frac{1}{2}\frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} \right) \notag +                                    \\
+                                              & \frac{1}{3}\frac{\partial F_i(y_{ik} + \frac{1}{2}F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y), Y)}{\partial y_{ik} + \frac{1}{2}F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y)} \cdot \notag                                                            \\
+                                              & \ \ \ \ \left[ 1 + \frac{1}{2}\frac{\partial F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y)}{\partial y_{ik} + \frac{1}{2}F_i(y_{ik}, Y)} \cdot \left( 1 + \frac{1}{2}\frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} \right)\right] \notag +          \\
+                                              & \frac{1}{6}\frac{\partial F_i(y_{ik} + F_i(y_{ik} + \frac{1}{2}F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y), Y), Y)}{\partial y_{ik} + F_i(y_{ik} + \frac{1}{2}F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y), Y)} \cdot \notag                          \\
+                                              & \ \ \ \ \left\{ 1 + \frac{\partial F_i(y_{ik} + \frac{1}{2}F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y), Y)}{\partial y_{ik} + \frac{1}{2}F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y)} \cdot \right. \notag                                           \\
+                                              & \ \ \ \ \left. \left[ 1 + \frac{1}{2} \frac{\partial F_i(y_{ik} + \frac{1}{2}F_i(y_{ik}, Y), Y)}{\partial y_{ik} + \frac{1}{2}F_i(y_{ik}, Y)} \cdot \left( 1 + \frac{1}{2}\frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} \right) \right] \right\}
+\end{align}
+
+This result can lead to a higher risk of gradient vanishing when $L$ is big.
+
+The issue seems to stem from the small coefficients of $F_i$, specifically, $\gamma_1 = \gamma_4 = \frac{1}{6}$ and $\gamma_2 = \gamma_3 = \frac{1}{3}$. A practical approach is to empirically set $\gamma_i = 1$, $\beta_p = 1$ for removing the product factors that are less than 1 during gradient computation. Furthermore, experiments shown that eliminating $F_{i2}$ and $F{i_3}$ blocks can lead to a faster convergence and a small accuracy increase.
+
+However, this adjustment is not theoretically supported by standard Runge-Kutta methods. Eq. \ref{eq:3} with the updated coefficients can be written as:
+
+\begin{equation}
+  y_i(t + 1) = y_i(t) + F_{i1} + F_{i4}
+\end{equation}
+
+Then, with all of the transformations, the gradient of loss will become:
+
+\begin{equation}
+  \frac{\partial \mathcal{E}}{\partial y_{it}} = \frac{\partial \mathcal{E}}{\partial y_{iL}} \cdot \prod_{k=t}^{L-1} f_{ik}
+\end{equation}
+
+where
+\begin{align}
+  f_{ik} = & \ 1 + \frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} + \frac{\partial F_i(y_{ik} + F_i(y_{ik}, Y), Y)}{\partial y_{ik} + F_i(y_{ik}, Y)} \cdot \left( 1 + \frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} \right) \notag + \\
+           & \frac{\partial F_i(y_{ik} + F_i(y_{ik} + F_i(y_{ik}, Y), Y), Y)}{\partial y_{ik} + F_i(y_{ik} + F_i(y_{ik}, Y), Y)} \notag  \cdot                                                                                           \\
+           & \ \ \ \ \left[ 1 + \frac{\partial F_i(y_{ik} + F_i(y_{ik}, Y), Y)}{\partial y_{ik} + F_i(y_{ik}, Y)} \cdot \left( 1 + \frac{\partial F_i(y_{ik}, Y)}{\partial y_{ik}} \right)\right]
+\end{align}
+\\
+Understanding the transformer layer operations through the lens of numerical integration opens up new avenues for improving their efficiency and effectiveness by leveraging advanced techniques from numerical analysis.
 
 \section{Quantum Computing}
-TODO
+Quantum computing revolutionizes information processing by using qubits instead of classical bits. Unlike classical bits, qubits can exist simultaneously in multiple states thanks to superposition. The state of \(n\) qubits is described by a unit vector \(\left| \psi \right\rangle\) in the Hilbert space \(\mathbb{C}^{2^n}\). Here, the ket \(\left| \cdot \right\rangle\) denotes a column vector and the bra \(\left\langle \cdot \right|\) denotes a row vector.
 
-\subsection{Quantum Gates}
-TODO
+An \(n\)-level quantum system is described by an \(n\)-dimensional Hilbert space \(\mathcal{H}^n\). A quantum pure state is represented by a unit complex vector \(\mathbf{v}\) in \(\mathcal{H}^n\). This state can be depicted as a density matrix \(\rho = \mathbf{v} \mathbf{v}^\dagger\), where \(\mathbf{v}^\dagger\) is the conjugate transpose of \(\mathbf{v}\). For a mixture of pure states \(\{ \mathbf{v}_i \}_{i=1}^n\) with probabilities \(\{ p_i \}_{i=1}^n\) summing to 1, the mixed state density matrix is \(\rho = \sum_{i=1}^n p_i \mathbf{v}_i \mathbf{v}_i^\dagger\).~\cite{fan2024Quantum}.
 
-\subsection{Quantum Circuits}
-TODO
+The evolution of a closed quantum system is governed by unitary transformations~\cite{nielsen2001quantum}. The state \(\mathbf{v}_t\) at time \(t\) evolves to \(\mathbf{v}_{t+\Delta t}\) at time \(t + \Delta t\) via a unitary matrix \(U \in \mathcal{H}\), such that \(U_{\Delta t} \mathbf{v}_t = \mathbf{v}_{t+\Delta t}\). This matrix \(U\) satisfies \(UU^\dagger = I\). Considering a density matrix \(\rho\), the system evolution is expressed as \(U \rho_t U^\dagger = \rho_{t+\Delta t}\).
+
+A quantum circuit manipulates qubits through a series of quantum gates, transforming their states via unitary operations. Mathematically, this is represented as \(U \left| \psi \right\rangle\), where \(U\) is a \(2^n \times 2^n\) unitary matrix. The circuit typically concludes with the measurement of qubits, revealing the final state of the system.
+
+In this context, $R_X$, $R_Y$ and $R_Z$ gates are used, which rotates a qubit around the $X$, $Y$ and $Z$ axes, and CNOT gates, which flips the state of a target qubit conditionally on the state of a control qubit being \(\left| 1 \right\rangle\). The Hadamard gate $H$ helps with the creation of entanglement, along with CNOT.
+
+These gates are defined by the following matrices:
+
+\[
+  H = \frac{1}{\sqrt{2}} \begin{bmatrix}
+    1 & 1  \\
+    1 & -1
+  \end{bmatrix}
+\]
+
+\[
+  R_X(\theta) = \begin{bmatrix}
+    \cos(\theta/2)   & -i\sin(\theta/2) \\
+    -i\sin(\theta/2) & \cos(\theta/2)
+  \end{bmatrix}
+\]
+
+\[
+  R_Y(\theta) = \begin{bmatrix}
+    \cos(\theta/2) & -\sin(\theta/2) \\
+    \sin(\theta/2) & \cos(\theta/2)
+  \end{bmatrix}
+\]
+
+\[
+  R_Z(\theta) = \begin{bmatrix}
+    e^{-i\theta/2} & 0             \\
+    0              & e^{i\theta/2}
+  \end{bmatrix}
+\]
+
+\[
+  \text{CNOT} = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0
+  \end{bmatrix}
+\]
 
 \subsection{Quantum Machine Learning}
-TODO
+Quantum Machine Learning (QML) leverages Quantum Computing to enhance classical Machine Learning models. By integrating quantum circuits into classical algorithms, QML exploits unique properties in Quantum Mechanics to improve performance and capabilities.
 
-\subsection{Variational Quantum Circuits (VQC)}
-TODO
+Notable QML models include Quantum Support Vector Machines~\cite{rebentrost2014quantum}, Quantum Nearest-Neighbor Algorithms~\cite{wiebe2015quantum}, Quantum Nearest Centroid Classifiers~\cite{johri2021nearest}, and Quantum Artificial Neural Networks~\cite{narayanan2000quantum}, as well as Quantum Graph Neural Networks~\cite{hu2021forcenet}. These models often use Variational Quantum Algorithms~\cite{cerezo2021variational}, or Variational Quantum Circuits (VQCs)~\cite{benedetti2019parameterized}, where rotation angles are optimized alongside classical parameters~\cite{Comajoan_Cara_2024}.
 
-\subsection{Quantum Runge-Kutta Method}
-TODO
+Variational Quantum Algorithms (VQAs) have emerged to address various challenges in quantum chemistry and combinatorial optimization. Key examples include the Variational Quantum Eigensolver (VQE) and the Quantum Approximate Optimization Algorithm (QAOA). VQAs operate by optimizing parameters within a quantum circuit to minimize a given objective function, often represented by the Hamiltonian of the system~\cite{wang2024comprehensive}.
 
-\subsection{Quantum Transformer}
-TODO
+The structure of a VQA can be distilled into four key components:
 
-\chapter{Proposed Solution}\pagestyle{fancy}
+\begin{enumerate}
+  \item \textbf{Objective Function:} Often derived from the Hamiltonian, guiding the evolution of a quantum state. The objective function \(C(\theta)\) is typically given by:
+        \[
+          C(\theta) = \langle \psi(\theta) | \hat{H} | \psi(\theta) \rangle
+        \]
+        where \(| \psi(\theta) \rangle\) is the quantum state prepared by the parameterized quantum circuit and \(\hat{H}\) is the Hamiltonian of the system.
 
-\chapter{Experiments}\pagestyle{fancy}
+  \item \textbf{Parameterized Quantum Circuit (PQC):} A quantum circuit with tunable parameters, evolving the initial state \(|0\rangle\) through a sequence of quantum gates:
+        \[
+          | \psi(\theta) \rangle = U(\theta) | 0 \rangle
+        \]
+        where \(U(\theta)\) is the unitary operator representing the quantum circuit.
 
-\chapter{Conclusions and Future Work}\pagestyle{fancy}
+  \item \textbf{Measurement Scheme:} Extracting information from the quantum state is crucial for evaluating the objective function. This often involves measuring the expectation value of the Hamiltonian:
+        \[
+          \langle \hat{H} \rangle = \sum_{i} h_i \langle \psi(\theta) | \hat{O}_i | \psi(\theta) \rangle
+        \]
+        where \(\hat{O}_i\) are observables and \(h_i\) are coefficients.
 
-\chapter{Bibliography}\pagestyle{fancy}
+  \item \textbf{Classical Optimizer:} A classical algorithm (e.g., gradient descent) is used to adjust the parameters of the PQC to minimize the objective function:
+        \[
+          \theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta C(\theta)
+        \]
+        where \(\eta\) is the learning rate.
+\end{enumerate}
+The NISQ era, a term coined by John Preskill, describes the current phase of Quantum Computing characterized by devices with a limited number of qubits and significant noise levels. These devices do not yet support full-scale quantum error correction, limiting the depth and complexity of executable quantum circuits. NISQ algorithms often adopt a hybrid approach, combining quantum circuits for quantum-intensive computations with classical processes for the remainder.
+
+Quantum neural networks aim to merge Quantum Mechanics with neural network architectures. These networks leverage quantum phenomena such as superposition and entanglement to perform computations that may be infeasible for classical neural networks. The structure of a Quantum Neural Network can be represented as:
+
+\begin{itemize}
+  \item \textbf{Quantum Layers:} Each layer consists of quantum gates applied to qubits:
+        \[
+          | \psi_l \rangle = U_l(\theta_l) | \psi_{l-1} \rangle
+        \]
+        where \(U_l(\theta_l)\) is the unitary transformation for layer \(l\).
+
+  \item \textbf{Activation Function:} Measurement and classical post-processing serve as activation functions:
+        \[
+          \sigma(x) = \text{Measurement}(U(\theta)x)
+        \]
+
+  \item \textbf{Training:} Training involves optimizing the parameters \(\theta\) using a classical optimizer:
+        \[
+          \theta \rightarrow \theta - \eta \nabla_\theta \mathcal{L}
+        \]
+        where \(\mathcal{L}\) is the loss function.
+\end{itemize}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.85]{./pics/vqa.png}
+  \caption[The Variational Quantum Algorithm Structure]{The Variational Quantum Algorithm Structure~\cite{wang2024comprehensive}.}
+  \label{fig:p10}
+\end{figure}
+
+\chapter{Proposed Solution}\vspace{-12pt}\label{solution}
+
+In this chapter, the feasibility and potential of integrating quantum principles into Deep Learning Optimization are being presented. Specifically, neural hybrid architectures based on ODE (Ordinary Differential Equation)-inspired Quantum Visual Transformer (QViTs) network configurations are examined. Additionally, a generative Quantum Neural Network is designed, QRKT-GAN, leveraging qubits in varying quantities, from small to large. The primary aim of this thesis is not to tailor specific architectural components for particular problems in Computer Vision (CV) or Natural Language Processing (NLP). Instead, it focuses on experimenting with hybrid frameworks using widely recognized, consistent, and versatile datasets, complemented by robust classical optimization techniques.
+
+To achieve this, the proposed ODE-QViTs networks are hybrid models that blend classical and Quantum Computing principles. These configurations aim to demonstrate how Quantum Mechanics can enhance the efficiency and performance of Deep Learning models. QRKT-GAN, the proposed generative Quantum Neural Network, leverages a Quantum Runge-Kutta method of 4th order within its architecture, aiming to explore the potential of Variational Quantum Circuits (VQC) in the context of ODEs.
+
+The implementation leverages a variety of advanced technologies:
+
+\begin{itemize}
+  \item \textbf{JAX~\cite{bradbury2018jax} and Flax~\cite{heek2020flax}}: These are used for Just-In-Time (JIT) compilation and advanced numerical computing. They facilitate efficient computation with Deep Learning layers.
+  \item \textbf{Tensorflow Quantum~\cite{broughton2020tensorflow}}: This tool provide a platform for building and training quantum models.
+  \item \textbf{Qiskit~\cite{cross2018ibm}}: This is used for simulating and running quantum algorithms.
+  \item \textbf{Pytorch~\cite{imambi2021pytorch}}: A popular deep learning framework that supports the implementation and training of complex neural networks.
+  \item \textbf{Tensor Circuit~\cite{Zhang_2023}}: It is used for efficiently simulating Variational Quantum Circuits in a non-quantum environment leveraging Noisy Intermediate-Scale Quantum (NISQ) era.
+\end{itemize}
+
+Training the networks relies on strong classical techniques to ensure robustness and reliability in performance.
+
+For the implementation of Quantum Visual Transformers Encoders and Unmasked Decoders, several key parameters are being considered~\cite{Comajoan_Cara_2024}:
+
+\begin{itemize}
+  \item \textbf{Patch Size}: Determines the size of the input data chunks.
+  \item \textbf{Hidden Size}: Defines the dimensionality of the hidden layers within the transformer.
+  \item \textbf{ODE-Transformer Blocks}: The design of these blocks is inspired by \cite{li2022ode}, integrating ODE principles into the transformer architecture.
+  \item \textbf{Quantum Attention Heads}: These replace classical attention heads to leverage quantum parallelism.
+  \item \textbf{Hidden QMLP Size}: Specifies the size of the hidden layers in the Quantum Multi-Layer Perceptron (QMLP).
+\end{itemize}
+
+These parameters are crucial for optimizing the QViTs architecture and ensuring it can effectively process and learn from the input data.
+
+The QRKT-GAN generative hybrid network incorporates the following components:
+
+\begin{itemize}
+  \item \textbf{Generator and Discriminator Architectures}: Both are based on QViTs. The generator architecture specifically includes a  Quantum ODE lock, namely a Runge-Kutta 4th order one. This design is intended to investigate the utilization of VQCs in the context of ODEs.
+\end{itemize}
+
+The proposed model is shown below:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.193]{./pics/Blank diagram - Page 1 (2).png}
+  \caption[The QRKT-GAN Neural Architecture Structure]{The QRKT-GAN Neural Architecture Structure. Image inspired from~\cite{Comajoan_Cara_2024, jiang2021transgan}.}
+  \label{fig:p11}
+\end{figure}
+
+The used Quantum Visual Transformer Neural Architecture is described as:
+\\
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.12]{./pics/Blank diagram - Page 1.png}
+  \caption[The Visual Quantum Transformer used in QRKT-GAN]{The Visual Quantum Transformer used in QRKT-GAN. Image inspired from~\cite{Comajoan_Cara_2024}.}
+  \label{fig:p12}
+\end{figure}
+
+And the VQC used for implementing the QMLP and Quantum Attention Heads is defined as:
+\\
+\begin{figure}[h]
+  \[
+    \begin{array}{c}
+      \Qcircuit @C=0.75em @R=1.1em {
+      \lstick{| \psi_0 \rangle}     & \gate{R_y(x_0)}     & \gate{R_x(\theta_0)}     & \gate{R_z(\theta_0)}     & \gate{H} & \ctrl{1} & \qw      & \qw      & \qw      & \qw      & \qw    & \qw      & \qw      & \qw      & \targ     & \meter \\
+      \lstick{| \psi_1 \rangle}     & \gate{R_y(x_1)}     & \gate{R_x(\theta_1)}     & \gate{R_z(\theta_1)}     & \qw      & \targ    & \gate{H} & \ctrl{1} & \qw      & \qw      & \qw    & \qw      & \qw      & \qw      & \qw       & \meter \\
+      \lstick{| \psi_2 \rangle}     & \gate{R_y(x_2)}     & \gate{R_x(\theta_2)}     & \gate{R_z(\theta_2)}     & \qw      & \qw      & \qw      & \targ    & \gate{H} & \ctrl{1} & \qw    & \qw      & \qw      & \qw      & \qw       & \meter \\
+                                    & \vdots              & \vdots                   & \vdots                   &          &          &          &          &          & \vdots   & \vdots &          &          &          &           & \vdots \\
+      \lstick{| \psi_{n-1} \rangle} & \gate{R_y(x_{n-1})} & \gate{R_x(\theta_{n-1})} & \gate{R_z(\theta_{n-1})} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \targ  & \gate{H} & \ctrl{1} & \qw      & \qw       & \meter \\
+      \lstick{| \psi_n \rangle}     & \gate{R_y(x_n)}     & \gate{R_x(\theta_n)}     & \gate{R_z(\theta_n)}     & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw    & \qw      & \targ    & \gate{H} & \ctrl{-5} & \meter \\                                                                                                                            \\
+      }
+    \end{array}
+  \]
+  \caption{The Variational Quantum Circuit used in QRKT-GAN} \label{fig:vqc}
+\end{figure}
+
+Each component of the feature vector \( \mathbf{x} = (x_0, \ldots, x_{n-1}, x_{n}) \) is embedded into the quantum state of qubits by translating them into specific rotation angles. Following this, two layers of single-qubit rotations parameterized by \( \boldsymbol{\theta} = (\theta_0, \ldots, \theta_{n-1}, \theta_{n}) \) is applied to each qubit. These parameters, namely the qurons, are not static; they are optimized and learned alongside other model parameters during the training process.
+
+In contrast with the Variational Quantum Circuit (VQC) from~\cite{Comajoan_Cara_2024}, the modified VQC presented here achieves a modest increase in accuracy, typically around 1-2\%. This improvement is attributed to the inclusion of additional \( R_y \), \( R_z \) and \( H \) gates. These gates are believed to enhance the circuit ability to capture information from the input features more effectively, allowing for a richer extraction of semantics from the patches.
+
+The \( R_y \) gate is a rotation around the Y-axis of the Bloch sphere. It helps in adjusting the quantum state in a way that can represent the data more accurately.
+The \( R_z \) gate is a rotation around the Z-axis of the Bloch sphere. It fine-tunes the phase of the quantum state, which can be crucial for encoding complex data patterns.
+By incorporating these gates, the circuit can navigate the state space more freely and capture more nuanced features of the input data. This potentially leads to better learning and generalization.
+
+The Hadamard gates are used to create superposition states, which are essential for quantum parallelism. They enable the circuit to consider multiple states simultaneously, thus increasing the computational efficiency.
+These gates also facilitate the creation of Bell entangled states when combined with controlled-NOT (CNOT) gates. Entanglement is a unique quantum property that correlates the states of qubits, making it possible to represent more complex patterns and relationships within the data.
+The entanglement helps in capturing deeper semantic relationships within the data patches, which traditional classical methods might miss. This can lead to a more robust and accurate model.
+
+The added \( R_y \) and \( R_z \) gates, along with the Hadamard gates, likely contribute to the model improved performance through the following mechanisms:
+\begin{itemize}
+  \item \textbf{Enhanced Feature Representation:} The additional gates allow the quantum circuit to transform and represent the input data in a higher-dimensional space more effectively. This transformation helps in capturing more intricate patterns and features from the data.
+  \item \textbf{Better Generalization:} The improved feature extraction and entanglement help the model generalize better to unseen data, reducing overfitting and improving accuracy.
+  \item \textbf{Quantum Parallelism and Entanglement:} These quantum properties allow the model to explore multiple hypotheses simultaneously and capture complex dependencies within the data, which is often challenging for classical models.
+\end{itemize}
+
+The proposed enhancements to the VQC demonstrate a small but significant increase in accuracy, highlighting the potential benefits of leveraging additional quantum gates and entanglement in quantum circuits. The goal of QRKT-GAN is to generate realistic and high-quality synthetic data, leveraging the strengths of Quantum Computing to enhance generative models.
+
+This chapter highlights the proposed hybrid architectural configurations, emphasizing their potential to integrate Quantum Computing principles into Deep Learning optimization. By using advanced technologies and innovative designs, such as ODE-based QViTs and QRKT-GAN, this research aims to push the boundaries of what is achievable in Deep Learning through the incorporation of Quantum Mechanics. The experiments will utilize popular and versatile datasets to validate the effectiveness of these hybrid models, showcasing their capability to address complex optimization problems in an energy-efficient manner.
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.675]{./pics/image.png}
+  \caption[Quantum Machine Learning Summary]{Quantum Machine Learning Summary~\cite{cerezo2021variational}}
+  \label{fig:p13}
+\end{figure}
+
+\chapter{Experiments}\vspace{-12pt}
+This chapter presents the methodologies used during the training and evaluation of the ODE models for classification tasks in computer vision (CV) and natural language processing (NLP) before the generation task. The datasets utilized in these experiments and the specific configurations of the QVits models are detailed. The final section of this chapter explores the generative capabilities of the QRKT-GAN compared to its classical baseline, TransGAN. All models are evaluated using consistent metrics, with an additional metric for the hybrid models: the number of qubits employed in learning the parameters of the qurons in the Variational Quantum Circuits (VQCs).
+
+To begin with, the classification tasks in CV and NLP are approached using ODE models. These models were trained and evaluated on a range of benchmark datasets. For CV tasks, datasets such as MNIST and CIFAR-10 were used. For NLP task, IMDB for sentiment analysis was employed. Each dataset provided unique challenges and opportunities for the ODE models to demonstrate their robustness and adaptability. In terms of QVits configurations, various architectures were explored. The configurations varied in terms of the depth and width of the neural networks.
+
+The generative capabilities of the QRKT-GAN is rigorously compared with the classical baseline TransGAN. The QRKT-GAN incorporates quantum-inspired techniques to enhance generative performance. The dataset used is CIFAR-10 for general object generation. Both models were evaluated based on standard generative metrics, such as Inception Score (IS) and Fréchet Inception Distance (FID).
+
+An additional metric for the hybrid models is the number of qubits used in the VQCs. This metric is crucial as it provides insight into the quantum resource requirements for achieving specific performance levels. The evaluation highlighted that while QRKT-GAN required fewer parameters than TransGAN, it utilized a significant number of qubits, indicating a trade-off between classical and quantum resources.
+
+Furthermore, classical and hybrid architectures are configured with a comparable number of components listed in chapter \ref{solution}. Given the fact that the input and output states of a Variational Quantum Circuit (VQC) share the same dimensions, the qubit count must match the size of the neural network corresponding layers. The designed and proposed VQC has $2n$ parameters compared to the classical fully connected layer $n^2 + n$ parameters.
+
+The dimensions are kept minimal to limit qubit requirements, thereby reducing simulation time and enabling execution on current quantum hardware. A batch size of 65 is employed, with training spanning 65 epochs using the AdamW optimizer~\cite{zhang2018improved}, incorporating gradient clipping at norm 1, and a learning rate scheduler that transitions from a linear warmup over 5000 steps (0 to $10^{-3}$) to a cosine decay~\cite{learningrate2}. A random exhaustively hyperparameter search~\cite{randomsearch} is conducted to optimize parameters for the classical baseline, which are then applied to the QViT.
+
+The classical components of the model, along with the classical baseline, are implemented and trained using JAX~\cite{bradbury2018jax} and Flax~\cite{heek2020flax,Comajoan_Cara_2024}. TensorCircuit~\cite{Zhang_2023} is utilized for the implementation, training, and execution of the VQCs via numerical simulation on a classical computer. This approach allows the quantum model to be trained for multiple epochs in a relatively decent duration. This represents a significant improvement over previous efforts, such as the work by Di Sipio et al.~\cite{di2022dawn}, which required around 100 hours to train a similar hybrid Transformer model for a single epoch, despite having a larger sample size.
+
+\section{MNIST Digit Classification}
+The MNIST~\cite{lecun2010mnist} dataset is a large database of handwritten digits commonly used for training various Image Processing systems. This consistent dataset contains 60,000 training images and 10,000 testing images, each of which is a 28x28 grayscale image of a single digit from 0 to 9. MNIST serves as a standard benchmark in Machine Learning due to its simplicity and the ease with which models can achieve high accuracy. It is particularly useful for validating new algorithms and models.
+
+In this experiment, the dataset is strategically divided into three distinct parts to ensure comprehensive model evaluation and optimization. The training split, containing 54,000 images, provides a robust foundation for the model to learn diverse patterns and features. For hyperparameter tuning and model refinement, a validation split of 6,000 images is used during the Random Search process. This helps in selecting the best-performing model configuration. Lastly, to rigorously test the model generalization capability, 10,000 images are reserved in the test set, which remains unseen during the training phase. This approach ensures that the model is not only well-trained but also performs effectively on new, unseen data, reflecting its true predictive power.
+
+Some extracted samples are shown below:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.65]{./pics/mnist.png}
+  \caption[Examples from MNIST]{Examples from MNIST\protect\footnotemark}
+  \label{fig:p14}
+\end{figure}
+\footnotetext{\url{https://www.tensorflow.org/datasets/catalog/mnist}}
+
+The evolution of the loss and AUC score during \textbf{one classical ODE block}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_loss_mnist_rk1_rk2_rk3_rk4.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p15}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_auc_mnist_rk1_rk2_rk3_rk4.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p16}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Patch Size}: 14
+  \item \textbf{Hidden Size}: 6
+  \item \textbf{Classical ODE-Transformer Blocks}: 1
+  \item \textbf{Classical Attention Heads}: 2
+  \item \textbf{Hidden MLP Size}: 3
+\end{itemize}
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_MNIST_0}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK1          & 1544.82                 & 94\%              & 93\%              & 50                      & 3733                   & -                  \\
+    RK2          & 1524.14                 & 94\%              & 94\%              & 55                      & 3946                   & -                  \\
+    RK3          & 1539.63                 & 94\%              & 94\%              & 51                      & 4159                   & -                  \\
+    RK4          & 1560.66                 & 95\%              & 94\%              & 51                      & 4372                   & -                  \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the classical baselines}
+\end{table}
+
+Observations:
+
+The F1 Scores are consistently high across all models, with RK1 scoring slightly lower at 93\%. RK2, RK3, and RK4 all achieve a 94\% F1 Score, indicating a good balance between precision and recall for these models.
+
+The epoch at which the best Area Under the Curve (AUC) is achieved varies slightly. RK2 reaches its best AUC performance at epoch 55, which is higher than the others. RK1 achieves its best AUC at epoch 50, while RK3 and RK4 both reach their best performance at epoch 51.
+
+The number of parameters increases progressively from RK1 to RK4. RK1 has the fewest parameters at 3733, while RK4 has the most at 4372. This indicates that RK4 is a more complex model compared to the others, which may contribute to its slightly better performance metrics.
+
+\clearpage
+
+And between the optimized RK4 and traditional RK4:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_loss_mnist_rk4_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p17}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_auc_mnist_rk4_rk4_enh.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p18}
+\end{figure}
+
+
+For the MNIST classification task, the optimized variant does not demonstrate any significant improvement in training loss, testing loss, or AUC. This lack of impact could be attributed to the relatively small dimensionality of the problem, where further adjustments yield negligible effects. Consequently, the inherent simplicity of the dataset may limit the benefits of optimization techniques.
+
+\clearpage
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_MNIST_1}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK4          & 1560.66                 & 95\%              & 94\%              & 51                      & 4372                   & -                  \\
+    RK4\_ENH     & 1562.54                 & 94\%              & 94\%              & 49                      & 4372                   & -                  \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the classical baselines}
+\end{table}
+
+Observations:
+
+The training times for RK4 and RK4\_ENH are very close, with RK4\_ENH taking slightly longer. This suggests that the enhancements in RK4\_ENH do not significantly increase the training time, making it comparable in terms of computational requirements.
+
+RK4 achieves a slightly higher accuracy of 95\% compared to 94\% for RK4\_ENH. This indicates that the base RK4 model is marginally better at correctly classifying the MNIST dataset images.
+
+Both models have an identical F1 Score of 94\%, demonstrating a consistent balance between precision and recall. This suggests that the enhancement does not significantly affect the F1 Score.
+
+RK4 reaches its best AUC at epoch 51, whereas RK4\_ENH reaches it at epoch 49. This slight difference indicates that RK4\_ENH achieves its optimal performance slightly earlier in the training process compared to RK4.
+
+Both models have the same number of parameters, indicating that the enhancements in RK4\_ENH do not involve changes in the model complexity or size.
+
+\clearpage
+
+The evolution of the loss and AUC score during \textbf{three classical ODE blocks}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_rk_1_dec/classical_transfomer_loss_mnist_rk1_rk2_rk3_rk4.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p19}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_rk_1_dec/classical_transfomer_auc_mnist_rk1_rk2_rk3_rk4.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p20}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Patch Size}: 14
+  \item \textbf{Hidden Size}: 6
+  \item \textbf{Classical ODE-Transformer Blocks}: 3
+  \item \textbf{Classical Attention Heads}: 2
+  \item \textbf{Hidden MLP Size}: 3
+\end{itemize}
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_MNIST_3}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK1          & 1582.73                 & 94\%              & 94\%              & 50                      & 3472                   & -                  \\
+    RK2          & 1689.24                 & 95\%              & 95\%              & 53                      & 4693                   & -                  \\
+    RK3          & 1850.70                 & 94\%              & 94\%              & 55                      & 5332                   & -                  \\
+    RK4          & 1925.89                 & 95\%              & 95\%              & 51                      & 5971                   & -                  \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the classical baselines}
+\end{table}
+
+Observations:
+
+Both RK2 and RK4 achieve the highest scores, demonstrating that higher-order methods can offer slight improvements in classification performance.
+
+RK1 and RK3 both achieve an accuracy and F1 score of 94\%, which is marginally lower than RK2 and RK4. This suggests that while all methods are effective, the second and fourth-order methods have a slight edge in performance.
+
+Training time increases with the order of the Runge-Kutta method. RK1, being the simplest and least computationally intensive method, has the shortest training time. As the order increases, so does the complexity and the computational load, resulting in longer training times: RK2, RK3, and RK4.
+
+The epoch at which the model achieves its best Area Under the Curve (AUC) varies slightly among the methods. RK1 and RK4 reach their peak AUC at around 50 and 51 epochs respectively, while RK2 and RK3 reach it slightly later at 53 and 55 epochs.
+
+More complex methods involve more parameters, which can contribute to improved performance but also add to the model complexity and training time.
+
+\clearpage
+
+And between the optimized RK4 and traditional RK4:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_rk_1_dec/classical_transfomer_loss_mnist_rk4_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p21_}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_rk_1_dec/classical_transfomer_auc_mnist_rk4_rk4_enh.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p21}
+\end{figure}
+
+
+Like before, The optimized variant does not show any significant improvement in training loss, testing loss, or AUC. This lack of impact could be due to the relatively small dimensionality of the problem, where further adjustments have minimal effects. Consequently, the inherent simplicity of the dataset may limit the advantages of optimization techniques.
+\clearpage
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_MNIST_2}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK4          & 1925.89                 & 95\%              & 95\%              & 51                      & 5971                   & -                  \\
+    RK4\_ENH     & 1842.04                 & 95\%              & 95\%              & 54                      & 5971                   & -                  \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the classical baselines}
+\end{table}
+
+Observations:
+
+The training time for the enhanced RK4 method is slightly less than the standard RK4, suggesting improved computational efficiency.
+
+Both RK4 and RK4\_ENH achieve an accuracy of 95\%, indicating that the enhancement does not compromise the classification performance.
+
+Both methods achieve an F1 score of 95\%, reaffirming that the enhancement maintains the model ability to balance precision and recall.
+
+The enhanced model reaches its peak AUC slightly later, at the 54th epoch. This might indicate a different learning curve or optimization process.
+
+These methods have the same number of parameters, indicating that the enhancement does not involve increasing the model complexity in terms of parameters.
+
+\clearpage
+The evolution of the loss and AUC score during \textbf{three ODE quantum blocks}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/quantum/3_rk_1_dec/quantum_transfomer_loss_mnist_rk1_rk2_rk3_rk4.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p22}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/quantum/3_rk_1_dec/quantum_transfomer_auc_mnist_rk1_rk2_rk3_rk4.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p23}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Patch Size}: 14
+  \item \textbf{Hidden Size}: 6
+  \item \textbf{Quantum ODE-Transformer Blocks}: 3
+  \item \textbf{Quantum Attention Heads}: 2
+  \item \textbf{Hidden QMLP Size}: 3
+\end{itemize}
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_MNIST_3}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    QRK1         & 2051.72                 & 91\%              & 91\%              & 56                      & 2872                   & 114                \\
+    QRK2         & 2442.47                 & 91\%              & 91\%              & 47                      & 3088                   & 195                \\
+    QRK3         & 2945.24                 & 91\%              & 91\%              & 52                      & 3304                   & 276                \\
+    QRK4         & 3594.99                 & 91\%              & 91\%              & 52                      & 3520                   & 357                \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the quantum configurations}
+\end{table}
+
+Observations:
+
+Training time increases with the order of the quantum Runge-Kutta method, reflecting the increasing computational complexity.
+
+All quantum methods achieve an accuracy of 91\%. This consistency suggests that the order of the method does not significantly impact accuracy in the quantum implementations.
+
+Similar to accuracy, the F1 score is 91\% for all quantum methods, indicating consistent performance in balancing precision and recall.
+
+The best AUC epoch varies, with QRK2 reaching its peak performance earliest at 47 epochs, while QRK1 reaches it the latest at 56 epochs.
+
+The number of parameters increases with the order of the method, which is expected as higher-order methods typically involve more complex calculations.
+
+Higher-order methods require significantly more qubits, indicating a substantial increase in quantum resource requirements.
+
+\clearpage
+
+And between the optimized RK4 and traditional RK4:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/quantum/3_rk_1_dec/quantum_transfomer_loss_mnist_rk4_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p24}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/quantum/3_rk_1_dec/quantum_transfomer_auc_mnist_rk4_rk4_enh.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p25}
+\end{figure}
+
+
+Similar to previous observations, the optimized variant fails to exhibit significant improvements in training loss, testing loss, or AUC. This lack of noticeable impact might stem from the relatively small dimensionality of the problem, where further adjustments produce negligible effects. As a result, the inherent simplicity of the dataset may constrain the potential benefits of optimization techniques.
+\clearpage
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_MNIST_3}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    QRK4         & 3594.99                 & 91\%              & 91\%              & 52                      & 3520                   & 357                \\
+    QRK4\_ENH    & 3539.44                 & 91\%              & 91\%              & 48                      & 3520                   & 357                \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the quantum configurations}
+\end{table}
+
+Observations:
+
+The enhanced QRK4 method has a slightly reduced training time, suggesting improved computational efficiency.
+
+Both QRK4 and QRK4\_ENH achieve an accuracy of 91\%, indicating that the enhancement does not impact the classification performance negatively.
+
+Both methods have an F1 score of 91\%, which means the enhanced method maintains the same balance between precision and recall as the standard method.
+
+The enhanced model reaches its peak AUC earlier, at the 48th epoch, indicating potentially faster convergence.
+
+Both methods have the same number of parameters, suggesting that the enhancement does not involve increasing the model complexity in terms of parameters.
+
+Both methods require the same number of qubits, indicating that the enhancement does not increase quantum resource requirements.
+
+\clearpage
+The evolution of the loss and AUC score during \textbf{three ODE quantum and classical blocks}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/hybrid/alternative_hybrid_transfomer_loss_mnist_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p26}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/hybrid/hybrid_auc_mnist_rk4.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p27}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Patch Size}: 14
+  \item \textbf{Hidden Size}: 6
+  \item \textbf{Classical and Quantum ODE-Transformer Blocks}: 3
+  \item \textbf{Classical and Quantum Attention Heads}: 2
+  \item \textbf{Hidden QMLP Size}: 3
+\end{itemize}
+
+
+\clearpage
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:hybrid_MNIST}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK4\_ENH     & 1842.04                 & 95\%              & 95\%              & 54                      & 5971                   & -                  \\
+    QRK4\_ENH    & 3539.44                 & 91\%              & 91\%              & 48                      & 3520                   & 357                \\
+    \hline
+  \end{tabular}
+  \caption{MNIST metrics for the quantum and classical configurations}
+\end{table}
+
+Observations:
+
+The training time for the enhanced quantum QRK4 method is significantly longer than the classical method.
+
+The accuracy of the enhanced quantum method is lower compared to the classical method.
+
+The F1 score of the enhanced quantum method is consistent with its accuracy, indicating a balanced precision and recall.
+
+The enhanced quantum method achieves its best AUC performance earlier, suggesting faster convergence.
+
+The quantum method has fewer parameters, indicating potentially lower model complexity.
+
+\clearpage
+
+\section{CIFAR-10 Object Classification}
+
+CIFAR-10 is another widely used dataset in the field of Computer Vision. It consists of 60,000 32x32 color images in 10 different classes, with 6,000 images per class. The classes include airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. The dataset is divided into 50,000 training images and 10,000 testing images. CIFAR-10 is more complex than MNIST due to its color images and diverse range of object classes, making it a suitable challenge for evaluating the performance of more advanced models.
+
+In this experiment, the dataset is meticulously divided into three distinct segments to ensure thorough model evaluation and optimization. The training split, comprising 45,000 images, offers a solid foundation for the model to learn diverse patterns and features. A validation split of 5,000 images is employed during the Random Search process for hyperparameter tuning and model refinement, facilitating the selection of the best-performing model configuration. Finally, to rigorously assess the model generalization capability, 10,000 images are set aside in the test set, remaining unseen during the training phase. This method ensures that the model is not only well-trained but also demonstrates effective performance on new, unseen data, accurately reflecting its true predictive power.
+
+Some extracted samples are shown below:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.65]{./pics/cifar10.png}
+  \caption[Examples from CIFAR-10]{Examples from CIFAR-10\protect\footnotemark}
+  \label{fig:p28}
+\end{figure}
+\footnotetext{\url{https://www.tensorflow.org/datasets/catalog/cifar10}}
+
+\clearpage
+
+The evolution of the loss and AUC score during \textbf{one classical ODE block}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_loss_cifar10_rk1_rk2_rk3_rk4.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p29}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_auc_cifar10_rk1_rk2_rk3_rk4.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p30}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Patch Size}: 16
+  \item \textbf{Hidden Size}: 12
+  \item \textbf{Classical ODE-Transformer Blocks}: 1
+  \item \textbf{Classical Attention Heads}: 6
+  \item \textbf{Hidden MLP Size}: 6
+\end{itemize}
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_CIFAR_1}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK1          & 1568.55                 & 41\%              & 41\%              & 62                      & 28894                  & -                  \\
+    RK2          & 1521.45                 & 40\%              & 40\%              & 65                      & 29680                  & -                  \\
+    RK3          & 1464.02                 & 38\%              & 38\%              & 61                      & 28084                  & -                  \\
+    RK4          & 1685.04                 & 42\%              & 42\%              & 65                      & 33634                  & -                  \\
+    \hline
+  \end{tabular}
+  \caption{CIFAR-10 metrics for the classical configurations}
+\end{table}
+
+Observations:
+
+Training time varies slightly among the methods, with RK3 having the shortest training time and RK4 the longest.
+
+The accuracy ranges from 38\% to 42\%, with RK4 achieving the highest accuracy.
+
+The F1 score mirrors the accuracy, indicating a consistent balance between precision and recall across methods.
+
+The best AUC epoch varies, with RK2 and RK4 achieving their peak performance later than RK1 and RK3.
+
+The number of parameters increases with the order of the method, with RK4 having the most parameters.
+
+\clearpage
+
+And between the optimized RK4 and traditional RK4:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_loss_cifar10_rk4_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p33}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/classical/3_enc_1_rk_1_dec/classical_transfomer_auc_cifar10_rk4_rk4_enh.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p34}
+\end{figure}
+
+For the CIFAR-10 dataset, a more complex problem compared to MNIST, the optimized variant demonstrates noteworthy differences. Although it does not significantly improve training loss, testing loss, or AUC, it converges faster than the standard version. This optimized model requires fewer parameters and trains more quickly, showcasing efficiency gains. The increased complexity of CIFAR-10 means further adjustments have a more pronounced impact, but the inherent challenges of the dataset still limit substantial improvements in accuracy metrics. Nonetheless, the optimized version faster convergence and reduced parameter count highlight valuable advancements in model performance within this more intricate problem space.
+
+\clearpage
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_CIFAR_2}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK4          & 1685.04                 & 42\%              & 42\%              & 65                      & 33634                  & -                  \\
+    RK4\_ENH     & 1572.41                 & 41\%              & 41\%              & 58                      & 31252                  & -                  \\
+    \hline
+  \end{tabular}
+  \caption{CIFAR-10 metrics for the classical configurations}
+\end{table}
+
+Observations:
+
+The enhanced RK4 method has a reduced training time, suggesting improved computational efficiency.
+
+The enhanced RK4 method shows a slight decrease in accuracy compared to the standard RK4 method.
+
+The F1 score of the enhanced RK4 method is consistent with its accuracy, indicating a balanced precision and recall.
+
+The enhanced RK4 method achieves its best AUC performance earlier, suggesting faster convergence.
+
+The enhanced RK4 method has fewer parameters, indicating a reduction in model complexity.
+
+\clearpage
+The evolution of the loss and AUC score during \textbf{one ODE quantum and classical blocks}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/hybrid/hybrid_transfomer_loss_cifar10_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p35}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/hybrid/hybrid_auc_cifar10_.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p36}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Patch Size}: 16
+  \item \textbf{Hidden Size}: 12
+  \item \textbf{Classical and Quantum ODE-Transformer Blocks}: 1
+  \item \textbf{Classical and Quantum Attention Heads}: 6
+  \item \textbf{Hidden QMLP Size}: 6
+\end{itemize}
+
+
+\clearpage
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:hybrid_MNIST}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK4\_ENH     & 1685.04                 & 42\%              & 42\%              & 65                      & 33634                  & -                  \\
+    QRK4\_ENH    & 16724.79                & 34\%              & 33\%              & 61                      & 20590                  & 390                \\
+    QRK1         & 10909.40                & 33\%              & 33\%              & 56                      & 20590                  & 336                \\
+    \hline
+  \end{tabular}
+  \caption{CIFAR-10 metrics for the quantum and classical configurations}
+\end{table}
+
+Observations:
+
+The training time for the enhanced quantum QRK4 method is significantly longer than the classical method. The training time for the first-order quantum RK method is shorter than QRK4\_ENH but still much longer than RK4\_ENH.
+
+The accuracy of the enhanced quantum method is lower compared to the classical method. The first-order quantum RK method has slightly lower accuracy than the QRK4\_ENH method.
+
+The F1 score of the first-order quantum RK method matches its accuracy, indicating balanced precision and recall.
+
+The first-order quantum RK method achieves its best AUC performance the earliest among the methods listed.
+
+The number of parameters is the same for both quantum methods.
+
+The quantum methods require a significant number of qubits, highlighting the substantial quantum resources needed.
+
+\clearpage
+
+\section{IMDb Sentiment Analysis}
+
+IMDb is a widely used dataset in Natural Language Processing, particularly for sentiment analysis tasks. It comprises 50,000 movie reviews, equally divided into 25,000 training reviews and 25,000 testing reviews. Each review is labeled as either positive or negative, providing a binary classification challenge. The dataset complexity arises from the nuances of human language, including sarcasm, idioms, and varying lengths of reviews, making it an excellent benchmark for evaluating advanced sentiment analysis models.
+
+In this experiment, the IMDb dataset is meticulously divided into three distinct segments to ensure thorough model evaluation and optimization. The training split, comprising 22,500 reviews, provides a robust foundation for the model to learn diverse linguistic patterns and sentiment cues. A validation split of 2,500 reviews is utilized during the Random Search process for hyperparameter tuning and model refinement, enabling the selection of the best-performing model configuration. Finally, to rigorously assess the model generalization capability, 25,000 reviews are reserved in the test set, remaining unseen during the training phase. This method ensures that the model is not only well-trained but also demonstrates effective performance on new, unseen data, accurately reflecting its true predictive power in sentiment analysis tasks.
+
+Some extracted samples are shown below:
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|p{12cm}|}
+    \hline
+    \textbf{Label} & \textbf{Text}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \\
+    \hline
+    0 (neg)        & I have been known to fall asleep during films, but this is usually due to a combination of things including, really tired, being warm and comfortable on the settee and having just eaten a lot. However on this occasion I fell asleep because the film was rubbish. The plot development was constant. Constantly slow and boring. Things seemed to happen, but with no explanation of what was causing them or why. I admit, I may have missed part of the film, but I watched the majority of it and everything just seemed to happen of its own accord without any real concern for anything else. I can't recommend this film at all.                                                                                                                                             \\
+    \hline
+    1 (pos)        & This is a film which should be seen by anybody interested in, effected by, or suffering from an eating disorder. It is an amazingly accurate and sensitive portrayal of bulimia in a teenage girl, its causes and its symptoms. The girl is played by one of the most brilliant young actresses working in cinema today, Alison Lohman, who was later so spectacular in 'Where the Truth Lies'. I would recommend that this film be shown in all schools, as you will never see a better on this subject. Alison Lohman is absolutely outstanding, and one marvels at her ability to convey the anguish of a girl suffering from this compulsive disorder. If barometers tell us the air pressure, Alison Lohman tells us the emotional pressure with the same degree of accuracy [...] \\
+    \hline
+  \end{tabular}
+  \caption{Movie Reviews\protect\footnotemark}
+  \label{table:negative_reviews}
+\end{table}\footnotetext{https://www.tensorflow.org/datasets/catalog/imdb\_reviews}
+
+\clearpage
+
+The evolution of the loss and AUC score during \textbf{one classical ODE block}-based models learning, computed at the end of each epoch, are shown:
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/hybrid/hybrid_transfomer_loss_imdb_rk4_enh.pdf}
+  \caption[Cross-entropy loss evolution during learning]{Cross-entropy loss evolution during learning}
+  \label{fig:p37}
+  \vspace*{\floatsep}
+  \centering
+  \includegraphics[scale=0.88]{./pics/new_pdf_graphs/hybrid/hybrid_auc_imdb_.pdf}
+  \caption[AUC score evolution during learning]{AUC score evolution during learning}
+  \label{fig:p38}
+\end{figure}
+
+This implementation showcases the following components and parameters:
+\begin{itemize}
+  \item \textbf{Max sequence length}: 512
+  \item \textbf{Classical / Quantum Hidden Size}: 6 / 12
+  \item \textbf{Classical / Quantum ODE-Transformer Blocks}: 1 / 1
+  \item \textbf{Classical / Quantum Attention Heads}: 2 / 6
+  \item \textbf{Hidden MLP Size}: 3 / 6
+\end{itemize}
+
+\begin{table}[th]\small\linespread{1}
+  \label{tab:classical_CIFAR_1}
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{ODE} & \textbf{Train Time (s)} & \textbf{Accuracy} & \textbf{F1 Score} & \textbf{Best AUC Epoch} & \textbf{\# Parameters} & \textbf{\# Qubits} \\
+    \hline
+    RK4\_ENH     & 3328.61                 & 85\%              & 85\%              & 13                      & 499316                 & -                  \\
+    QRK4\_ENH    & 9033.13                 & \textbf{85}\%     & \textbf{85}\%     & 33                      & \textbf{243896}        & 141                \\
+    \hline
+  \end{tabular}
+  \caption{IMDb metrics for the classical configurations}
+\end{table}
+
+The quantum-enhanced configuration (QRK4\_ENH) takes significantly longer to train, almost three times as long as the classical configuration (RK4\_ENH). This suggests that while quantum methods may have computational benefits, they currently require more training time, possibly due to the complexity of quantum computations and the need for more iterations to converge.
+
+Despite the increased training time for the quantum-enhanced model, it does not result in higher accuracy or F1 score compared to the classical model. This indicates that the quantum enhancement does not compromise the model performance on these metrics.
+
+The best epoch for the Area Under the Curve (AUC) metric occurs earlier for the classical configuration compared to the quantum-enhanced one. This could imply that the classical model reaches its optimal performance faster during training, whereas the quantum-enhanced model requires more epochs to achieve its best performance.
+
+The quantum-enhanced configuration has approximately 51\% fewer parameters than the classical configuration. This significant reduction in the number of parameters is a crucial observation, as it highlights the potential of quantum methods in optimizing model complexity and reducing resource requirements without sacrificing performance.
+
+\clearpage
+
+\section{QRKT-GAN and TransGAN Synthetic Data Generation}
+
+This section provides a detailed comparison of the synthetic data generation capabilities of two distinct Generative Adversarial Networks (GANs): TransGAN and QRKT-GAN. While both aim to generate high-quality images, their underlying architectures and training processes differ significantly.
+
+The training hyperparameters for both GANs are summarized as follows~\cite{ahmet_sarigun_2024_10806360}:
+
+\begin{itemize}
+  \item Learning Rate for Generator: 0.0001
+  \item Learning Rate for Discriminator: 0.0001
+  \item Latent Dimension: 1024
+  \item Batch Size for Generator: 32
+  \item Batch Size for Discriminator: 32
+  \item Number of Epochs: 40
+  \item Weight Decay: 1e-3
+  \item Dropout Rate: 0.5
+  \item Number of Critic Steps: 5
+  \item Maximum Iterations: 500000
+  \item Learning Rate Decay: True
+\end{itemize}
+
+The architectural details are as follows:
+
+\begin{itemize}
+  \item Image Size: 32
+  \item Initial Size: 8
+  \item Patch Size: 4
+  \item Embedding Dimension: 384
+  \item Optimizer: 'Adam'
+  \item Loss Function: "wgangp\_eps"
+  \item Phi: 1
+  \item Beta1: 0
+  \item Beta2: 0.99
+  \item Data Augmentation: True
+\end{itemize}
+
+Due to high computational limitations, QRKT-GAN has weaker architectural components for both the Generator and Discriminator. Both QRKT-GAN and TransGAN were trained for only 40 epochs, owing to the very high generation time and memory consumption for QRKT-GAN. The training utilized the Nvidia A100-PCIE-40GB GPU cluster. For QRKT-GAN, the data augmentation techniques specified were applied to mitigate some of these limitations.
+
+However, the ODE-based Transformer block using optimized RK4 could be applied to the Generator network, further enhancing the quality of images and the obtained scores.
+
+The Discriminator, unfortunately, doesn't have any ODE blocks in its composition due to high memory consumption during training. It exclusively employs Encoders integrated with Variational Quantum Circuits (VQCs).
+
+The performance metrics for QRKT-GAN and TransGAN are summarized in the table below:
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Metric}                  & \textbf{QRKT-GAN} & \textbf{TransGAN} \\
+    \hline
+    Inception Score (IS)             & 74.89             & 52.31             \\
+    \hline
+    Fréchet Inception Distance (FID) & 6.78             & 46.97             \\
+    \hline
+  \end{tabular}
+  \caption{Performance Metrics for TransGAN and QRKT-GAN on CIFAR-10 using 40 epochs}
+  \label{table:performance_metrics}
+\end{table}
+
+\begin{figure}[th]
+  \centering
+  \includegraphics[scale=0.88]{./pics/gan_gen.png}
+  \caption[TransGAN Generated Examples]{TransGAN Generated Examples~\cite{ahmet_sarigun_2024_10806360}}
+  \label{fig:p40}
+\end{figure}
+
+Future investigations are numerous and essential to advancing the field. One crucial area is the development of fault-tolerant quantum hardware, which would allow for more reliable and scalable implementations of quantum GANs. Additionally, testing QRKT-GAN on various quantum architectures, including those based on trapped ions, superconducting qubits, and photonic systems, could provide deeper insights into the most effective configurations.
+
+Further research should also explore the use of Quantum Graph Networks (QGNs) and Quantum Random Walks for optimizing network-based models. Quantum Annealing, particularly for combinatorial optimization problems, presents another promising avenue for enhancing GAN performance.
+
+While QRKT-GAN currently faces significant limitations, ongoing advancements in Quantum Computing hardware and algorithms hold the promise of achieving Quantum Artificial Intelligence that can surpass classical methods in generating high-quality synthetic data.
+
+\chapter{Conclusions and Future Work}\vspace{-12pt}
+The comprehensive experiments and theoretical discussions presented in this thesis underscore the transformative potential of Quantum Computing in optimizing Deep Learning models. These results reveal that quantum techniques can significantly reduce the number of trainable parameters, thereby decreasing the energy consumption required for training such models. This is particularly crucial in domains where computational resources and energy efficiency are critical constraints.
+
+The research primarily focused on Variational Quantum Circuits (VQCs) and Variational Quantum Algorithms (VQAs), illustrating their capacity to compress neural networks without compromising performance. These quantum methodologies offer a promising alternative to traditional Deep Learning optimization techniques, especially in scenarios demanding high efficiency and lower energy footprints.
+
+However, the journey of integrating Quantum Computing with Artificial Intelligence is just beginning, and there are numerous avenues for future research and exploration. A pivotal area for future investigation is the development and implementation of fault-tolerant quantum hardware. The current generation of quantum devices is plagued by high error rates and issues related to decoherence, which limit their practical applications. Achieving fault tolerance in quantum hardware will be a significant milestone, enabling more reliable and extensive testing of quantum-enhanced AI models on real-world tasks.
+
+Beyond improving hardware, future research should focus on testing these quantum models on diverse quantum architectures. Different quantum computing paradigms, such as those based on trapped ions, superconducting qubits, and photonic systems, offer unique advantages and challenges. Exploring these architectures will provide a more comprehensive understanding of how quantum computing can be leveraged to enhance AI.
+
+Moreover, future work should include extensive benchmarking and testing of VQCs and VQAs on practical, real-world problems. This involves assessing their scalability, robustness, and generalizability across different domains. By conducting these tests, researchers can validate the practical utility of quantum-enhanced AI models and identify any limitations that need to be addressed.
+
+Based on the insights and experimental results presented in this thesis, it is evident that Quantum Computing is poised to play a pivotal role in the future of Artificial Intelligence. The integration of quantum mechanics and AI could give rise to a stronger Quantum Artificial Intelligence, a new paradigm that leverages the unique properties of quantum systems to achieve capabilities beyond those of classical AI. This future holds the promise of more efficient, powerful, and intelligent systems capable of solving complex problems that are currently intractable.
+
+In summary, while significant challenges remain, the potential for Quantum Computing to revolutionize AI is immense. Continued research and development in this area are essential to realize the full potential of Quantum Artificial Intelligence. By exploring diverse quantum architectures, advanced quantum techniques, and practical applications, it can be ensured that Quantum Computing becomes a cornerstone of future advancements in Artificial Intelligence.
+\chapter{Bibliography}
 
 \bibliographystyle{unsrt}
 

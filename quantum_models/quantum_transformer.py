@@ -361,7 +361,7 @@ class TransformerRK3(nn.Module):
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
         )(
-            x_norm - (attn_output1 + y1) + 2 * (attn_output2 + y2),
+            x_norm + 3 / 4 * (attn_output2 + y2),
             q=None,
             k=None,
             v=None,
@@ -377,13 +377,13 @@ class TransformerRK3(nn.Module):
             mlp_hidden_size=self.mlp_hidden_size,
             quantum_circuit=self.quantum_mlp_circuit,
         )(
-            x_norm - (attn_output1 + y1) + 2 * (attn_output2 + y2),
+            x_norm + 2 / 3 * (attn_output2 + y2),
             deterministic=deterministic,
         )
         y3 = nn.Dropout(rate=self.dropout)(y3, deterministic=deterministic)
 
-        return x_norm + 1 / 6 * (
-            attn_output1 + y1 + 4 * (attn_output2 + y2) + 1 / 6 * (attn_output3 + y3)
+        return x_norm + 1 / 9 * (
+            2 * (attn_output1 + y1) + 3 * (attn_output2 + y2) + 4 * (attn_output3 + y3)
         )
 
 
@@ -543,7 +543,7 @@ class TransformerRK4Enhanced(nn.Module):
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
         )(
-            x_norm + 1 / 2 * (attn_output1 + y1),
+            x_norm + (attn_output1 + y1),
             q=None,
             k=None,
             v=None,
@@ -558,7 +558,7 @@ class TransformerRK4Enhanced(nn.Module):
             hidden_size=self.hidden_size,
             mlp_hidden_size=self.mlp_hidden_size,
             quantum_circuit=self.quantum_mlp_circuit,
-        )(x_norm + 1 / 2 * (attn_output1 + y1), deterministic=deterministic)
+        )(x_norm + (attn_output1 + y1), deterministic=deterministic)
         y2 = nn.Dropout(rate=self.dropout)(y2, deterministic=deterministic)
 
         attn_output3 = MultiHeadSelfAttention(
@@ -567,7 +567,7 @@ class TransformerRK4Enhanced(nn.Module):
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
         )(
-            x_norm + 1 / 2 * (attn_output2 + y2),
+            x_norm +  (attn_output2 + y2),
             q=None,
             k=None,
             v=None,
@@ -582,7 +582,7 @@ class TransformerRK4Enhanced(nn.Module):
             hidden_size=self.hidden_size,
             mlp_hidden_size=self.mlp_hidden_size,
             quantum_circuit=self.quantum_mlp_circuit,
-        )(x_norm + 1 / 2 * (attn_output2 + y2), deterministic=deterministic)
+        )(x_norm + (attn_output2 + y2), deterministic=deterministic)
         y3 = nn.Dropout(rate=self.dropout)(y3, deterministic=deterministic)
 
         attn_output4 = MultiHeadSelfAttention(
@@ -612,8 +612,6 @@ class TransformerRK4Enhanced(nn.Module):
         return x_norm + (
             attn_output1
             + y1
-            + 1 / 3 * (attn_output2 + y2)
-            + 1 / 3 * (attn_output3 + y3)
             + attn_output4
             + y4
         )

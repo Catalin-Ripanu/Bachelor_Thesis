@@ -6,6 +6,7 @@ from diff_aug import DiffAugment
 from quantum_transformer import (
     TransformerEncoder,
     TransformerRK4,
+    TransformerRK4Enhanced
 )
 
 
@@ -104,7 +105,7 @@ class Generator(nn.Module):
             quantum_mlp_circuit=self.quantum_mlp_circuit,
         )for _ in range(self.depth3)]
 
-        self.TransformerEncoder_encoder4 = TransformerRK4(
+        self.TransformerEncoder_encoder4 = TransformerRK4Enhanced(
             hidden_size=self.dim//32,
             num_heads=self.heads,
             mlp_hidden_size=self.mlp_ratio,
@@ -171,6 +172,10 @@ class Discriminator(nn.Module):
         self.diff_aug = diff_aug
         self.patch_size = patch_size
         self.depth = depth
+        self.heads = heads
+        self.mlp_ratio = mlp_ratio
+        self.dim = dim
+        self.drop_rate = drop_rate
         # Image patches and embedding layer
         self.patches = ImgPatches(input_channel, dim, self.patch_size)
 
@@ -181,15 +186,6 @@ class Discriminator(nn.Module):
         nn.init.trunc_normal_(self.class_embedding, std=0.2)
 
         self.droprate = nn.Dropout(p=drop_rate)
-
-        self.TransformerEncoder_encoder = [TransformerEncoder(
-            hidden_size=dim,
-            num_heads=heads,
-            mlp_hidden_size=mlp_ratio,
-            dropout=drop_rate,
-            quantum_attn_circuit=self.quantum_attn_circuit,
-            quantum_mlp_circuit=self.quantum_mlp_circuit,
-        ) for _ in range(self.depth)]
 
         self.norm = nn.LayerNorm(dim)
         self.out = nn.Linear(dim, num_classes)
@@ -213,8 +209,15 @@ class Discriminator(nn.Module):
         x = torch.cat((cls_token, x), dim=1)
         x += self.positional_embedding
         x = self.droprate(x)
-        for block in self.TransformerEncoder_encoder:
-            x = block(x, dim=self.dim)
+        for block in range(self.depth):
+            x = TransformerEncoder(
+            hidden_size=self.dim,
+            num_heads=self.heads,
+            mlp_hidden_size=self.mlp_ratio,
+            dropout=self.drop_rate,
+            quantum_attn_circuit=self.quantum_attn_circuit,
+            quantum_mlp_circuit=self.quantum_mlp_circuit,
+        )(x, dim=self.dim)
         x = self.norm(x)
         x = self.out(x[:, 0])
         return x

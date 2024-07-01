@@ -33,7 +33,6 @@ def get_quantum_layer_circuit(
 ):
 
     num_qubits = inputs.shape[-1]
-    print(50 * '*' + "Num of qubits: {}".format(num_qubits) + 50 * '*')
     c = tc.Circuit(num_qubits)
     embedding(c, inputs)
     vqc(c, inputs, weights)

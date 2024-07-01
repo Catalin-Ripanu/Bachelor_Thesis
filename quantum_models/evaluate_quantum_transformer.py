@@ -6,7 +6,7 @@ from dataset_processing_dir.dataset import (
     get_image_net_dataloaders,
 )
 from utils.training import train_and_evaluate
-from quantum_transformer import Transformer
+from quantum_transformer import Transformer, VisionTransformer
 from utils.quantum_layer import get_circuit
 import matplotlib.pyplot as plt
 
@@ -238,26 +238,26 @@ def make_loss_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4):
     )
 
 
-(train_dataloader, val_dataloader, test_dataloader), vocab, tokenizer = get_imdb_dataloaders(batch_size=64)
+train_dataloader, val_dataloader, test_dataloader = get_mnist_dataloaders(batch_size=64)
 
-hidden_size = 12
+hidden_size = 6
 num_classes = 10
 
-model1 = Transformer(
-    num_tokens=len(vocab),
-    max_seq_len=512,
+model1 = VisionTransformer(
     num_classes=num_classes,
-    patch_size=16,
+    patch_size=14,
     hidden_size=hidden_size,
-    num_heads=6,
+    num_heads=2,
     num_transformer_encoder_blocks=0,
     num_transformer_rk1_blocks=0,
-    num_transformer_rk2_blocks=5,
+    num_transformer_rk2_blocks=0,
     num_transformer_rk3_blocks=0,
     num_transformer_rk4_blocks=0,
-    num_transformer_rk4_enhanced_blocks=0,
+    num_transformer_rk4_enhanced_blocks=4,
     num_transformer_decoder_blocks=1,
-    mlp_hidden_size=6,
+    quantum_attn_circuit = get_circuit(),
+    quantum_mlp_circuit = get_circuit(),
+    mlp_hidden_size=3,
 )
 
 info1 = train_and_evaluate(

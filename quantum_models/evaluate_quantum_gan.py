@@ -33,7 +33,7 @@ lr_dis = 0.0001  # Learning rate for discriminator
 latent_dim = 1024  # Latent dimension
 gener_batch_size = 32  # Batch size for generator
 dis_batch_size = 32  # Batch size for discriminator
-epoch = 10  # Number of epoch
+epoch = 40  # Number of epoch
 weight_decay = 1e-3  # Weight decay
 drop_rate = 0.5  # dropout
 n_critic = 5  #
@@ -279,14 +279,12 @@ device = torch.device(dev)
 generator = Generator(
     depth1=5,
     depth2=4,
-    depth3=2,
+    depth3=1,
     initial_size=8,
     dim=384,
     heads=4,
     mlp_ratio=4,
     drop_rate=0.5,
-    quantum_mlp_circuit=get_circuit(),
-    quantum_attn_circuit=get_circuit(),
 )  # ,device = device)
 generator.to(device)
 
@@ -301,8 +299,6 @@ discriminator = Discriminator(
     heads=4,
     mlp_ratio=4,
     drop_rate=0.5,
-    quantum_mlp_circuit=get_circuit(),
-    quantum_attn_circuit=get_circuit(),
 )
 discriminator.to(device)
 
@@ -361,7 +357,7 @@ dis_scheduler = LinearLrDecay(optim_dis, lr_dis, 0.0, 0, max_iter * n_critic)
 
 print("optimizer:", optimizer)
 
-fid_stat = "/export/home/acs/stud/c/catalin.ripanu/data/cifar10/3.0.2/cifar10-test.tfrecord-00000-of-00001"
+fid_stat = './fid_stat/fid_stats_cifar10_train.npz'
 
 writer = SummaryWriter()
 writer_dict = {"writer": writer}

@@ -236,14 +236,15 @@ def make_loss_plot(vec_rk1, vec_rk2, vec_rk3, vec_rk4):
         bbox_inches="tight",
         transparent=True,
     )
+model1 = None
 
+wish = input("Choose the dataset (MNIST, CIFAR-10, IMDb): ")
 
-train_dataloader, val_dataloader, test_dataloader = get_mnist_dataloaders(batch_size=64)
-
-hidden_size = 6
-num_classes = 10
-
-model1 = VisionTransformer(
+if wish == "MNIST":
+    hidden_size = 6
+    num_classes = 10
+    train_dataloader, val_dataloader, test_dataloader = get_mnist_dataloaders(batch_size=64)
+    model1 = VisionTransformer(
     num_classes=num_classes,
     patch_size=14,
     hidden_size=hidden_size,
@@ -259,12 +260,55 @@ model1 = VisionTransformer(
     quantum_mlp_circuit = get_circuit(),
     mlp_hidden_size=3,
 )
+elif wish == "CIFAR-10":
+    train_dataloader, val_dataloader, test_dataloader = get_cifar10_dataloaders(batch_size=64)
+    hidden_size = 12
+    num_classes = 10
+    model1 = VisionTransformer(
+    num_classes=num_classes,
+    patch_size=16,
+    hidden_size=hidden_size,
+    num_heads=6,
+    num_transformer_encoder_blocks=5,
+    num_transformer_rk1_blocks=0,
+    num_transformer_rk2_blocks=0,
+    num_transformer_rk3_blocks=0,
+    num_transformer_rk4_blocks=0,
+    num_transformer_rk4_enhanced_blocks=1,
+    num_transformer_decoder_blocks=1,
+    quantum_attn_circuit = get_circuit(),
+    quantum_mlp_circuit = get_circuit(),
+    mlp_hidden_size=6,
+)
+elif wish == "IMDb":
+    (train_dataloader, val_dataloader, test_dataloader), vocab, tokenizer = get_imdb_dataloaders(batch_size=64)
+    hidden_size = 6
+    num_classes = 2
+    model1 = Transformer(
+    num_tokens=len(vocab),
+    max_seq_len=512,
+    num_classes=num_classes,
+    patch_size=None,
+    hidden_size=hidden_size,
+    num_heads=2,
+    num_transformer_encoder_blocks=3,
+    num_transformer_rk1_blocks=0,
+    num_transformer_rk2_blocks=0,
+    num_transformer_rk3_blocks=0,
+    num_transformer_rk4_blocks=0,
+    num_transformer_rk4_enhanced_blocks=1,
+    num_transformer_decoder_blocks=1,
+    quantum_attn_circuit = get_circuit(),
+    quantum_mlp_circuit = get_circuit(),
+    mlp_hidden_size=4,
+)
 
 info1 = train_and_evaluate(
     model1,
     train_dataloader,
     val_dataloader,
     test_dataloader,
+    dataset=wish,
     src_mask_flag=False,
     trg_mask_flag=False,
     src=hidden_size,

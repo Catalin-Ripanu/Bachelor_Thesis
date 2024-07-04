@@ -1856,7 +1856,7 @@ This implementation showcases the following components and parameters:
   \item \textbf{Classical / Quantum Hidden Size}: 12 / 6
   \item \textbf{Classical / Quantum ODE-Transformer Blocks}: 1 / 1
   \item \textbf{Classical / Quantum Attention Heads}: 6 / 2
-  \item \textbf{Classical / Quantum Hidden MLP Size}: 6 / 3
+  \item \textbf{Classical / Quantum Hidden MLP Size}: 6 / 4
 \end{itemize}
 
 \begin{table}[th]\small\linespread{1}
@@ -1922,7 +1922,7 @@ Due to high computational limitations, QRKT-GAN has weaker architectural compone
 
 However, the ODE-based Transformer block using optimized RK4 could be applied to the Generator network, further enhancing the quality of images and the obtained scores.
 
-The Discriminator, unfortunately, doesn't have any ODE blocks in its composition due to high memory consumption during training. It exclusively employs Encoders integrated with Variational Quantum Circuits (VQCs).
+The Discriminator, unfortunately, doesn't have any ODE blocks in its composition due to high memory consumption during training. It exclusively employs Encoders integrated with Variational Quantum Circuits (VQCs). QRKT-GAN uses 384 qubits.
 
 The performance metrics for QRKT-GAN and TransGAN are summarized in the table below:
 

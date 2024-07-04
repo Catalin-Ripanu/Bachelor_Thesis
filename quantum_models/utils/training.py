@@ -1,6 +1,8 @@
 from typing import Optional
 import time
 
+import random
+
 import bentoml
 from functools import partial
 import numpy as np
@@ -132,6 +134,7 @@ def evaluate(
     trg,
     src_mask,
     trg_mask,
+    datast,
     tqdm_desc: Optional[str] = None,
     debug: bool = False,
 ) -> tuple[float, float, npt.ArrayLike, npt.ArrayLike]:
@@ -149,6 +152,9 @@ def evaluate(
         eval_loss: The loss.
         eval_auc: The AUC.
     """
+    mean = 5
+    std_dev = 2
+    number = random.gauss(mean, std_dev)
     logits, labels = [], []
     eval_loss = 0.0
     with tqdm(
@@ -184,7 +190,7 @@ def evaluate(
         else:
             eval_fpr, eval_tpr = [], []
             eval_auc = roc_auc_score(y_true, y_pred, multi_class="ovr")
-        progress_bar.set_postfix_str(f"Loss = {eval_loss:.4f}, AUC = {eval_auc:.3f}")
+        progress_bar.set_postfix_str(f"")
         if num_classes != 2:
             y_pred = np.argmax(y_pred, axis=1)
         else:
@@ -254,6 +260,7 @@ def train_and_evaluate(
     trg_mask_flag: bool,
     src: float,
     trg: float,
+    dataset,
     lrs_peak_value: float = 1e-3,
     lrs_warmup_steps: int = 5_000,
     lrs_decay_steps: int = 50_000,
@@ -315,9 +322,6 @@ def train_and_evaluate(
 
     if debug:
         print(jax.tree_map(lambda x: x.shape, variables))
-    print(
-        f"Number of parameters = {sum(x.size for x in jax.tree_util.tree_leaves(variables))}"
-    )
 
     learning_rate_schedule = optax.warmup_cosine_decay_schedule(
         init_value=0.0,
@@ -339,19 +343,45 @@ def train_and_evaluate(
         tx=optimizer,
     )
 
+    best_state = None
+
+    file = None
+    input_img = None
+
+    text = None
+
     wish = yesno(input("Want to load a model? : "))
 
     if wish == "y":
-        print("Type the model's name")
-        name = input()
+        var = input("Classical or Quantum ? ")
+        while True:
+            if var == "Quantum":
+                print(
+                    "Available models using Quantum: cifar10rk4  mnistrk4  nlpdemork4"
+                )
+                break
+            elif var == "Classical":
+                print(
+                    "Available models in Classical Domain: cifar10rk4  mnistrk4  nlpdemork4"
+                )
+                break
+            else:
+                print("Invalid option")
+                var = input("Classical or Quantum ? ")
+        name = input("Type the model's name: ")
         model, _ = bentoml.flax.load_model(f"{name}:latest")
         restored_state = checkpoints.restore_checkpoint(
             ckpt_dir=f"./checkpoints_quantum_ml/{name}/checkpoint_{num_epochs}/",
             target=state,
         )
-        state = restored_state
+        best_state = restored_state
+        num_epochs = 0
+        if name == "cifar10rk4" or name == "mnistrk4":
+            file = input("Type the path of the image filename: ")
+        else:
+            text = input("Type a comment (in english): ")
 
-    best_val_auc, best_epoch, best_state = 0.0, 0, None
+    best_val_auc, best_epoch = 0.0, 0
     total_train_time = 0.0
     start_time = time.time()
 
@@ -440,11 +470,6 @@ def train_and_evaluate(
     metrics["train_aucs"] = jnp.array(metrics["train_aucs"])
     metrics["val_aucs"] = jnp.array(metrics["val_aucs"])
 
-    print(f"Best validation AUC = {best_val_auc:.3f} at epoch {best_epoch}")
-    print(
-        f"Total training time = {total_train_time:.2f}s, total time (including evaluations) = {time.time() - start_time:.2f}s"
-    )
-
     # Evaluate on test set using the best model
     assert best_state is not None
     test_loss, test_auc, test_fpr, test_tpr, pred, true = evaluate(
@@ -455,35 +480,11 @@ def train_and_evaluate(
         trg,
         src_mask,
         trg_mask,
+        datast=dataset,
         tqdm_desc="Testing",
     )
 
-    print(50 * "*")
-
-    print(classification_report(true, pred))
-
-    metrics["test_loss"] = test_loss
-    metrics["test_auc"] = test_auc
-    metrics["test_fpr"] = test_fpr
-    metrics["test_tpr"] = test_tpr
-    
-    print("\n" + 50 * "*" + "Training Loss" + 50 * "*" + "\n")
-    print(metrics["train_losses"])
-
-    print("\n" + 50 * "*" + "Validation Loss" + 50 * "*" + "\n")
-    print(metrics["val_losses"])
-
-    print("\n" + 50 * "*" + "Training AUCs" + 50 * "*" + "\n")
-    print(metrics["train_aucs"])
-
-    print("\n" + 50 * "*" + "Validation AUCs" + 50 * "*" + "\n")
-    print(metrics["val_aucs"])
-
-    print("\n" + 50 * "*" + "Test TPR" + 50 * "*" + "\n")
-    print(metrics["test_tpr"])
-    
-    print("\n" + 50 * "*" + "Test FPR" + 50 * "*" + "\n")
-    print(metrics["test_fpr"])
+    print("The predicted output is: " + str(pred))
 
     wish = yesno(input("Want to save the model? : "))
 
@@ -496,7 +497,7 @@ def train_and_evaluate(
         checkpoints.save_checkpoint(
             ckpt_dir=f"./checkpoints_quantum_ml/{name}", target=state, step=num_epochs
         )
-        
-    print(50 * "*")
+
+    print(120 * "*")
 
     return metrics

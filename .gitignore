@@ -1,4 +1,5 @@
 quantum_classical_virtual_env/
-thesis_latex_code/main.tex
-thesis_latex_code/slides.tex
-transfer_files.sh
+/thesis_latex_code/main.tex
+/thesis_latex_code/slides.tex
+/thesis_latex_code/pics/
+/transfer_files.sh

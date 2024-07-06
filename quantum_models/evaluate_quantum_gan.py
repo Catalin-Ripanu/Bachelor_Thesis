@@ -16,7 +16,7 @@ from copy import deepcopy
 from utils import *
 from fid_score import *
 from inception_score import *
-from quantum_gan import *
+from qrkt_gan import *
 from utils.quantum_layer import *
 
 import torch.nn as nn
@@ -277,6 +277,7 @@ def train(
 device = torch.device(dev)
 
 generator = Generator(
+    quantum_circuit=get_circuit(),
     depth1=5,
     depth2=4,
     depth3=1,
@@ -290,6 +291,7 @@ generator.to(device)
 
 discriminator = Discriminator(
     diff_aug=diff_aug,
+    quantum_circuit=get_circuit(),
     image_size=32,
     patch_size=4,
     input_channel=3,

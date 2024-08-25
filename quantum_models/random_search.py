@@ -27,6 +27,8 @@ def train(config) -> None:
     tf.random.set_seed(c["seed"])  # For reproducible data loading
 
     num_classes = {"imdb": 2, "mnist": 10, "cifar100": 100}  # TODO: add medmnist
+    hidden_size = 8
+
     model: Transformer | VisionTransformer
     if c["dataset"] in text_datasets:  # Text datasets
         if c["dataset"] == "imdb":
@@ -62,6 +64,8 @@ def train(config) -> None:
                 lrs_decay_steps=c["lrs_decay_steps"],
                 seed=c["seed"],
                 use_ray=True,
+                src=hidden_size,
+                trg=hidden_size
             )
     else:  # Vision datasets
         if c["dataset"] == "mnist":
@@ -99,6 +103,8 @@ def train(config) -> None:
             lrs_decay_steps=c["lrs_decay_steps"],
             seed=c["seed"],
             use_ray=True,
+            src=hidden_size,
+            trg=hidden_size,
         )
 
 

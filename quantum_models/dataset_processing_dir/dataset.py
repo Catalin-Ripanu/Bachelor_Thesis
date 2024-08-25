@@ -24,11 +24,8 @@ def datasets_to_dataloaders(
 ):
     # Shuffle train dataset
     train_dataset = train_dataset.shuffle(10_000, reshuffle_each_iteration=True)
-
-    # Batch
-    train_dataset = train_dataset.batch(batch_size, drop_remainder=drop_remainder)
-    val_dataset = val_dataset.batch(batch_size, drop_remainder=drop_remainder)
-    test_dataset = test_dataset.batch(batch_size, drop_remainder=drop_remainder)
+    val_dataset = val_dataset.shuffle(10_000, reshuffle_each_iteration=True)
+    test_dataset = test_dataset.shuffle(10_000, reshuffle_each_iteration=True)
 
     # Transform
     if transform_train is not None:
@@ -43,6 +40,10 @@ def datasets_to_dataloaders(
         test_dataset = test_dataset.map(
             transform_test, num_parallel_calls=tf.data.AUTOTUNE
         )
+
+    train_dataset = train_dataset.batch(batch_size, drop_remainder=drop_remainder)
+    val_dataset = val_dataset.batch(batch_size, drop_remainder=drop_remainder)
+    test_dataset = test_dataset.batch(batch_size, drop_remainder=drop_remainder)
 
     # Prefetch
     train_dataset = train_dataset.prefetch(tf.data.AUTOTUNE)

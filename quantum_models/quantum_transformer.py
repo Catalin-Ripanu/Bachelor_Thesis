@@ -20,7 +20,7 @@ class MultiHeadSelfAttention(nn.Module):
     quantum_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, deterministic, q=None, k=None, v=None, mask=None):
+    def __call__(self, x, deterministic, q=None, k=None, v=None):
         batch_size, seq_len, hidden_size = x.shape
         # x.shape = (batch_size, seq_len, hidden_size)
         assert (
@@ -75,9 +75,6 @@ class MultiHeadSelfAttention(nn.Module):
         # Compute scaled dot-product attention
         attn_logits = (q @ k.swapaxes(-2, -1)) / jnp.sqrt(head_dim)
         # attn_logits.shape = (batch_size, num_heads, seq_len, seq_len)
-        if mask is not None:
-            mask = jnp.broadcast_to(mask, attn_logits.shape)
-            attn_logits = jnp.where(mask == 0, -1e9, attn_logits)
 
         attn = nn.softmax(attn_logits, axis=-1)
         # attn.shape = (batch_size, num_heads, seq_len, seq_len)
@@ -136,7 +133,7 @@ class TransformerDecoder(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, src_mask, trg_mask, e_outputs, deterministic, dim=None):
+    def __call__(self, x, e_outputs, deterministic, dim=None):
         if dim == None:
             attn1_output = nn.LayerNorm()(x)
         else:
@@ -146,14 +143,7 @@ class TransformerDecoder(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(
-            attn1_output,
-            q=None,
-            k=None,
-            v=None,
-            deterministic=deterministic,
-            mask=trg_mask,
-        )
+        )(attn1_output, q=None, k=None, v=None, deterministic=deterministic)
         attn1_output = nn.Dropout(rate=self.dropout)(
             attn1_output, deterministic=deterministic
         )
@@ -176,7 +166,6 @@ class TransformerDecoder(nn.Module):
             k=e_outputs,
             v=e_outputs,
             deterministic=deterministic,
-            mask=src_mask,
         )
         attn2_output = nn.Dropout(rate=self.dropout)(
             attn2_output, deterministic=deterministic
@@ -210,7 +199,7 @@ class TransformerRK1(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, mask, deterministic, dim=None):
+    def __call__(self, x, deterministic, dim=None):
         if dim == None:
             x_norm = nn.LayerNorm()(x)
         else:
@@ -221,7 +210,7 @@ class TransformerRK1(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(x_norm, q=None, k=None, v=None, deterministic=deterministic, mask=mask)
+        )(x_norm, q=None, k=None, v=None, deterministic=deterministic)
         attn_output = nn.Dropout(rate=self.dropout)(
             attn_output, deterministic=deterministic
         )
@@ -247,7 +236,7 @@ class TransformerRK2(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, mask, deterministic, dim=None):
+    def __call__(self, x, deterministic, dim=None):
         if dim == None:
             x_norm = nn.LayerNorm()(x)
         else:
@@ -258,7 +247,7 @@ class TransformerRK2(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(x_norm, q=None, k=None, v=None, deterministic=deterministic, mask=mask)
+        )(x_norm, q=None, k=None, v=None, deterministic=deterministic)
         attn_output1 = nn.Dropout(rate=self.dropout)(
             attn_output1, deterministic=deterministic
         )
@@ -281,7 +270,7 @@ class TransformerRK2(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output2 = nn.Dropout(rate=self.dropout)(
             attn_output2, deterministic=deterministic
@@ -308,7 +297,7 @@ class TransformerRK3(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, mask, deterministic, dim=None):
+    def __call__(self, x, deterministic, dim=None):
         if dim == None:
             x_norm = nn.LayerNorm()(x)
         else:
@@ -319,7 +308,7 @@ class TransformerRK3(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(x_norm, q=None, k=None, v=None, deterministic=deterministic, mask=mask)
+        )(x_norm, q=None, k=None, v=None, deterministic=deterministic)
         attn_output1 = nn.Dropout(rate=self.dropout)(
             attn_output1, deterministic=deterministic
         )
@@ -342,7 +331,7 @@ class TransformerRK3(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output2 = nn.Dropout(rate=self.dropout)(
             attn_output2, deterministic=deterministic
@@ -366,7 +355,7 @@ class TransformerRK3(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output3 = nn.Dropout(rate=self.dropout)(
             attn_output3, deterministic=deterministic
@@ -398,7 +387,7 @@ class TransformerRK4(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, mask, deterministic, dim=None):
+    def __call__(self, x, deterministic, dim=None):
         if dim == None:
             x_norm = nn.LayerNorm()(x)
         else:
@@ -409,7 +398,7 @@ class TransformerRK4(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(x_norm, q=None, k=None, v=None, deterministic=deterministic, mask=mask)
+        )(x_norm, q=None, k=None, v=None, deterministic=deterministic)
         attn_output1 = nn.Dropout(rate=self.dropout)(
             attn_output1, deterministic=deterministic
         )
@@ -432,7 +421,7 @@ class TransformerRK4(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output2 = nn.Dropout(rate=self.dropout)(
             attn_output2, deterministic=deterministic
@@ -456,7 +445,7 @@ class TransformerRK4(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output3 = nn.Dropout(rate=self.dropout)(
             attn_output3, deterministic=deterministic
@@ -480,7 +469,7 @@ class TransformerRK4(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output4 = nn.Dropout(rate=self.dropout)(
             attn_output4, deterministic=deterministic
@@ -514,7 +503,7 @@ class TransformerRK4Enhanced(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, mask, deterministic, dim=None):
+    def __call__(self, x, deterministic, dim=None):
         if dim == None:
             x_norm = nn.LayerNorm()(x)
         else:
@@ -525,7 +514,7 @@ class TransformerRK4Enhanced(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(x_norm, q=None, k=None, v=None, deterministic=deterministic, mask=mask)
+        )(x_norm, q=None, k=None, v=None, deterministic=deterministic)
         attn_output1 = nn.Dropout(rate=self.dropout)(
             attn_output1, deterministic=deterministic
         )
@@ -548,7 +537,7 @@ class TransformerRK4Enhanced(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output2 = nn.Dropout(rate=self.dropout)(
             attn_output2, deterministic=deterministic
@@ -567,12 +556,12 @@ class TransformerRK4Enhanced(nn.Module):
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
         )(
-            x_norm +  (attn_output2 + y2),
+            x_norm + (attn_output2 + y2),
             q=None,
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output3 = nn.Dropout(rate=self.dropout)(
             attn_output3, deterministic=deterministic
@@ -596,7 +585,7 @@ class TransformerRK4Enhanced(nn.Module):
             k=None,
             v=None,
             deterministic=deterministic,
-            mask=mask,
+            
         )
         attn_output4 = nn.Dropout(rate=self.dropout)(
             attn_output4, deterministic=deterministic
@@ -609,12 +598,7 @@ class TransformerRK4Enhanced(nn.Module):
         )(x_norm + attn_output3 + y3, deterministic=deterministic)
         y4 = nn.Dropout(rate=self.dropout)(y4, deterministic=deterministic)
 
-        return x_norm + (
-            attn_output1
-            + y1
-            + attn_output4
-            + y4
-        )
+        return x_norm + (attn_output1 + y1 + attn_output4 + y4)
 
 
 class TransformerEncoder(nn.Module):
@@ -628,7 +612,7 @@ class TransformerEncoder(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, mask, deterministic, dim=None):
+    def __call__(self, x, deterministic, dim=None):
         if dim == None:
             attn_output = nn.LayerNorm()(x)
         else:
@@ -638,7 +622,7 @@ class TransformerEncoder(nn.Module):
             num_heads=self.num_heads,
             dropout=self.dropout,
             quantum_circuit=self.quantum_attn_circuit,
-        )(attn_output, q=None, k=None, v=None, deterministic=deterministic, mask=mask)
+        )(attn_output, q=None, k=None, v=None, deterministic=deterministic)
         attn_output = nn.Dropout(rate=self.dropout)(
             attn_output, deterministic=deterministic
         )
@@ -699,7 +683,7 @@ class Transformer(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, src, trg, src_mask, trg_mask, train):
+    def __call__(self, x, src, trg, train):
         # Token embedding
         x_src = nn.Embed(num_embeddings=self.num_tokens, features=src)(x)
         x_trg = nn.Embed(num_embeddings=self.num_tokens, features=trg)(x)
@@ -725,7 +709,7 @@ class Transformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk1_blocks):
             x_src = TransformerRK1(
@@ -735,7 +719,7 @@ class Transformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk2_blocks):
             x_src = TransformerRK2(
@@ -745,7 +729,7 @@ class Transformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk3_blocks):
             x_src = TransformerRK3(
@@ -755,7 +739,7 @@ class Transformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk4_blocks):
             x_src = TransformerRK4(
@@ -765,7 +749,7 @@ class Transformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk4_enhanced_blocks):
             x_src = TransformerRK4Enhanced(
@@ -775,7 +759,7 @@ class Transformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         # Layer normalization
         x_src = nn.LayerNorm()(x_src)
@@ -790,8 +774,6 @@ class Transformer(nn.Module):
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
             )(
                 x_src,
-                src_mask=src_mask,
-                trg_mask=trg_mask,
                 e_outputs=x_src,
                 deterministic=not train,
             )
@@ -830,7 +812,7 @@ class VisionTransformer(nn.Module):
     quantum_mlp_circuit: Optional[Callable] = None
 
     @nn.compact
-    def __call__(self, x, src, trg, src_mask, trg_mask, train):
+    def __call__(self, x, src, trg, train):
         assert x.ndim == 4, f"Input must be 4D, got {x.ndim}D ({x.shape})"
 
         if not self.channels_last:
@@ -916,7 +898,7 @@ class VisionTransformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk1_blocks):
             x_src = TransformerRK1(
@@ -926,7 +908,7 @@ class VisionTransformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk2_blocks):
             x_src = TransformerRK2(
@@ -936,7 +918,7 @@ class VisionTransformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk3_blocks):
             x_src = TransformerRK3(
@@ -946,7 +928,7 @@ class VisionTransformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk4_blocks):
             x_src = TransformerRK4(
@@ -956,7 +938,7 @@ class VisionTransformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         for _ in range(self.num_transformer_rk4_enhanced_blocks):
             x_src = TransformerRK4Enhanced(
@@ -966,7 +948,7 @@ class VisionTransformer(nn.Module):
                 dropout=self.dropout,
                 quantum_attn_circuit=self.quantum_attn_circuit,
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
-            )(x_src, deterministic=not train, mask=src_mask)
+            )(x_src, deterministic=not train)
 
         # Layer normalization
         x_src = nn.LayerNorm()(x_src)
@@ -981,8 +963,6 @@ class VisionTransformer(nn.Module):
                 quantum_mlp_circuit=self.quantum_mlp_circuit,
             )(
                 x_trg,
-                src_mask=src_mask,
-                trg_mask=trg_mask,
                 e_outputs=x_src,
                 deterministic=not train,
             )

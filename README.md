@@ -1,14 +1,12 @@
-# Bachelor_Thesis
 ## A comprehensive study on Integrating Quantum Physics in Deep Learning Networks for Optimizations in Computer Vision and Natural Language Processing Fields
 
+### QRKT-GAN: Neural Ordinary Differential Equation-Inspired Generative Adversarial Network with Numerical Runge-Kutta Methods for Quantum Visual Transformer-Based Generator and Discriminator
 
-## QRKT-GAN: Neural Ordinary Differential Equation-Inspired Generative Adversarial Network with Numerical Runge-Kutta Methods for Quantum Visual Transformer-Based Generator and Discriminator
-
-The oficial repository.
+The official repository.
 
 Soon to add the instructions of the setup to be able to run the quantum code.
 
-TensorCircuit Python Library was used to simulate the proposed Variational Quantum Circuit (VQC).
+In order to simulate the proposed Variational Quantum Circuit (VQC), TensorCircuit Python Library was used.
 
 ![image info](./thesis/QRKT_GAN_VQC.png)
 
